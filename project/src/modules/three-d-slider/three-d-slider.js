@@ -52,26 +52,22 @@ export default class ThreeDSlider {
             console.log('moving forward...');
             // make active slide front and center
             if (slideIndex === activeSlideIndex) {
-              gsap.to(slide, { duration: 1, z: 0, y: 0, ease: 'power4.inOut' });
+              gsap.to(slide, { duration: 1, z: 0, y: 0, opacity: 1, ease: 'power4.inOut' });
               return;
             }
 
             // slides in the front zoom toward the camera, then disappear, and reappear in the back.
             if(slideIndex > activeSlideIndex) {
-              let slideWrap = slide.parentElement;
+              let sliderWrap = slide.parentElement;
 
               gsap.to(slide, {
-                duration: 1,
-                z: 50 * indexDiff,
-                y: 100 * indexDiff, 
-                opacity: 0,
-                ease: 'power4.inOut',
+                ...this.slideConcealState({ indexDiff, slideIndex }, 1),
                 onComplete: () => {
                   // send slides to back...
-                  slideWrap.removeChild(slide);
+                  sliderWrap.removeChild(slide);
                   gsap.set(slide, { opacity: 0, y: -25 * slideIndex, z: -50 * slideIndex, borderColor: COLOR_LIGHT_GRAY });
                   console.log(slide);
-                  slideWrap.prepend(slide);
+                  sliderWrap.prepend(slide);
                   gsap.to(slide, { duration: 1, opacity: 1, ease: 'power4.inOut' });
                 }
               });
@@ -92,19 +88,27 @@ export default class ThreeDSlider {
             console.log('moving backward...');
 
             if (slideIndex === activeSlideIndex) {
-              gsap.set(slide, { borderColor: COLOR_STARK_WHITE });
+              let sliderWrap = slide.parentElement;
+              sliderWrap.removeChild(slide);
+              gsap.set(slide, { ...this.slideConcealState({ indexDiff: 1 }) });
+              sliderWrap.append(slide);
+              gsap.to(slide, { delay: 0.1, ...this.slideActiveState({}, 1) });
               return;
             }
 
             if (slideIndex < activeSlideIndex) {
-              gsap.set(slide, { borderColor: COLOR_SALMON });
+              let sliderWrap = slide.parentElement;
+              sliderWrap.removeChild(slide);
+              gsap.set(slide, { ...this.slideConcealState({ indexDiff: 2 }) });
+              sliderWrap.append(slide);
+              gsap.to(slide, { delay: 0.1, ...this.slideActiveState({}, 1) });
               return;
             }
 
+            // slides behind the new active slide backwards.
             if (slideIndex > activeSlideIndex) {
-              gsap.set(slide, { borderColor: COLOR_SERENITY })
-              console.log('slideIndex', slideIndex, 'indexDiff', indexDiff, 'indexStep', indexStep);
-              console.log(`newIndex: ${this.slides.length + activeSlideIndex - indexDiff}`);
+              gsap.set(slide, { borderColor: COLOR_SERENITY });
+              gsap.to(slide, { ...this.slideShuffledState({ indexDiff, slideIndex }, 1), });
               return;
             }
           }
@@ -113,7 +117,37 @@ export default class ThreeDSlider {
     });
   }
 
-  slideConcealState() {
+  slideConcealState(sliderState, duration = null) {
+    let { indexDiff } = sliderState;
+    return {
+      duration,
+      z: 50 * indexDiff,
+      y: 100 * indexDiff, 
+      opacity: 0,
+      ease: 'power4.inOut'
+    };
+  }
 
+  slideActiveState(sliderState, duration = null) {
+    return {
+      duration,
+      z: 0,
+      y: 0, 
+      opacity: 1,
+      ease: 'power4.inOut'
+    };
+  }
+
+  slideShuffledState(sliderState, duration = null) {
+    let { slideIndex } = sliderState;
+    let multiple = this.slides.length - slideIndex;
+
+    return {
+      duration,
+      z: -50 * multiple,
+      y: -25 * multiple, 
+      opacity: 1,
+      ease: 'power4.inOut'
+    };
   }
 }
