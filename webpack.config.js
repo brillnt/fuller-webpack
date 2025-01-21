@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 // Base directories
 const outputDirectoryProd = path.join(__dirname, 'cdn');
-const outputDirectoryDev = path.join(__dirname, 'site', 'export', 'brillnt');  // Removed 'js' from path
+const outputDirectoryDev = path.join(__dirname, 'site', 'export', 'brillnt');
 const outputDirectoryShopify = path.join(__dirname, 'site', 'shopify', 'assets');
 const cdnUrl = "https://fuller.brillnt.com";
 

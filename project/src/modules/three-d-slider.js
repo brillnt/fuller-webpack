@@ -12,7 +12,8 @@ export default class ThreeDSlider {
 
   init() {
     // Initialize your module here
-    let firstIndicator = this.indicators.firstElementChild.querySelector('.tdsi-active');
+    let firstIndicator = this.indicators.item(0).querySelector('.tdsi-active');
+    console.log(firstIndicator);
     if (firstIndicator) {
       firstIndicator.classList.add('tds--active');
     } 

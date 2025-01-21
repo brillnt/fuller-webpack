@@ -6,7 +6,6 @@
     "build:prod": "webpack --env production",
     "build:dev": "webpack --env development",
     "build:shopify": "webpack --env shopify",
-    "build:css": "node scripts/build-css.js",
     "copy-assets:shopify": "node scripts/copy-assets.js",
     "watch:dev": "webpack --watch --env development",
     "module:new": "node scripts/create-module.js",

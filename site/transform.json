@@ -4,14 +4,14 @@
       {
         "tag": "script",
         "attr": "src",
-        "search": "https://wf.code.brillnt.com/CHANGEME.custom.brillnt.min.js",
-        "replace": "brillnt/js/custom.js"
+        "search": "https://fuller.brillnt.com/js/home.bundle.min.js",
+        "replace": "brillnt/js/home.bundle.min.js"
       },
       {
         "tag": "link",
         "attr": "href",
-        "search": "https://wf.code.brillnt.com/fuller.custom.brillnt.min.css",
-        "replace": "brillnt/css/custom.css"
+        "search": "https://fuller.brillnt.com/css/home.min.css",
+        "replace": "brillnt/css/home.min.css"
       }
     ],
     "inject": {
