@@ -2,7 +2,12 @@ import { select, selectId } from '../../utils/helpers.js';
 import { gsap } from '../../utils/animation.js';
 import './three-d-slider.css';
 
+const COLOR_SERENITY = '#8fb8b9';
+const COLOR_LIGHT_GRAY = 'rga(191, 192, 192, 0.502)';
+const COLOR_SALMON = '#b9908f';
+const COLOR_STARK_WHITE = '#ffffff';
 export default class ThreeDSlider {
+
   constructor(elementId) {
     if (!elementId) return;
 
@@ -23,25 +28,92 @@ export default class ThreeDSlider {
     this.indicators.forEach((indicator, index) => {
       
       indicator.addEventListener('click', () => {
+        // store last active indicator
+        let lastActiveIndicator = this.element.querySelector('.tds-indicators .tds--active');
+        let lastActiveStep = +lastActiveIndicator.parentElement.parentElement.getAttribute('data-step-indicator-num');
+
+        // update active indicator
         this.indicators.forEach(ind => ind.querySelector('.tdsi-active').classList.remove('tds--active'));
         indicator.querySelector('.tdsi-active').classList.add('tds--active');
-        let step = +indicator.getAttribute('data-step-indicator-num');
-        step = step - 1;
 
-        // make the slides move forward along the z-axis so it looks like the slides are moving toward the user.
-        gsap.to(this.slides, {
-          duration: 1,
-          opacity: (i) => `${step === i ? 1 : 0}`,
-          z: (i) => `${step === i ? 0 : 750}px`,
-          y: 0,
-          scale: (i) => `${step === i ? 1 : 0.5}`,
-          ease: 'power4.inOut',
-          stagger: {
-            each: 0.1, // Adjust the stagger duration as needed
-            from: 'start'
+        // get updated list of slides
+        let liveSlides = this.element.querySelectorAll('.tds-slides .tds-slide');
+
+        // get new active step number & index
+        let newActiveStep = +indicator.getAttribute('data-step-indicator-num');
+        let activeSlideIndex = Array.from(liveSlides).findIndex((slide) => newActiveStep === +slide.getAttribute('data-step-num'));
+
+        // animating foward
+        liveSlides.forEach((slide, slideIndex) => {
+          let indexDiff = Math.abs(slideIndex - activeSlideIndex);
+          let indexStep = +slide.getAttribute('data-step-num');
+
+          if (newActiveStep > lastActiveStep) {
+            console.log('moving forward...');
+            // make active slide front and center
+            if (slideIndex === activeSlideIndex) {
+              gsap.to(slide, { duration: 1, z: 0, y: 0, ease: 'power4.inOut' });
+              return;
+            }
+
+            // slides in the front zoom toward the camera, then disappear, and reappear in the back.
+            if(slideIndex > activeSlideIndex) {
+              let slideWrap = slide.parentElement;
+
+              gsap.to(slide, {
+                duration: 1,
+                z: 50 * indexDiff,
+                y: 100 * indexDiff, 
+                opacity: 0,
+                ease: 'power4.inOut',
+                onComplete: () => {
+                  // send slides to back...
+                  slideWrap.removeChild(slide);
+                  gsap.set(slide, { opacity: 0, y: -25 * slideIndex, z: -50 * slideIndex, borderColor: COLOR_LIGHT_GRAY });
+                  console.log(slide);
+                  slideWrap.prepend(slide);
+                  gsap.to(slide, { duration: 1, opacity: 1, ease: 'power4.inOut' });
+                }
+              });
+              return;
+            }
+
+            // slides in the back zoom forward.
+            if(slideIndex < activeSlideIndex) {
+              gsap.to(slide, {
+                duration: 1,
+                z: -50 * indexDiff,
+                y: -25 * indexDiff, 
+                ease: 'power4.inOut'
+              });
+              return;
+            }
+          } else /* moving backward */ {
+            console.log('moving backward...');
+
+            if (slideIndex === activeSlideIndex) {
+              gsap.set(slide, { borderColor: COLOR_STARK_WHITE });
+              return;
+            }
+
+            if (slideIndex < activeSlideIndex) {
+              gsap.set(slide, { borderColor: COLOR_SALMON });
+              return;
+            }
+
+            if (slideIndex > activeSlideIndex) {
+              gsap.set(slide, { borderColor: COLOR_SERENITY })
+              console.log('slideIndex', slideIndex, 'indexDiff', indexDiff, 'indexStep', indexStep);
+              console.log(`newIndex: ${this.slides.length + activeSlideIndex - indexDiff}`);
+              return;
+            }
           }
         });
       });
     });
+  }
+
+  slideConcealState() {
+
   }
 }
