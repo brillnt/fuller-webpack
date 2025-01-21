@@ -1,5 +1,5 @@
-import { select, selectId } from '../utils/helpers.js';
-import { gsap } from '../utils/animation.js';
+import { select, selectId } from '../../utils/helpers.js';
+import { gsap } from '../../utils/animation.js';
 import './three-d-slider.css';
 
 export default class ThreeDSlider {
@@ -25,22 +25,19 @@ export default class ThreeDSlider {
       indicator.addEventListener('click', () => {
         this.indicators.forEach(ind => ind.querySelector('.tdsi-active').classList.remove('tds--active'));
         indicator.querySelector('.tdsi-active').classList.add('tds--active');
+        let step = +indicator.getAttribute('data-step-indicator-num');
 
+        // make the slides move forward along the z-axis so it looks like the slides are moving toward the user.
         gsap.to(this.slides, {
           duration: 1,
-          ease: 'power3.inOut',
-          opacity: 0,
-          y: -50,
-          stagger: 0.1,
-          onComplete: () => {
-            this.element.querySelector('.tds-slides').innerHTML = '';
-            this.element.querySelector('.tds-slides').appendChild(this.slides[index]);
-            gsap.to(this.slides[index], {
-              duration: 1,
-              ease: 'power3.inOut',
-              opacity: 1,
-              y: 0
-            });
+          opacity: (i) => `${step === i ? 1 : 0}`,
+          z: (i) => `${step === i ? 0 : 750}px`,
+          y: 0,
+          scale: (i) => `${step === i ? 1 : 0.5}`,
+          ease: 'power4.inOut',
+          stagger: {
+            each: 0.1, // Adjust the stagger duration as needed
+            from: 'start'
           }
         });
       });

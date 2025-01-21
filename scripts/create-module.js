@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // Create template with provided class name
 function createTemplate(className) {
-  return `import { select, selectId } from '../utils/helpers.js';
+  return `import { select, selectId } from '../../utils/helpers.js';
 
 export default class ${className} {
   constructor(elementId) {
@@ -62,7 +62,7 @@ async function createModule() {
     }
 
     // Define the output path
-    const outputPath = path.resolve(__dirname, '../project/src/modules', `${moduleName}.js`);
+    const outputPath = path.resolve(__dirname, `../project/src/modules/${moduleName}`, `${moduleName}.js`);
 
     // Check if module already exists
     if (existsSync(outputPath)) {

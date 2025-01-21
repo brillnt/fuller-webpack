@@ -8,6 +8,8 @@ node_modules/
 dist/
 build/
 cdn/
+site/export/brillnt/css/
+site/export/brillnt/js/
 
 # Ignore shopify theme files
 shopify/

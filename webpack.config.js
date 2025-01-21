@@ -54,6 +54,11 @@ export default (env) => ({
     clean: env.shopify ? false : true,
   },
   mode: 'production',
+  performance: {
+    hints: 'warning',
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   optimization: {
     minimize: env.production ? true : false,
     minimizer: [

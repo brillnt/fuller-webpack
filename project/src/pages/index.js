@@ -1,11 +1,11 @@
 import '../modules/base/base.css';
 
 import { onReady } from '../utils/helpers.js';
-import MenuChangeOnScroll from '../modules/menu-change-onscroll.js';
-import ThreeDSlider from '../modules/three-d-slider.js';
+import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
+import FullscreenMenu from '../modules/fullscreen-menu/fullscreen-menu.js';
 
 
 onReady(() => {
-  new MenuChangeOnScroll('nav');
+  new FullscreenMenu({ navId: 'nav', menuId: 'menu-fullscreen' });
   new ThreeDSlider('process-slider');
 });
