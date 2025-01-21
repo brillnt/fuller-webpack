@@ -1,4 +1,4 @@
-# Brillnt Website Template
+# Fuller Homes Webpack Application
 
 A standard brillnt website is built on Webflow, Shopify, or a mixture of both.
 
