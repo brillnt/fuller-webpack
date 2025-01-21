@@ -10,10 +10,13 @@
       {
         "tag": "link",
         "attr": "href",
-        "search": "https://wf.code.brillnt.com/CHANGEME.custom.brillnt.min.css",
+        "search": "https://wf.code.brillnt.com/fuller.custom.brillnt.min.css",
         "replace": "brillnt/css/custom.css"
       }
     ],
-    "inject": { }
+    "inject": {
+      ".tds-slides": "content/tds-slide-list.html",
+      ".tds-indicators": "content/tds-indicators.html"
+    }
   }
 }

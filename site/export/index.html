@@ -1,16 +1,935 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<!--  Last Published: Tue Jan 21 2025 05:37:37 GMT+0000 (Coordinated Universal Time)  -->
+<html data-wf-page="678012e0e8b988fb6144abb9" data-wf-site="678012e0e8b988fb6144abb3">
   <head>
     <meta charset="utf-8" />
-    <title>Brillnt - Webflow Export</title>
+    <title>Fuller Homes</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <link href="brillnt/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="css/components.css" rel="stylesheet" type="text/css" />
+    <link href="css/buildfuller.css" rel="stylesheet" type="text/css" />
+    <style>
+      @media (min-width: 992px) {
+        html.w-mod-js:not(.w-mod-ix) [data-w-id="b067a800-073d-10ce-c930-925fdcf24f77"] {
+          -webkit-transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -moz-transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -ms-transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        }
+        html.w-mod-js:not(.w-mod-ix) [data-w-id="42109d0b-02df-d507-2f0a-90f6cf42125f"] {
+          -webkit-transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -moz-transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -ms-transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        }
+        html.w-mod-js:not(.w-mod-ix) [data-w-id="7f33827f-e702-4a96-01f1-ac95c6b278ff"] {
+          -webkit-transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -moz-transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -ms-transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        }
+      }
+      @media (max-width: 991px) and (min-width: 768px) {
+        html.w-mod-js:not(.w-mod-ix) [data-w-id="b067a800-073d-10ce-c930-925fdcf24f77"] {
+          -webkit-transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -moz-transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -ms-transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          transform: translate3d(0, -13rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        }
+        html.w-mod-js:not(.w-mod-ix) [data-w-id="42109d0b-02df-d507-2f0a-90f6cf42125f"] {
+          -webkit-transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -moz-transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -ms-transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          transform: translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        }
+        html.w-mod-js:not(.w-mod-ix) [data-w-id="7f33827f-e702-4a96-01f1-ac95c6b278ff"] {
+          -webkit-transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -moz-transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          -ms-transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+          transform: translate3d(0, -4rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        }
+      }
+    </style>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      WebFont.load({
+        google: { families: ["Inter:200,regular,500,600,700,200italic,italic,500italic,600italic,700italic"] },
+      });
+    </script>
+    <script type="text/javascript">
+      !(function (o, c) {
+        var n = c.documentElement,
+          t = " w-mod-";
+        (n.className += t + "js"),
+          ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + "touch");
+      })(window, document);
+    </script>
+    <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="images/webclip.png" rel="apple-touch-icon" />
+    <link rel="stylesheet" href="brillnt/css/custom.css" />
   </head>
   <body>
-    <h1>Brillnt - Webflow Export</h1>
-    <p>You need to export the website from Webflow (Shift + E), and place it in the</p>
-    <p><code>site/archives/</code> directory.</p>
-    <p>Then run <code>npm run load --archive=[client-name].webflow</code></p>
-    <script src="brillnt/js/custom.js" type="text/javascript"></script>
+    <nav class="nav">
+      <div class="container nav-alt">
+        <a href="#" class="brand-link w-inline-block"
+          ><img src="images/fuller-logo.svg" loading="lazy" alt="Fuller Homes logo."
+        /></a>
+        <div class="menu-btn"></div>
+      </div>
+    </nav>
+    <section class="hero-section">
+      <div class="w-layout-blockcontainer container c-hero-alt w-container">
+        <div class="hero-content">
+          <div class="w-layout-vflex header">
+            <div class="p-small p-eyebrow">Fuller Homes</div>
+            <h1>Homebuilding, Evolved.</h1>
+          </div>
+          <p>
+            A smarter, fully integrated approach to homebuilding—delivering unmatched speed, scale, and control for
+            builders and developers.
+          </p>
+          <div class="w-layout-hflex action-and-hint">
+            <a href="#" class="button btn-no-margin w-inline-block">
+              <div>learn more</div>
+            </a>
+            <div class="hint">
+              <div class="hint-line"></div>
+              <div class="w-layout-hflex hint-content">
+                <p class="hint-text">or keep scrolling</p>
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="hint-icon">
+                  <path
+                    d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0v6zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5z"
+                    fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-w-id="9c73d362-6725-0342-2446-fc0efc4c5b90" class="swipe-section">
+      <div class="swipe-container">
+        <div class="swipe-media">
+          <div class="sc-media _1"></div>
+          <div class="sc-media _2"></div>
+        </div>
+        <div class="swipe-content">
+          <div class="sc-block">
+            <div class="w-layout-vflex header">
+              <div data-w-id="00c8c2d9-6a98-4a67-23de-fe8cfae7bcc8" class="p-small p-eyebrow">design to delivery</div>
+              <h2 data-w-id="00c8c2d9-6a98-4a67-23de-fe8cfae7bcca" class="h2-alt">Reengineered From the Ground Up.</h2>
+            </div>
+            <p data-w-id="00c8c2d9-6a98-4a67-23de-fe8cfae7bcce">
+              Fuller’s design-to-delivery ecosystem consolidates the entire homebuilding process, integrating and
+              accelerating every step into one streamlined workflow.
+            </p>
+            <div class="w-layout-hflex sc-scroll-hint _2">
+              <p data-w-id="bd07700c-edbf-e359-363a-e11fbb854ce6" class="text-weight-thin text-color-serenity-accent">
+                Keep scrolling to learn what sets us apart...
+              </p>
+            </div>
+            <div class="sc-media-mobile"></div>
+          </div>
+          <div class="sc-block">
+            <div class="w-layout-vflex header">
+              <div data-w-id="7457883e-d740-0bb1-f300-fa514db81f4e" class="p-small p-eyebrow">it's time to evolve</div>
+              <h2 data-w-id="b86af5e2-6173-ceb4-c6dc-97525691f30c" class="h2-alt">
+                The old way of building is broken beyond repair.
+              </h2>
+            </div>
+            <p data-w-id="b86af5e2-6173-ceb4-c6dc-97525691f310">
+              We all know the story: endless delays, runaway costs, fragmented processes. It’s time for a smarter way
+              forward.
+            </p>
+            <div class="w-layout-hflex sc-scroll-hint">
+              <p class="text-weight-thin text-color-brand-gray-62">keep scrolling</p>
+            </div>
+            <div class="sc-media-mobile"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="benefits-section">
+      <div class="w-layout-blockcontainer container w-container">
+        <div class="benefits-content">
+          <div class="w-layout-vflex header">
+            <div class="p-small p-eyebrow">This is some text inside of a div block.</div>
+            <h2 class="h1">The Fuller Difference</h2>
+          </div>
+          <div class="bc-list">
+            <div class="bc-item">
+              <div class="bci-media">
+                <div class="media-asset w-embed">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 362 362"
+                    preserveAspectRatio="none"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                    <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="bci-copy">
+                <h3 class="text-color-white">Thoughtfully Engineered Homes</h3>
+                <p>
+                  Blending modern style with smart design, Fuller’s architect-crafted homes leverage shared components
+                  for innovative scalability and design flexibility. Built on BIM technology, every design flows
+                  seamlessly into production, ensuring precision and predictable pricing at every step.
+                </p>
+                <a href="#" class="button btn-tertiary w-inline-block">
+                  <div>learn more</div>
+                </a>
+              </div>
+            </div>
+            <div class="bc-item bci-reverse">
+              <div class="bci-media">
+                <div class="media-asset w-embed">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 362 362"
+                    preserveAspectRatio="none"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                    <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="bci-copy">
+                <h3 class="text-color-white">Data-Driven Systems</h3>
+                <p>
+                  Control starts with data. From permit-ready plans and precise material takeoffs to direct supplier
+                  pricing and real-time project visibility, Fuller’s data serves as a single source of truth—connecting
+                  every phase of the project, eliminating inefficiencies, and keeping you in the driver’s seat.
+                </p>
+              </div>
+            </div>
+            <div class="bc-item">
+              <div class="bci-media">
+                <div class="media-asset w-embed">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 362 362"
+                    preserveAspectRatio="none"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                    <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="bci-copy">
+                <h3 class="text-color-white">Off-Site Precision Builds</h3>
+                <p>
+                  Fuller homes are built in climate-controlled facilities by full-time craftsmen, arriving 90% complete
+                  to the site. This approach guarantees consistent quality, avoids weather delays, minimizes waste, and
+                  cuts construction timelines in half—empowering you to deliver more homes, faster.
+                </p>
+                <a href="#" class="button btn-tertiary w-inline-block">
+                  <div>learn more</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="word-slot-section">
+      <div class="ws-content">
+        <div class="w-layout-blockcontainer container c-full-height c-vertical-center w-container">
+          <div class="ws-copy">
+            <div class="ws-header">
+              <div class="p-small p-eyebrow ws-alt">Deliver when it matters most.</div>
+              <div class="w-layout-hflex word-slot-wrapper">
+                <h2 class="h1-alt">Control</h2>
+                <div class="word-slot">
+                  <h2 class="h1-alt text-color-serenity-accent">Timelines</h2>
+                  <h2 class="h1-alt text-color-serenity-accent">Materials</h2>
+                </div>
+              </div>
+            </div>
+            <div class="ws-body"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="explore-models-section">
+      <div class="w-layout-blockcontainer container right-side-alt w-container">
+        <div class="right-side-content">
+          <h2>
+            Explore our diverse collection of <span class="text-color-serenity-accent">customizable home models</span>.
+          </h2>
+          <p>
+            Fuller Homes offers a wide range of home models to suit every style and need. Browse our collection and find
+            the perfect fit for your next project.
+          </p>
+          <a href="#" class="button btn-no-margin w-inline-block">
+            <div>view home models</div>
+          </a>
+        </div>
+      </div>
+      <div data-w-id="6908c5a5-eea1-6923-7738-cf8584fa4565" class="home-grid-background">
+        <div class="hgb-grid">
+          <div data-w-id="42109d0b-02df-d507-2f0a-90f6cf42125f" class="hgb-column _1">
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div data-w-id="7f33827f-e702-4a96-01f1-ac95c6b278ff" class="hgb-column _2">
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div data-w-id="b067a800-073d-10ce-c930-925fdcf24f77" class="hgb-column _3">
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="hgb-column _4">
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="hgb-column _5">
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="hgb-item">
+              <div class="media-asset w-embed">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 362 362"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1.5" y="1.5" width="359" height="359" stroke="#BFC0C0" stroke-opacity="0.25"></rect>
+                  <path d="M1 1L361 361M1 361L361 1" stroke="#BFC0C0" stroke-opacity="0.25"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hgb-fade"></div>
+      </div>
+    </section>
+    <section class="how-it-works-section">
+      <div class="w-layout-blockcontainer container w-container">
+        <div class="w-layout-vflex tds-content">
+          <div class="tds-header">
+            <h2 class="h1 text-align-center">Our Process</h2>
+            <p class="text-align-center">
+              Every step is designed to keep things running smoothly, so you can focus on what you do best.
+            </p>
+            <p class="text-align-center">Here's how it works:</p>
+          </div>
+          <div class="three-d-slider" id="process-slider">
+            <div class="tds-indicators w-dyn-list">
+              <div role="list" class="tds-indicator-wrap w-dyn-items">
+                <div data-step-indicator-num="06" role="listitem" class="tds-indicator w-dyn-item">
+                  <div class="tdsi-circle">
+                    <div class="tdsi-active"></div>
+                  </div>
+                  <div class="tdsi-stem"></div>
+                </div>
+                <div data-step-indicator-num="05" role="listitem" class="tds-indicator w-dyn-item">
+                  <div class="tdsi-circle">
+                    <div class="tdsi-active"></div>
+                  </div>
+                  <div class="tdsi-stem"></div>
+                </div>
+                <div data-step-indicator-num="04" role="listitem" class="tds-indicator w-dyn-item">
+                  <div class="tdsi-circle">
+                    <div class="tdsi-active"></div>
+                  </div>
+                  <div class="tdsi-stem"></div>
+                </div>
+                <div data-step-indicator-num="03" role="listitem" class="tds-indicator w-dyn-item">
+                  <div class="tdsi-circle">
+                    <div class="tdsi-active"></div>
+                  </div>
+                  <div class="tdsi-stem"></div>
+                </div>
+                <div data-step-indicator-num="02" role="listitem" class="tds-indicator w-dyn-item">
+                  <div class="tdsi-circle">
+                    <div class="tdsi-active"></div>
+                  </div>
+                  <div class="tdsi-stem"></div>
+                </div>
+                <div data-step-indicator-num="01" role="listitem" class="tds-indicator w-dyn-item">
+                  <div class="tdsi-circle">
+                    <div class="tdsi-active"></div>
+                  </div>
+                  <div class="tdsi-stem"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tds-slides w-dyn-list">
+              <div role="list" class="tds-slide-list w-dyn-items">
+                <div data-step-num="06" role="listitem" class="tds-slide w-dyn-item">
+                  <div class="tdss-media">
+                    <div class="tdss-number">
+                      <div class="text-jumbo text-color-serenity-accent">06</div>
+                    </div>
+                  </div>
+                  <div class="tdss-copy">
+                    <div class="w-layout-vflex tdss-header">
+                      <div class="tdss-eyebrow">
+                        <div class="p-small p-eyebrow peye-small">STEP&nbsp;</div>
+                        <div class="p-small p-eyebrow peye-small">06</div>
+                      </div>
+                      <h3 class="h2 tds-alt">Project Wrap</h3>
+                    </div>
+                    <p class="tds-txt">
+                      Complete final inspections and hand over the keys. With Fuller, your process doesn’t end here—our
+                      streamlined workflows help you confidently scale your next projects.
+                    </p>
+                    <a href="#" class="tds-link">See the Fuller Advantage</a>
+                  </div>
+                </div>
+                <div data-step-num="05" role="listitem" class="tds-slide w-dyn-item">
+                  <div class="tdss-media">
+                    <div class="tdss-number">
+                      <div class="text-jumbo text-color-serenity-accent">05</div>
+                    </div>
+                  </div>
+                  <div class="tdss-copy">
+                    <div class="w-layout-vflex tdss-header">
+                      <div class="tdss-eyebrow">
+                        <div class="p-small p-eyebrow peye-small">STEP&nbsp;</div>
+                        <div class="p-small p-eyebrow peye-small">05</div>
+                      </div>
+                      <h3 class="h2 tds-alt">On-Site Completion</h3>
+                    </div>
+                    <p class="tds-txt">
+                      Set the modules, connect utilities, and complete the finishing touches to deliver a fully realized
+                      home. Builders benefit from Fuller’s hands-on training and support to ensure every project runs
+                      smoothly.
+                    </p>
+                    <a href="#" class="tds-link">Learn About Builder Support</a>
+                  </div>
+                </div>
+                <div data-step-num="04" role="listitem" class="tds-slide w-dyn-item">
+                  <div class="tdss-media">
+                    <div class="tdss-number">
+                      <div class="text-jumbo text-color-serenity-accent">04</div>
+                    </div>
+                  </div>
+                  <div class="tdss-copy">
+                    <div class="w-layout-vflex tdss-header">
+                      <div class="tdss-eyebrow">
+                        <div class="p-small p-eyebrow peye-small">STEP&nbsp;</div>
+                        <div class="p-small p-eyebrow peye-small">04</div>
+                      </div>
+                      <h3 class="h2 tds-alt">Delivery to Site</h3>
+                    </div>
+                    <p class="tds-txt">
+                      Our logistics team ensures your home arrives secure, on time, and ready for quick installation.
+                      Every material is accounted for through our data-driven supply chain, minimizing delays.
+                    </p>
+                    <a href="#" class="tds-link w-condition-invisible w-dyn-bind-empty"></a>
+                  </div>
+                </div>
+                <div data-step-num="03" role="listitem" class="tds-slide w-dyn-item">
+                  <div class="tdss-media">
+                    <div class="tdss-number">
+                      <div class="text-jumbo text-color-serenity-accent">03</div>
+                    </div>
+                  </div>
+                  <div class="tdss-copy">
+                    <div class="w-layout-vflex tdss-header">
+                      <div class="tdss-eyebrow">
+                        <div class="p-small p-eyebrow peye-small">STEP&nbsp;</div>
+                        <div class="p-small p-eyebrow peye-small">03</div>
+                      </div>
+                      <h3 class="h2 tds-alt">Precision Build</h3>
+                    </div>
+                    <p class="tds-txt">
+                      Homes are built in climate-controlled facilities, leveraging Fuller’s Off-Site Precision process
+                      to deliver consistent quality and faster timelines.
+                    </p>
+                    <a href="#" class="tds-link">See Off-Site Precision Builds</a>
+                  </div>
+                </div>
+                <div data-step-num="02" role="listitem" class="tds-slide w-dyn-item">
+                  <div class="tdss-media">
+                    <div class="tdss-number">
+                      <div class="text-jumbo text-color-serenity-accent">02</div>
+                    </div>
+                  </div>
+                  <div class="tdss-copy">
+                    <div class="w-layout-vflex tdss-header">
+                      <div class="tdss-eyebrow">
+                        <div class="p-small p-eyebrow peye-small">STEP&nbsp;</div>
+                        <div class="p-small p-eyebrow peye-small">02</div>
+                      </div>
+                      <h3 class="h2 tds-alt">Submit Your Order</h3>
+                    </div>
+                    <p class="tds-txt">
+                      Finalize your plan and submit it through our intuitive Fuller Portal. This data feeds directly
+                      into Fuller’s BIM-powered system, ensuring accuracy and eliminating inefficiencies.
+                    </p>
+                    <a href="#" class="tds-link">Explore Data-Driven Systems</a>
+                  </div>
+                </div>
+                <div data-step-num="01" role="listitem" class="tds-slide w-dyn-item">
+                  <div class="tdss-media">
+                    <div class="tdss-number">
+                      <div class="text-jumbo text-color-serenity-accent">01</div>
+                    </div>
+                  </div>
+                  <div class="tdss-copy">
+                    <div class="w-layout-vflex tdss-header">
+                      <div class="tdss-eyebrow">
+                        <div class="p-small p-eyebrow peye-small">STEP&nbsp;</div>
+                        <div class="p-small p-eyebrow peye-small">01</div>
+                      </div>
+                      <h3 class="h2 tds-alt">Choose Your Model</h3>
+                    </div>
+                    <p class="tds-txt">
+                      Select the perfect plan for your project from our pre-engineered Fuller Select collection or
+                      personalize a design with Fuller Flex to meet market demands. Explore how our architect-crafted
+                      homes balance style, functionality, and scalability.
+                    </p>
+                    <a href="#" class="tds-link">View Our Home Models</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer-section">
+      <div class="w-layout-blockcontainer container w-container">
+        <div class="footer-content">
+          <div class="footer-logo-wrap">
+            <div class="footer-logo w-embed">
+              <!--?xml version="1.0" encoding="UTF-8"?-->
+              <svg
+                id="fullerFooter"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1565.79 371.82">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      stroke-width: 0px;
+                    }
+                  </style>
+                </defs>
+                <g id="Capa_1-2" data-name="Capa 1">
+                  <g>
+                    <polygon
+                      class="cls-1"
+                      points="474.42 369.15 541.07 369.15 541.07 242.99 654.79 242.99 654.79 188.34 541.07 188.34 541.07 115.49 679.67 115.49 679.67 58.18 474.42 58.18 474.42 369.15">
+                      <path
+                        class="cls-1"
+                        d="M847.21,254.98c0,42.2-18.22,64.86-49.31,64.86s-44.43-19.99-44.43-60.86v-118.18h-62.64v126.61c0,80.85,43.54,104.4,90.63,104.4,32.43,0,52.42-12.44,67.08-30.21l5.78,27.54h55.53v-228.35h-62.64v114.18Z"></path>
+                      <rect class="cls-1" x="954.95" y="58.18" width="62.64" height="310.98"></rect>
+                      <rect class="cls-1" x="1062.25" y="58.18" width="62.64" height="310.98"></rect>
+                      <path
+                        class="cls-1"
+                        d="M1276.43,138.14c-70.63,0-117.29,46.21-117.29,117.29s45.76,116.39,121.74,116.39c60.86,0,100.39-35.53,107.5-79.96h-61.76c-5.33,21.33-23.09,32.44-48.42,32.44-31.54,0-52.42-19.55-53.75-51.99v-3.1h165.71c1.33-7.11,1.78-14.67,1.78-21.33-.88-67.07-47.09-109.73-115.51-109.73ZM1225.78,228.33c3.55-27.11,24-43.54,51.09-43.54,28.44,0,47.54,15.55,51.97,43.54h-103.07Z"></path>
+                      <polygon
+                        class="cls-1"
+                        points="1426.74 369.15 1489.38 369.15 1489.38 198.12 1565.79 198.12 1565.79 140.81 1426.74 140.81 1426.74 369.15">
+                        <path
+                          class="cls-1"
+                          d="M0,0v313.66l87.26,58.16h284.54V58.18L284.54,0H0ZM185.89,330.51h-82.62l-61.96-41.31v-41.31h82.62l61.96,41.31v41.31ZM247.87,227.22H103.27l-61.96-41.31v-41.31h144.58l61.98,41.31v41.31ZM330.49,123.93H103.27l-61.96-41.31v-41.31h227.22l61.96,41.31v41.31Z"></path>
+                      </polygon>
+                    </polygon>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="p-small p-eyebrow-footer">Thoughtfully Engineered Homes.</div>
+          </div>
+          <nav class="footer-nav">
+            <div class="footer-columns">
+              <h3>Navigation</h3>
+              <a href="#" class="footer-link">Home</a>
+              <a href="#" class="footer-link">Product</a>
+              <a href="#" class="footer-link">Systems</a>
+            </div>
+            <div class="footer-columns">
+              <h3>Connect</h3>
+              <a href="#" class="footer-link">Contact Us</a>
+              <a href="#" class="footer-link">Instagram</a>
+              <a href="#" class="footer-link">LinkedIn</a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </footer>
+    <script
+      src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=678012e0e8b988fb6144abb3"
+      type="text/javascript"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"></script>
+    <script src="js/buildfuller.js" type="text/javascript"></script>
+    <script src="" type="text/javascript"></script>
   </body>
 </html>
