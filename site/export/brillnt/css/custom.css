@@ -1,0 +1,70 @@
+/* custom code for rro */
+:root {
+  --stark-white: white;
+  --container-width: 1200px;
+  --brand-blue: #373f6c;
+  --light-gray: #d9d9d9;
+  --brand-navy: #141c4a;
+  --light-blue: #d2d9fc;
+  --lighter-blue: #dbe1ff;
+  --brand-red: #d2301c;
+  --pitch-black: #000;
+  --light-gray--25: #d9d9d940;
+}
+
+#nav.compact {
+  background-color: var(--stark-white);
+  border-bottom: 1px solid var(--brand-blue);
+}
+
+#nav.compact .menu-logo-link {
+  width: 85px;
+}
+
+#nav.compact .nav-menu {
+  background-color: var(--brand-navy);
+}
+
+#nav.compact .container.nav-alt {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+[class^="w-icon-"], [class*=" w-icon-"] {
+  color: var(--brand-blue);
+}
+
+.w-nav-button,
+.menu-link,
+.nav-menu,
+.w-nav-button [class^="w-icon-"],
+.w-nav-button [class*=" w-icon-"] {
+  transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.w-nav-button.w--open {
+  background-color: var(--brand-red);
+}
+
+.w-nav-button.w--open [class^="w-icon-"], .w-nav-button.w--open [class*=" w-icon-"] {
+  color: var(--stark-white);
+}
+
+#nav .w-nav-link.w--current {
+  color: var(--brand-red);
+}
+
+@media screen and (max-width: 991px) {
+  .nav-menu {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--brand-navy);
+  }
+
+  .menu-link {
+    border-radius: 0.5rem;
+  }
+
+  .menu-link:hover {
+    background-color: var(--brand-navy);
+  }
+}

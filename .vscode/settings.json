@@ -1,0 +1,5 @@
+{
+  "liveServer.settings.port": 80,
+  "liveServer.settings.root": "./site/export",
+  "liveServer.settings.host": "CHANGEME.mars"
+}

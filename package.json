@@ -1,0 +1,34 @@
+{
+  "name": "brillnt-base-project",
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "build:prod": "webpack --env production",
+    "build:dev": "webpack --env development",
+    "build:shopify": "webpack --env shopify",
+    "copy-assets:shopify": "node scripts/copy-assets.js",
+    "watch:dev": "webpack --watch --env development",
+    "module:new": "node scripts/create-module.js",
+    "load": "node ./scripts/load-backup.js",
+    "transform": "node ./scripts/transform.js",
+    "load:transform": "npm run load -- --archive=CHANGEME.webflow.zip && npm run transform"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "babel-loader": "^9.1.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "adm-zip": "^0.5.16",
+    "cheerio": "^1.0.0",
+    "clean-css": "^5.3.2",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.3",
+    "prettier": "^3.3.3",
+    "terser": "^5.19.2",
+    "husky": "^9.1.6",
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.10"
+  }
+}

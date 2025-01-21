@@ -1,0 +1,19 @@
+{
+  "export/index.html": {
+    "replace": [
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://wf.code.brillnt.com/CHANGEME.custom.brillnt.min.js",
+        "replace": "brillnt/js/custom.js"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://wf.code.brillnt.com/CHANGEME.custom.brillnt.min.css",
+        "replace": "brillnt/css/custom.css"
+      }
+    ],
+    "inject": { }
+  }
+}
