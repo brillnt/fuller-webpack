@@ -6,9 +6,21 @@ export default class FullscreenMenu {
     if (!options) return;
 
     this.nav = selectId(options.navId);
-    this.menuButton = this.nav.querySelector('.menu-btn');
     this.menu = selectId(options.menuId);
+
+    if (!this.nav || !this.menu) {
+      console.warn('FullscreenMenu: nav or menu element not found');
+      return;
+    }
+
+    this.menuButton = this.nav.querySelector('.menu-btn');
     this.menuBG = this.menu.querySelector('.mfs-bg');
+
+    if (!this.menuButton || !this.menuBG) {
+      console.warn('FullscreenMenu: menu button or background element not found');
+      return;
+    } 
+
     this.init();
   }
 

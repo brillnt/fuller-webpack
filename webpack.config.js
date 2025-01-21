@@ -46,7 +46,8 @@ class CdnUrlLoggerPlugin {
 
 export default (env) => ({
   entry: {
-    home: './project/src/pages/index.js'
+    base: './project/src/pages/base.js',
+    home: './project/src/pages/home.js'
   },
   output: {
     filename: `${getFilePath(env, 'js')}${env.shopify ? 'br_' : ''}[name].bundle.min.js`,

@@ -26,6 +26,7 @@ export default class ThreeDSlider {
         this.indicators.forEach(ind => ind.querySelector('.tdsi-active').classList.remove('tds--active'));
         indicator.querySelector('.tdsi-active').classList.add('tds--active');
         let step = +indicator.getAttribute('data-step-indicator-num');
+        step = step - 1;
 
         // make the slides move forward along the z-axis so it looks like the slides are moving toward the user.
         gsap.to(this.slides, {

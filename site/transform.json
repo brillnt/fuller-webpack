@@ -4,6 +4,18 @@
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller.brillnt.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/home.bundle.min.js",
         "replace": "brillnt/js/home.bundle.min.js"
       },
@@ -12,11 +24,40 @@
         "attr": "href",
         "search": "https://fuller.brillnt.com/css/home.min.css",
         "replace": "brillnt/css/home.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
       }
     ],
     "inject": {
       ".tds-slides": "content/tds-slide-list.html",
       ".tds-indicators": "content/tds-indicators.html"
     }
+  },
+  "export/typography.html": {
+    "replace": [
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      }
+    ],
+    "inject": {}
   }
 }
