@@ -1,6 +1,6 @@
 {
-  "name": "brillnt-base-project",
-  "version": "1.1.0",
+  "name": "fuller-webpack-app",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "build:prod": "webpack --env production",
@@ -11,7 +11,7 @@
     "module:new": "node scripts/create-module.js",
     "load": "node ./scripts/load-backup.js",
     "transform": "node ./scripts/transform.js",
-    "load:transform": "npm run load -- --archive=CHANGEME.webflow.zip && npm run transform"
+    "load:transform": "npm run load -- --archive=buildfuller.webflow.zip && npm run transform"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",

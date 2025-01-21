@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const outputDirectoryProd = path.join(__dirname, 'cdn');
 const outputDirectoryDev = path.join(__dirname, 'site', 'export', 'brillnt', 'js');
 const outputDirectoryShopify = path.join(__dirname, 'site', 'shopify', 'assets');
-const cdnUrl = "https://--CHANGEME--.brillnt.com";
+const cdnUrl = "https://fuller.brillnt.com";
 
 const getOutputDirectory = (env) => {
   if (env.development) return outputDirectoryDev;
