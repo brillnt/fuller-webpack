@@ -1140,7 +1140,6 @@ img {
   }
 
   .tds-indicators {
-    flex-flow: row;
     width: 100%;
     inset: auto 0% 0%;
   }
@@ -1188,8 +1187,14 @@ img {
     inset: 0% auto 0% 0%;
   }
 
+  .tds-indicator-wrap {
+    flex-flow: row;
+    justify-content: center;
+  }
+
   .tds-slide-list {
     min-height: 600px;
+    display: flex;
   }
 }
 
