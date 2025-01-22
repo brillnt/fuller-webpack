@@ -75,7 +75,7 @@ export default class ThreeDSlider {
               y: offset * -25,
               opacity: 1,
               ease: EASE_FUNCTION,
-              duration: 1,
+              duration: .7,
               delay,
             });
           } else if (offset === 0) {
@@ -85,14 +85,14 @@ export default class ThreeDSlider {
               y: 0,
               opacity: 1,
               ease: EASE_FUNCTION,
-              duration: 1,
+              duration: 0.7,
               delay,
             });
           } else {
             // slides that animate offscreen
             gsap.to(slide, {
               z: offset * -100,
-              y: offset * -200,
+              y: offset * -100,
               opacity: 0,
               ease: EASE_FUNCTION,
               duration: 0.5,
