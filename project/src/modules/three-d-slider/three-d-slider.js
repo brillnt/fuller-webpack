@@ -2,11 +2,9 @@ import { select, selectId } from '../../utils/helpers.js';
 import { gsap } from '../../utils/animation.js';
 import './three-d-slider.css';
 
-const COLOR_SERENITY = '#8fb8b9';
-const COLOR_LIGHT_GRAY = 'rga(191, 192, 192, 0.502)';
-const COLOR_SALMON = '#b9908f';
-const COLOR_STARK_WHITE = '#ffffff';
 const EASE_FUNCTION = 'expo.out';
+const STEP_ATTR_INDICATOR = 'data-step-indicator-num';
+const STEP_ATTR_SLIDE = 'data-step-num';
 export default class ThreeDSlider {
 
   constructor(elementId) {
@@ -28,31 +26,27 @@ export default class ThreeDSlider {
 
       // set active indicator
       let activeIndicator = indicator.querySelector('.tdsi-active');
-      if (index === 0) {
-        activeIndicator.classList.add('tds--active');
-      } else {
-        activeIndicator.classList.add('tds--back');
-      }
+      activeIndicator.classList.add(index === 0 ? 'tds--active' : 'tds--back');
 
       indicator.addEventListener('click', () => {
         // store last active indicator
         let lastActiveIndicator = this.element.querySelector('.tds-indicators .tds--active');
-        let lastActiveStep = +lastActiveIndicator.parentElement.parentElement.getAttribute('data-step-indicator-num');
+        let lastActiveStep = +lastActiveIndicator.parentElement.parentElement.getAttribute(STEP_ATTR_INDICATOR);
 
         // update active indicator
         this.indicators.forEach(ind => ind.querySelector('.tdsi-active').classList.remove('tds--active'));
         let indicatorActiveCircle = indicator.querySelector('.tdsi-active');
-        indicatorActiveCircle.classList.add('tds--active');
         indicatorActiveCircle.classList.remove('tds--back');
         indicatorActiveCircle.classList.remove('tds--forward');
+        indicatorActiveCircle.classList.add('tds--active');
 
         // get updated list of slides
         let liveSlides = this.element.querySelectorAll('.tds-slides .tds-slide');
         liveSlides = Array.from(liveSlides).reverse();
 
         // get new active step number & index
-        let newActiveStep = +indicator.getAttribute('data-step-indicator-num');
-        let activeSlideIndex = Array.from(liveSlides).findIndex((slide) => newActiveStep === +slide.getAttribute('data-step-num'));
+        let newActiveStep = +indicator.getAttribute(STEP_ATTR_INDICATOR);
+        let activeSlideIndex = Array.from(liveSlides).findIndex((slide) => newActiveStep === +slide.getAttribute(STEP_ATTR_SLIDE));
         let movingForward = newActiveStep > lastActiveStep;
 
         if (movingForward) {
@@ -91,7 +85,7 @@ export default class ThreeDSlider {
           } else {
             // slides that animate offscreen
             gsap.to(slide, {
-              z: offset * -100,
+              // z: offset * -100,
               y: offset * -100,
               opacity: 0,
               ease: EASE_FUNCTION,
