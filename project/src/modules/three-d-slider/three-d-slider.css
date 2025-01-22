@@ -32,10 +32,18 @@
   display: none;
 }
 
-.tdsi-active {
-  opacity: 0;
+.tdsi-active.tds--active {
+  transform: translate3d(-50%, -50%, 0);
 }
 
-.tdsi-active.tds--active {
-  opacity: 1;
+.tdsi-active.tds--back {
+  transform: translate3d(-50%, -250%, 0);
+}
+
+.tdsi-active.tds--forward {
+  transform: translate3d(-50%, 250%, 0);
+}
+
+.tdsi-circle {
+  overflow: hidden;
 }

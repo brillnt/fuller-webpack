@@ -21,6 +21,7 @@
   --brand-gray--25: #bfc0c040;
   --dark-gray--50: #26262680;
   --_typography---h2--alt-small: 2.47rem;
+  --muted-salmon: #b9908f;
   --dark-gray: #262626;
   --pitch-black: black;
   --stark-white: #fff;
@@ -448,7 +449,7 @@ img {
 
 .sc-media._2 {
   z-index: 1;
-  background-color: #b9908f;
+  background-color: var(--muted-salmon);
 }
 
 .footer-section {
@@ -823,6 +824,7 @@ img {
   background-color: var(--serenity-green);
   border-radius: 100%;
   width: 16px;
+  transition: transform .6s cubic-bezier(.165, .84, .44, 1);
   position: absolute;
   top: 50%;
   left: 50%;
