@@ -95,7 +95,7 @@ export default class ThreeDSlider {
               y: offset * -200,
               opacity: 0,
               ease: EASE_FUNCTION,
-              duration: 1,
+              duration: 0.5,
               delay,
               onComplete: () => {
                 gsap.set(slide, { display: 'none' });
