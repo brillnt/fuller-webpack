@@ -8,6 +8,7 @@
   --_typography---h4: .939rem;
   --_typography---p--regular: .9rem;
   --serenity-accent: #8fb8b9;
+  --serenity-accent-light: #bbe0e1;
   --_spacing---container--width: 1280px;
   --_spacing---container--v-space: 10rem;
   --_spacing---container--padding: 4rem;
@@ -137,6 +138,10 @@ a {
   font-size: var(--_typography---p--regular);
   font-weight: 500;
   text-decoration: underline;
+}
+
+a:hover {
+  color: var(--serenity-accent-light);
 }
 
 img {
@@ -811,8 +816,9 @@ img {
 
 .tdsi-stem {
   background-color: var(--serenity-accent);
-  width: 1px;
-  height: 2rem;
+  opacity: .25;
+  width: 2px;
+  height: 1rem;
 }
 
 .tdsi-stem.hidden {
@@ -1196,8 +1202,8 @@ img {
   }
 
   .tdsi-stem {
-    width: 2rem;
-    height: 1px;
+    width: 1rem;
+    height: 2px;
   }
 
   .tdsi-active {

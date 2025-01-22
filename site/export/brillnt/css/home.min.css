@@ -44,6 +44,16 @@
   transform: translate3d(-50%, 250%, 0);
 }
 
+@media screen and (max-width: 768px) {
+  .tdsi-active.tds--back {
+    transform: translate3d(-250%, -50%, 0);
+  }
+
+  .tdsi-active.tds--forward {
+    transform: translate3d(250%, -50%, 0);
+  }
+}
+
 .tdsi-circle {
   overflow: hidden;
 }
