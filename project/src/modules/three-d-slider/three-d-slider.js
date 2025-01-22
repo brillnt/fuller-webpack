@@ -30,15 +30,15 @@ export default class ThreeDSlider {
 
       indicator.addEventListener('click', () => {
         // store last active indicator
-        let lastActiveIndicator = this.element.querySelector('.tds-indicators .tds--active');
-        let lastActiveStep = +lastActiveIndicator.parentElement.parentElement.getAttribute(STEP_ATTR_INDICATOR);
+        let prevActiveIndicator = this.element.querySelector('.tds-indicators .tds--active');
+        let prevActiveStep = +prevActiveIndicator.parentElement.parentElement.getAttribute(STEP_ATTR_INDICATOR);
 
         // update active indicator
         this.indicators.forEach(ind => ind.querySelector('.tdsi-active').classList.remove('tds--active'));
-        let indicatorActiveCircle = indicator.querySelector('.tdsi-active');
-        indicatorActiveCircle.classList.remove('tds--back');
-        indicatorActiveCircle.classList.remove('tds--forward');
-        indicatorActiveCircle.classList.add('tds--active');
+        let currentActiveCircle = indicator.querySelector('.tdsi-active');
+        currentActiveCircle.classList.remove('tds--back');
+        currentActiveCircle.classList.remove('tds--forward');
+        currentActiveCircle.classList.add('tds--active');
 
         // get updated list of slides
         let liveSlides = this.element.querySelectorAll('.tds-slides .tds-slide');
@@ -47,12 +47,12 @@ export default class ThreeDSlider {
         // get new active step number & index
         let newActiveStep = +indicator.getAttribute(STEP_ATTR_INDICATOR);
         let activeSlideIndex = Array.from(liveSlides).findIndex((slide) => newActiveStep === +slide.getAttribute(STEP_ATTR_SLIDE));
-        let movingForward = newActiveStep > lastActiveStep;
+        let movingForward = newActiveStep > prevActiveStep;
 
         if (movingForward) {
-          lastActiveIndicator.classList.add('tds--forward');
+          prevActiveIndicator.classList.add('tds--forward');
         } else {
-          lastActiveIndicator.classList.add('tds--back');
+          prevActiveIndicator.classList.add('tds--back');
         }
 
         // animating foward
@@ -62,38 +62,20 @@ export default class ThreeDSlider {
 
           gsap.set(slide, { display: 'flex' });
 
-          if (offset > 0) {
-            // slides in the background
-            gsap.to(slide, {
-              z: offset * -50,
-              y: offset * -25,
-              opacity: 1,
-              ease: EASE_FUNCTION,
-              duration: .7,
-              delay,
-            });
-          } else if (offset === 0) {
+          if (offset === 0) {
             // active slide
-            gsap.to(slide, {
-              z: 0,
-              y: 0,
-              opacity: 1,
-              ease: EASE_FUNCTION,
-              duration: 0.7,
-              delay,
-            });
+            gsap.to(slide, { z: 0, y: 0, opacity: 1, ease: EASE_FUNCTION, duration: 0.7, delay });
           } else {
+            // non-active slides
+            // offset > 0 ? animating in background : animating offscreen
+            let z = offset > 0 ? offset * -50 : null;
+            let y = offset > 0 ? offset * -25 : offset * -100;
+            let opacity = offset > 0 ? 1 : 0;
+            let duration = offset > 0 ? 0.7 : 0.5;
+
             // slides that animate offscreen
-            gsap.to(slide, {
-              // z: offset * -100,
-              y: offset * -100,
-              opacity: 0,
-              ease: EASE_FUNCTION,
-              duration: 0.5,
-              delay,
-              onComplete: () => {
-                gsap.set(slide, { display: 'none' });
-              }
+            gsap.to(slide, { z, y, opacity, duration, delay, ease: EASE_FUNCTION,
+              onComplete: offset > 0 ? () => {} : () => { gsap.set(slide, { display: 'none' }); }
             });
           }
         });
