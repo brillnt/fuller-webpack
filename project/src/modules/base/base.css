@@ -52,3 +52,7 @@
   position: relative;
   z-index: 1;
 }
+
+.button.btn--black::after {
+  background-color: var(--pitch-black) !important;
+}

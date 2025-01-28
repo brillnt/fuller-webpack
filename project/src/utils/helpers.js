@@ -1,7 +1,9 @@
-// general helpers
+// dom helper functions
 export const select = (selector) => document.querySelector(selector);
 export const selectAll = (selector) => document.querySelectorAll(selector);
 export const selectId = (id) => document.getElementById(id);
+
+// event helper functions
 export const on = (element, event, handler) => {
   if (!element || !event || !handler) return;
   element = typeof element === 'string' ? select(element) : element;

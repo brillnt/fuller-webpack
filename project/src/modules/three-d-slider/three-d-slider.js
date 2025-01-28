@@ -1,4 +1,4 @@
-import { select, selectId } from '../../utils/helpers.js';
+import { selectId } from '../../utils/helpers.js';
 import { gsap } from '../../utils/animation.js';
 import './three-d-slider.css';
 
@@ -28,17 +28,20 @@ export default class ThreeDSlider {
       let activeIndicator = indicator.querySelector('.tdsi-active');
       activeIndicator.classList.add(index === 0 ? 'tds--active' : 'tds--back');
 
-      indicator.addEventListener('click', () => {
+      indicator.addEventListener('click', (e) => {
+        let isActive = e.currentTarget.querySelector('.tdsi-active').classList.contains('tds--active');
+        if (isActive) return;
+
         // store last active indicator
         let prevActiveIndicator = this.element.querySelector('.tds-indicators .tds--active');
         let prevActiveStep = +prevActiveIndicator.parentElement.parentElement.getAttribute(STEP_ATTR_INDICATOR);
 
         // update active indicator
         this.indicators.forEach(ind => ind.querySelector('.tdsi-active').classList.remove('tds--active'));
-        let currentActiveCircle = indicator.querySelector('.tdsi-active');
-        currentActiveCircle.classList.remove('tds--back');
-        currentActiveCircle.classList.remove('tds--forward');
-        currentActiveCircle.classList.add('tds--active');
+        let currentActiveIndicator = indicator.querySelector('.tdsi-active');
+        currentActiveIndicator.classList.remove('tds--back');
+        currentActiveIndicator.classList.remove('tds--forward');
+        currentActiveIndicator.classList.add('tds--active');
 
         // get updated list of slides
         let liveSlides = this.element.querySelectorAll('.tds-slides .tds-slide');
@@ -55,7 +58,7 @@ export default class ThreeDSlider {
           prevActiveIndicator.classList.add('tds--back');
         }
 
-        // animating foward
+        // animated all slides
         liveSlides.forEach((slide, slideIndex) => {
           let offset = slideIndex - activeSlideIndex;
           let delay = movingForward ? (slideIndex * 0.1) : ((this.slides.length - slideIndex - 1) * 0.1);
@@ -67,10 +70,10 @@ export default class ThreeDSlider {
             gsap.to(slide, { z: 0, y: 0, opacity: 1, ease: EASE_FUNCTION, duration: 0.7, delay });
           } else {
             // non-active slides
-            // offset > 0 ? animating in background : animating offscreen
+            // offset > 0 ? behind active : in front of active slide
             let z = offset > 0 ? offset * -50 : null;
             let y = offset > 0 ? offset * -25 : offset * -100;
-            let opacity = offset > 0 ? 1 : 0;
+            let opacity = offset > 0 ? (0.7 - (offset * 0.1)) : 0;
             let duration = offset > 0 ? 0.7 : 0.5;
 
             // slides that animate offscreen
