@@ -9,7 +9,8 @@
   --dark-gray--50: #26262680;
   --dark-gray: #262626;
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-  --btn-hover-duration: 0.6s;
+  --btn-hover-duration: 0.5s;
+  --menu-reveal-duration: 0.8s;
   --gray: #6f6f6f;
   --hover-color: #8fb8b9;
   --original-color: #f4f7f5;
@@ -17,10 +18,17 @@
   --pitch-black: black;
   --serenity-green: #588e91;
   --stark-white: #fff;
+  --clip-path-concealed: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  --clip-path-revealed: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.mfs-container {
+  will-change: transform;
 }
 
 #menu-btn .menu-bar {
-  transition: all 0.4s var(--ease-out-expo);
+  will-change: transform;
+  transition: all 0.6s var(--ease-out-expo);
 }
 
 #menu-btn .menu-bar:nth-child(1) {
@@ -56,12 +64,10 @@
 }
 
 .mfs-menu a.menu-link {
-  
-  /* Text color setup */
   color: transparent !important;
   background-image: linear-gradient(
     to right,
-    var(--hover-color) 50%,
+    var(--serenity-green) 50%,
     var(--original-color) 50%
   );
   
@@ -74,9 +80,31 @@
   background-clip: text;
   
   /* Animation setup */
-  transition: background-position var(--btn-hover-duration) var(--ease-out-expo);
+  transition: 
+    background-position var(--btn-hover-duration) var(--ease-out-expo),
+    transform var(--menu-reveal-duration) var(--ease-out-expo);
+  transform: translateY(100%);
+  will-change: background-position, transform;
 }
 
 .mfs-menu a.menu-link:hover {
   background-position: left;
+}
+
+.mfs-menu a.menu-link.reveal {
+  transform: translateY(0);
+}
+
+.mfs-contact .mfs-contact-content p,
+.mfs-contact .mfs-contact-content a.button {
+  will-change: transform, opacity;
+  transition: transform 1s var(--ease-out-expo), opacity 1s var(--ease-out-expo), letter-spacing 0.5s var(--ease-out-expo);
+  transform: translateY(2rem);
+  opacity: 0;
+}
+
+.mfs-contact .mfs-contact-content p.reveal,
+.mfs-contact .mfs-contact-content a.button.reveal {
+  transform: translateY(0);
+  opacity: 1;
 }

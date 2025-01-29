@@ -27,11 +27,11 @@
   --stark-white: #fff;
   --brand-gray--50: #bfc0c080;
   --brand-gray--10: #bfc0c01a;
+  --brand-black--darker: #020202;
   --_spacing---home-model-grid: 1.1rem;
   --dark-gray--25: #26262640;
   --dark-gray: #262626;
   --pitch-black--50: #00000080;
-  --brand-black--darker: #020202;
 }
 
 .w-layout-vflex {
@@ -344,8 +344,17 @@ img {
   background-color: var(--pitch-black);
 }
 
+.button.btn--small {
+  -webkit-clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
+  clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
+  min-width: 200px;
+  padding-top: .85rem;
+  padding-bottom: .85rem;
+  font-size: .8rem;
+}
+
 .hero-section {
-  background-color: var(--pitch-black);
+  background-color: var(--brand-black);
   height: 100vh;
   min-height: 750px;
   position: relative;
@@ -621,7 +630,7 @@ img {
 }
 
 .benefits-section {
-  background-color: var(--pitch-black);
+  background-color: var(--brand-black--darker);
 }
 
 .benefits-content {
@@ -1019,11 +1028,21 @@ img {
 }
 
 .mfs-contact-content {
-  width: var(--_spacing---container--width);
+  max-width: var(--_spacing---container--width);
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 4rem;
   padding-right: 4rem;
+}
+
+.upload {
+  max-height: 500px;
+}
+
+.mask {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 @media screen and (max-width: 991px) {

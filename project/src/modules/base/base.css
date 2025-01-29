@@ -30,6 +30,7 @@
   --pitch-black--50: #00000080;
   --dark-gray--25: #26262640;
   --btn-shape: 0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%;
+  --btn-shape--alt: 0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%;
 }
 
 .button.btn-tertiary::before {
@@ -37,7 +38,7 @@
   position: absolute;
   inset: 0;
   background-color: var(--brand-white);
-  clip-path: polygon(var(--btn-shape));
+  clip-path: polygon(var(--btn-shape--alt));
 }
 
 .button.btn-tertiary::after {
@@ -45,7 +46,7 @@
   position: absolute;
   inset: 1px;
   background-color: var(--brand-black);
-  clip-path: polygon(var(--btn-shape));
+  clip-path: polygon(var(--btn-shape--alt));
 }
 
 .button.btn-tertiary > div {
