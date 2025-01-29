@@ -64,7 +64,7 @@
 }
 
 .mfs-menu a.menu-link {
-  color: transparent !important;
+  color: transparent;
   background-image: linear-gradient(
     to right,
     var(--serenity-accent) 50%,
@@ -113,6 +113,9 @@
   .mfs-menu a.menu-link {
     background-image: none;
     color: var(--brand-white);
+    transition: 
+      color var(--btn-hover-duration) var(--ease-out-expo),
+      transform var(--menu-reveal-duration) var(--ease-out-expo);
   }
   .mfs-menu a.menu-link:hover {
     color: var(--serenity-accent);

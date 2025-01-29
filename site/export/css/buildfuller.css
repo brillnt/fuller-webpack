@@ -19,6 +19,7 @@
   --_typography---p--big: 1.25rem;
   --_typography---p--bigger: 1.618rem;
   --pitch-black: black;
+  --brand-black--darker: #020202;
   --gray: #6f6f6f;
   --brand-gray--25: #bfc0c040;
   --dark-gray--50: #26262680;
@@ -27,17 +28,10 @@
   --stark-white: #fff;
   --brand-gray--50: #bfc0c080;
   --brand-gray--10: #bfc0c01a;
-  --brand-black--darker: #020202;
   --_spacing---home-model-grid: 1.1rem;
   --dark-gray--25: #26262640;
   --dark-gray: #262626;
   --pitch-black--50: #00000080;
-}
-
-.w-layout-vflex {
-  flex-direction: column;
-  align-items: flex-start;
-  display: flex;
 }
 
 .w-layout-blockcontainer {
@@ -45,6 +39,12 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.w-layout-vflex {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
 }
 
 .w-layout-hflex {
@@ -354,7 +354,7 @@ img {
 }
 
 .hero-section {
-  background-color: var(--brand-black);
+  background-color: var(--brand-black--darker);
   height: 100vh;
   min-height: 750px;
   position: relative;
@@ -381,7 +381,7 @@ img {
 
 .hero-content {
   width: 61.8%;
-  max-width: 600px;
+  max-width: 700px;
 }
 
 .action-and-hint {
@@ -965,6 +965,10 @@ img {
   overflow: hidden;
 }
 
+.menu-fullscreen:where(.w-variant-36df6d9a-1f27-4777-f99f-af059ddca527) {
+  display: flex;
+}
+
 .mfs-container {
   background-color: var(--pitch-black);
   align-items: center;
@@ -972,6 +976,10 @@ img {
   position: absolute;
   inset: 0%;
   transform: translate(100%);
+}
+
+.mfs-container:where(.w-variant-36df6d9a-1f27-4777-f99f-af059ddca527) {
+  transform: none;
 }
 
 .type-hiearchy {
@@ -1001,15 +1009,15 @@ img {
   grid-row-gap: 2rem;
   flex-flow: column;
   align-items: flex-start;
-  padding-left: 4rem;
-  padding-right: 4rem;
   display: flex;
 }
 
 .mfs-content {
-  width: var(--_spacing---container--width);
+  max-width: var(--_spacing---container--width);
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 4rem;
 }
 
 .menu-link {
@@ -1033,7 +1041,6 @@ img {
   margin-left: auto;
   margin-right: auto;
   padding-left: 4rem;
-  padding-right: 4rem;
 }
 
 .upload {
@@ -1345,6 +1352,10 @@ img {
     width: 100%;
     max-width: 550px;
   }
+
+  .mfs-content, .mfs-contact-content {
+    padding-left: 3rem;
+  }
 }
 
 @media screen and (max-width: 479px) {
@@ -1371,6 +1382,10 @@ img {
     width: 100%;
   }
 
+  .container.c-hero-alt {
+    padding-bottom: 10rem;
+  }
+
   .p-small.p-eyebrow-footer {
     font-size: .6rem;
   }
@@ -1378,6 +1393,10 @@ img {
   .button {
     min-width: 220px;
     font-size: .75rem;
+  }
+
+  .mfs-content, .mfs-contact-content {
+    padding-left: 2rem;
   }
 }
 
