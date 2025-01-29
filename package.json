@@ -30,6 +30,7 @@
     "inquirer": "^9.2.10",
     "mini-css-extract-plugin": "^2.7.6",
     "nodemon": "^3.1.9",
+    "postcss": "^8.5.1",
     "prettier": "^3.3.3",
     "terser": "^5.19.2",
     "terser-webpack-plugin": "^5.3.9",

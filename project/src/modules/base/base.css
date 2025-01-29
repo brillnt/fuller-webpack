@@ -57,3 +57,7 @@
 .button.btn--black::after {
   background-color: var(--pitch-black) !important;
 }
+
+.hidden-svg {
+  display: none;
+}
