@@ -30,7 +30,6 @@ export default class FullscreenMenu {
   }
 
   init() {
-    // Initialize your module here
     on(this.menuButton, 'click', () => {
       let menuState = this.menuButton.getAttribute('data-menu-state');
 

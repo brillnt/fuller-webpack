@@ -12,11 +12,11 @@
   --btn-hover-duration: 0.5s;
   --menu-reveal-duration: 0.8s;
   --gray: #6f6f6f;
-  --hover-color: #8fb8b9;
-  --original-color: #f4f7f5;
+  --serenity-accent: #8fb8b9;
+  --brand-white: #f4f7f5;
   --pitch-black--50: #00000080;
   --pitch-black: black;
-  --serenity-green: #588e91;
+  --serenity-accent: #588e91;
   --stark-white: #fff;
   --clip-path-concealed: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
   --clip-path-revealed: polygon(0 0, 100% 0, 100% 100%, 0 100%);
@@ -67,8 +67,8 @@
   color: transparent !important;
   background-image: linear-gradient(
     to right,
-    var(--serenity-green) 50%,
-    var(--original-color) 50%
+    var(--serenity-accent) 50%,
+    var(--brand-white) 50%
   );
   
   /* Background sizing and positioning */
@@ -107,4 +107,14 @@
 .mfs-contact .mfs-contact-content a.button.reveal {
   transform: translateY(0);
   opacity: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .mfs-menu a.menu-link {
+    background-image: none;
+    color: var(--brand-white);
+  }
+  .mfs-menu a.menu-link:hover {
+    color: var(--serenity-accent);
+  }
 }
