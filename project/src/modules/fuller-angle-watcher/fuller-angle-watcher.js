@@ -6,21 +6,21 @@ export default class FullerAngleWatcher {
     if (!fullerCubesSelector) return;
 
     this.fullerCubes = selectAll(fullerCubesSelector);
-    this.baseXCut = 0.067; // 6.7%
-    this.baseYCut = 0.0447; // 4.47%
+    this.baseXCut = 0.067;
+    this.baseYCut = this.baseXCut * Math.tan(33.7 * Math.PI / 180);
 
     this.init();
   }
 
   init() {
-    this.fullerCubes.forEach(cube => this.updateCubeClipPath(cube));
-
-    // Responsive update
     const resizeObserver = new ResizeObserver(entries => {
       entries.forEach(entry => this.updateCubeClipPath(entry.target));
     });
 
-    this.fullerCubes.forEach(cube => resizeObserver.observe(cube));
+    this.fullerCubes.forEach(cube => {
+      this.updateCubeClipPath(cube);
+      resizeObserver.observe(cube);
+    });
   }
 
   updateCubeClipPath(element) {
@@ -33,16 +33,21 @@ export default class FullerAngleWatcher {
     // Adjust cuts for aspect ratio
     const xCut = this.baseXCut;
     const yCut = this.baseYCut * aspectRatio; // Maintain 2:3 ratio relative to aspect
+    const xCutPct = `${(xCut * 100).toFixed(4)}%`;
+    const yCutPct = `${(yCut * 100).toFixed(4)}%`;
 
-    console.log('Editing: ', element, 'with cuts:', xCut, yCut);
-
-    element.style.clipPath = `polygon(
+    const clipPath = `polygon(
       0 0,
-      ${(1 - xCut) * 100}% 0,
-      100% ${yCut * 100}%,
+      calc(100% - ${xCutPct}) 0,
+      100% ${yCutPct},
       100% 100%,
-      ${xCut * 100}% 100%,
-      0 ${(1 - yCut) * 100}%
+      ${xCutPct} 100%,
+      0 calc(100% - ${yCutPct})
     )`;
+
+    element.style.clipPath = clipPath;
+    element.style.webkitClipPath = clipPath;
+    element.style.setProperty('--dynamic-clip', clipPath);
+
   }
 }

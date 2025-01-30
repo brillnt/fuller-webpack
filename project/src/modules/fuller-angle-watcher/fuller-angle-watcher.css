@@ -3,33 +3,41 @@
   background-color: var(--serenity-green);
 } */
 
-/* .two-path-block::after, 
-.card::after {
+.two-path-block, 
+.card {
+  --dynamic-clip: polygon(0 0, 93.3% 0, 100% 4.47%, 100% 100%, 6.7% 100%, 0 95.53%); 
+  position: relative;
+  background: transparent;
+  z-index: 0;
+}
+
+
+.two-path-block::after, 
+.card::after,
+.two-path-block::before, 
+.card::before {
   content: "";
-  background-color: var(--brand-black--darker);
-  -webkit-clip-path: url(#cubeClip);
-  clip-path: url(#cubeClip);
-  inset: 1px;
+  -webkit-clip-path: var(--dynamic-clip);
+  clip-path: var(--dynamic-clip);
   position: absolute;
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.two-path-block::after, 
+.card::after {
+  inset: 1px;
+  background-color: var(--brand-black--darker);
   z-index: -1;
-  transition: inset 0.3s var(--ease-out-expo);
+}
+
+.two-path-block::before,
+.card::before {
+  background-color: var(--serenity-green);
+  inset: 0;
+  z-index: -2;
 }
 
 .two-path-block:hover::after, 
 .card:hover::after {
   inset: 4px;
 }
-
-.two-path-block::before,
-.card::before {
-  content: "";
-  background-color: var(--serenity-green);
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  -webkit-clip-path: url(#cubeClip);
-  clip-path: url(#cubeClip);
-  position: absolute;
-  z-index: -2;
-} */
