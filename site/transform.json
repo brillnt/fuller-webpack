@@ -37,6 +37,41 @@
       ".tds-indicators": "content/tds-indicators.html"
     }
   },
+  "export/product.html": {
+    "replace": [
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/product.bundle.min.js",
+        "replace": "brillnt/js/product.bundle.min.js"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/product.min.css",
+        "replace": "brillnt/css/product.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      }
+    ],
+    "inject": {}
+  },
   "export/typography.html": {
     "replace": [
       {
@@ -65,7 +100,15 @@
       {
         "selector": ".card",
         "replace": {
-          "clip-path": "url(#cubeClip)"
+          "clip-path": "url(#cubeClip)",
+          "-webkit-clip-path": "url(#cubeClip)"
+        }
+      },
+      {
+        "selector": ".two-path-block",
+        "replace": {
+          "clip-path": "url(#cubeClip)",
+          "-webkit-clip-path": "url(#cubeClip)"
         }
       }
     ]

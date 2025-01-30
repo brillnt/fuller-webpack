@@ -1,0 +1,35 @@
+
+/* .card {
+  background-color: var(--serenity-green);
+} */
+
+.two-path-block::after, 
+.card::after {
+  content: "";
+  background-color: var(--brand-black--darker);
+  -webkit-clip-path: url(#cubeClip);
+  clip-path: url(#cubeClip);
+  inset: 1px;
+  position: absolute;
+  z-index: -1;
+  transition: inset 0.3s var(--ease-out-expo);
+}
+
+.two-path-block:hover::after, 
+.card:hover::after {
+  inset: 4px;
+}
+
+.two-path-block::before,
+.card::before {
+  content: "";
+  background-color: var(--serenity-green);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  -webkit-clip-path: url(#cubeClip);
+  clip-path: url(#cubeClip);
+  position: absolute;
+  z-index: -2;
+}

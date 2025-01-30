@@ -1,6 +1,7 @@
 /* custom code for fuller */
 :root {
   --brand-black: #121212;
+  --brand-black--darker: #020202;
   --brand-white--70: #f4f7f5b3;
   --brand-white: #f4f7f5;
   --_typography---h1: 4rem;
@@ -31,6 +32,7 @@
   --dark-gray--25: #26262640;
   --btn-shape: 0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%;
   --btn-shape--alt: 0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%;
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .button.btn-tertiary::before {
