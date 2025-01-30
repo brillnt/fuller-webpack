@@ -3,7 +3,7 @@
   background-color: var(--serenity-green);
 } */
 
-.two-path-block::after, 
+/* .two-path-block::after, 
 .card::after {
   content: "";
   background-color: var(--brand-black--darker);
@@ -32,4 +32,4 @@
   clip-path: url(#cubeClip);
   position: absolute;
   z-index: -2;
-}
+} */

@@ -13,34 +13,36 @@ export default class FullerAngleWatcher {
   }
 
   init() {
-    this.fullerCubes.forEach(card => updateCubeClipPath(card));
+    this.fullerCubes.forEach(cube => this.updateCubeClipPath(cube));
 
     // Responsive update
     const resizeObserver = new ResizeObserver(entries => {
       entries.forEach(entry => this.updateCubeClipPath(entry.target));
     });
 
-    this.fullerCubes.forEach(card => resizeObserver.observe(card));
+    this.fullerCubes.forEach(cube => resizeObserver.observe(cube));
   }
 
   updateCubeClipPath(element) {
     // Update cube clip path logic here
-  const rect = element.getBoundingClientRect();
-  const width = rect.width;
-  const height = rect.height;
-  const aspectRatio = width / height;
+    const rect = element.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const aspectRatio = width / height;
 
-  // Adjust cuts for aspect ratio
-  const xCut = this.baseXCut;
-  const yCut = this.baseYCut * aspectRatio; // Maintain 2:3 ratio relative to aspect
+    // Adjust cuts for aspect ratio
+    const xCut = this.baseXCut;
+    const yCut = this.baseYCut * aspectRatio; // Maintain 2:3 ratio relative to aspect
 
-  element.style.clipPath = `polygon(
-    0 0,
-    ${(1 - xCut) * 100}% 0,
-    100% ${yCut * 100}%,
-    100% 100%,
-    ${xCut * 100}% 100%,
-    0 ${(1 - yCut) * 100}%
-  )`;
+    console.log('Editing: ', element, 'with cuts:', xCut, yCut);
+
+    element.style.clipPath = `polygon(
+      0 0,
+      ${(1 - xCut) * 100}% 0,
+      100% ${yCut * 100}%,
+      100% 100%,
+      ${xCut * 100}% 100%,
+      0 ${(1 - yCut) * 100}%
+    )`;
   }
 }
