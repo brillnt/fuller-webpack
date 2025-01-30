@@ -48,6 +48,5 @@ export default class FullerAngleWatcher {
     element.style.clipPath = clipPath;
     element.style.webkitClipPath = clipPath;
     element.style.setProperty('--dynamic-clip', clipPath);
-
   }
 }

@@ -6,13 +6,15 @@
 .two-path-block, 
 .card {
   --dynamic-clip: polygon(0 0, 93.3% 0, 100% 4.47%, 100% 100%, 6.7% 100%, 0 95.53%); 
+
+  -webkit-clip-path: var(--dynamic-clip);
+  clip-path: var(--dynamic-clip);
   position: relative;
-  background: transparent;
   z-index: 0;
 }
 
 
-.two-path-block::after, 
+/* .two-path-block::after, 
 .card::after,
 .two-path-block::before, 
 .card::before {
@@ -40,4 +42,4 @@
 .two-path-block:hover::after, 
 .card:hover::after {
   inset: 4px;
-}
+} */
