@@ -58,6 +58,7 @@
   background-color: var(--pitch-black) !important;
 }
 
-.hidden-svg {
+/* remember to position absolute this and send offscreen. adjust for any new scrollbars on the windwo too */
+/* .hidden-svg {
   display: none;
-}
+} */
