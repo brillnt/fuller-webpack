@@ -1070,9 +1070,9 @@ img {
 }
 
 .card {
-  background-color: var(--brand-black);
+  background-color: var(--dark-gray);
   -webkit-clip-path: url('../images/');
-  clip-path: url('../images/');
+  clip-path: url(#cubeClip);
   padding: 2.2rem;
 }
 

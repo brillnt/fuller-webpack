@@ -59,5 +59,15 @@
       }
     ],
     "inject": {}
+  },
+  "export/css/buildfuller.css": {
+    "cssTransforms": [
+      {
+        "selector": ".card",
+        "replace": {
+          "clip-path": "url(#cubeClip)"
+        }
+      }
+    ]
   }
 }
