@@ -1,11 +1,11 @@
 import { gsap } from 'gsap';
-// import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// import SplitType from 'split-type';
+import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 
-// // Register ScrollTrigger with GSAP
-// gsap.registerPlugin(ScrollTrigger);
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Export everything together
 export {
-  gsap
+  gsap,
+  ScrollTrigger,
 };

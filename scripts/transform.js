@@ -105,6 +105,9 @@ async function transform() {
         console.log(`Transformed and prettified CSS: ${fullPath}`);
       }
     }
+
+    const currentTime = new Date().toLocaleString();
+    console.log(`\nTransformation completed at ${currentTime}\n`);
   } catch (error) {
     console.error(`Error processing transform task:`, error.message);
     process.exit(1);
