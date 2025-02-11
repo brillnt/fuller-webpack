@@ -39,7 +39,7 @@ export default class SimpleImageSlider {
       .to(this.images[0], moves.hide)
       .to(this.images[1], moves.show, '-=1')
       .to(this.images[1], moves.hide)
-      .to(this.images[2], moves.show)
+      .to(this.images[2], moves.show, '-=1')
       .to(this.images[2], moves.hide);
   }
 }

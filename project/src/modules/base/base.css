@@ -60,7 +60,6 @@
   background-color: var(--pitch-black) !important;
 }
 
-/* remember to position absolute this and send offscreen. adjust for any new scrollbars on the windwo too */
-/* .hidden-svg {
-  display: none;
-} */
+.input-wrap:has(:focus) label.input-label{
+  color: var(--serenity-green);  
+}
