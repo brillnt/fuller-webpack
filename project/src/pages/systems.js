@@ -3,5 +3,6 @@ import AnimateGridRows from '../modules/animate-grid-rows/animate-grid-rows.js';
 
 
 onReady(() => {
-  new AnimateGridRows('spc-blocks-container');
+  new AnimateGridRows('spc-blocks-container', 'spc');
+  new AnimateGridRows('cc-blocks-container', 'cc');
 });

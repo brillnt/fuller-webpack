@@ -3,13 +3,15 @@ import { gsap } from '../../utils/animation.js';
 import './animate-grid-rows.css';
 
 export default class AnimateGridRows {
-  constructor(elementId) {
+  constructor(elementId, prefix, anchorLeft = true) {
     if (!elementId) return;
 
     this.selectorId = elementId;
+    this.prefix = prefix;
+    this.anchorLeft = anchorLeft;
     this.element = selectId(this.selectorId);
 
-    this.gridRows = this.element.querySelectorAll('.spc-block-row');
+    this.gridRows = this.element.querySelectorAll(`.${prefix}-block-row`);
 
     this.init();
   }
@@ -43,7 +45,7 @@ export default class AnimateGridRows {
 
     // Add animations for each row
     this.gridRows.forEach((row, index) => {
-      const direction = index % 2 === 0 ? 0 : -25;
+      const direction = index % 2 === 0 ? 0 : (25 * (this.anchorLeft ? -1 : 1));
       tl.to(row, {
         xPercent: direction,
         duration: 20,
