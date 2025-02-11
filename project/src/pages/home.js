@@ -8,7 +8,10 @@ onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
   new ThreeDSlider('process-slider');
   new TextAnimateSections([
-    'first-reveal',
+    {
+      id: 'first-reveal',
+      handleResizeOnMobile: false
+    },
     'home-model-reveal',
     'benefit-header-reveal',
     'bci-0', 'bci-1', 'bci-2',

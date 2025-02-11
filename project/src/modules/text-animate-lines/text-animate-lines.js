@@ -17,6 +17,7 @@ export default class TextAnimateLines {
         ...options.scrollTrigger
       },
       gsap : { ease: 'power4.out' },
+      handleResizeOnMobile: true,
       ...options
     };
     
@@ -33,7 +34,12 @@ export default class TextAnimateLines {
     this.setInitialStyles();
     this.splitRevealElements();
     this.createScrollTriggerAnimation();
-    window.addEventListener('resize', this.handleResize);
+
+    if (this.options.handleResizeOnMobile && window.innerWidth < 768) {
+      window.addEventListener('resize', this.handleResize);
+    } else {
+      window.addEventListener('resize', this.handleResize);
+    }
   }
 
   setInitialStyles() {

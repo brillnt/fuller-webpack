@@ -6,6 +6,11 @@ export default class SwipeMediaBlock {
   constructor(elementId) {
     if (!elementId) return;
 
+    // don't run on mobile
+    if (window.innerWidth < 768) {
+      return;
+    }
+
     this.container = selectId(elementId);
     this.mediaWrapper = this.container.querySelector('.swipe-media');
     this.mediaFirst = this.mediaWrapper.querySelector('.sc-media:nth-child(1)');
@@ -95,17 +100,7 @@ export default class SwipeMediaBlock {
       },
       scrollTrigger: {
         ...scrollTrigger,
-        onEnter: () => {
-          console.log(`We scrolled down to the start`);
-        },
-        onLeave: () => {
-          console.log(`We scrolled down past the end`);
-        },
-        onEnterBack: () => {
-          console.log(`We scrolled back up to the end`);
-        },
         onLeaveBack: () => {
-          console.log(`We scrolled back to the top`);
           this.hideFirstHint();
           this.hasReachedFirst = false;
         }
