@@ -1,4 +1,4 @@
-import { onReady } from '../utils/helpers.js';
+import { onReady, init_array } from '../utils/helpers.js';
 import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import SwipeMediaBlock from '../modules/swipe-media-block/swipe-media-block.js';
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
@@ -9,9 +9,8 @@ import ConnectingLine from '../modules/connecting-line/connecting-line.js';
 onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
   new ThreeDSlider('process-slider');
-  // new ConnectingLine(
-  //   '.benefits-content .bc-list .bc-item:nth-child(1) .bci-media', 
-  //   '.benefits-content .bc-list .bc-item:nth-child(2) .bci-media'
+  // const connectline = new ConnectingLine(
+  //   init_array(2, i => `.benefits-content .bc-list .bc-item:nth-child(${i+1}) .bci-media`)
   // );
   new TextAnimateSections([
     'first-reveal',

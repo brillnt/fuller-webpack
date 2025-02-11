@@ -29,12 +29,12 @@
   --brand-gray--50: #bfc0c080;
   --brand-gray--10: #bfc0c01a;
   --_spacing---home-model-grid: 1.1rem;
+  --brand-white--50: #f4f7f580;
   --dark-gray--25: #26262640;
   --dark-gray: #262626;
   --brand-white--70: #f4f7f5b3;
   --dark-gray--75: #262626bf;
   --_spacing---container--2-column-space: 6rem;
-  --brand-white--50: #f4f7f580;
   --brand-gray--75: #bfc0c0bf;
   --pitch-black--50: #00000080;
 }
@@ -155,6 +155,7 @@ img {
   object-fit: cover;
   width: 100%;
   max-width: 100%;
+  height: 100%;
   display: inline-block;
 }
 
@@ -791,7 +792,9 @@ label {
 
 .hgb-item {
   aspect-ratio: 4 / 5;
+  border: 1px solid var(--brand-white--50);
   width: 100%;
+  position: relative;
 }
 
 .transition-section {
@@ -1394,6 +1397,69 @@ label {
   color: var(--brand-white--50);
 }
 
+.grid-video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0%;
+}
+
+.grid-video.video-grayscale {
+  opacity: .49;
+  filter: grayscale();
+}
+
+.config-content {
+  grid-column-gap: 4rem;
+  grid-row-gap: 4rem;
+  grid-template-rows: auto;
+  grid-template-columns: minmax(0, 1fr) 1fr;
+  grid-auto-columns: 1fr;
+  display: grid;
+}
+
+.config-header {
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-right: 3rem;
+  display: flex;
+}
+
+.config-blocks {
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
+  grid-auto-columns: 1fr;
+  display: grid;
+}
+
+.config-block {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  padding-right: 2.5rem;
+  display: flex;
+  position: relative;
+}
+
+.two-path-block-copy {
+  background-color: var(--brand-black);
+  padding: 2.5rem;
+  position: relative;
+}
+
+.cb-icon {
+  flex: none;
+  width: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.image-inverted {
+  filter: invert();
+}
+
 @media screen and (max-width: 991px) {
   body {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-68eb0ec5-c292-8e30-c851-232852445963;
@@ -1499,6 +1565,14 @@ label {
 
   .sc-block-content {
     padding-right: 1rem;
+  }
+
+  .config-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cb-icon {
+    width: 3rem;
   }
 }
 
@@ -1663,6 +1737,10 @@ label {
 
   .hgb-grid {
     align-items: flex-start;
+  }
+
+  .hgb-fade {
+    background-image: linear-gradient(#00000017, #000 47%);
   }
 
   .tds-indicators {

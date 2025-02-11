@@ -26,3 +26,4 @@ export const onReady = (fn) => {
 };
 
 export const pick = (haystack, needles) => needles.reduce((found, needle) => (haystack.hasOwnProperty(needle) && (found[needle] = haystack[needle]), found), {});
+export const init_array = (n, fn) => Array.from({ length: n }, (_, i) => fn(i));
