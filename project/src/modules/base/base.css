@@ -63,3 +63,11 @@
 .input-wrap:has(:focus) label.input-label{
   color: var(--serenity-green);  
 }
+
+
+@media screen and (max-width: 768px) {
+  .hero-section .media-background.mb--svg > .w-embed {
+    width: 100%;
+    height: 100%;
+  }
+} 

@@ -1553,6 +1553,10 @@ label {
   opacity: .4;
 }
 
+.media-background.mb--svg {
+  overflow: hidden;
+}
+
 .basic-text-content {
   flex-flow: column;
   justify-content: center;
