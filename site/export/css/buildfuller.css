@@ -35,6 +35,7 @@
   --brand-white--70: #f4f7f5b3;
   --dark-gray--75: #262626bf;
   --_spacing---container--2-column-space: 6rem;
+  --deep-serenity: #151819;
   --brand-gray--75: #bfc0c0bf;
   --pitch-black--50: #00000080;
 }
@@ -1410,6 +1411,11 @@ label {
   filter: grayscale();
 }
 
+.configurator-section {
+  background-color: var(--deep-serenity);
+  background-image: radial-gradient(circle farthest-side at 0% 100%, #1f292a, var(--brand-black));
+}
+
 .config-content {
   grid-column-gap: 4rem;
   grid-row-gap: 4rem;
@@ -1458,6 +1464,57 @@ label {
 
 .image-inverted {
   filter: invert();
+}
+
+.supply-chain-section {
+  height: 100vh;
+}
+
+.spc-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.spc-copy {
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  display: flex;
+}
+
+.spc-blocks {
+  background-color: var(--brand-black);
+  width: 100%;
+  overflow: hidden;
+}
+
+.spc-copy-container {
+  padding-right: var(--_spacing---container--padding);
+  padding-left: var(--_spacing---container--padding);
+  width: 640px;
+}
+
+.spc-block-window {
+  grid-column-gap: 4rem;
+  grid-row-gap: 4rem;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+}
+
+.spc-block-row {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  display: flex;
+}
+
+.spc-block-item {
+  max-width: 200px;
 }
 
 @media screen and (max-width: 991px) {
@@ -1573,6 +1630,34 @@ label {
 
   .cb-icon {
     width: 3rem;
+  }
+
+  .supply-chain-section {
+    height: auto;
+  }
+
+  .spc-content {
+    flex-flow: column;
+  }
+
+  .spc-copy {
+    padding: var(--_spacing---container--v-space) var(--_spacing---container--padding) 4rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spc-blocks {
+    height: 600px;
+  }
+
+  .spc-copy-container {
+    width: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .spc-block-window {
+    width: 200vw;
   }
 }
 
@@ -1821,6 +1906,10 @@ label {
 
   .sc-block-content {
     padding-right: 0;
+  }
+
+  .sc-block-content.scbc--left {
+    padding-left: 0;
   }
 
   .contact-content {

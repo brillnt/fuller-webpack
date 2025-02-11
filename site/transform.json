@@ -72,6 +72,41 @@
     ],
     "inject": {}
   },
+  "export/systems.html": {
+    "replace": [
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/systems.bundle.min.js",
+        "replace": "brillnt/js/systems.bundle.min.js"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/systems.min.css",
+        "replace": "brillnt/css/systems.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      }
+    ],
+    "inject": {}
+  },
   "export/typography.html": {
     "replace": [
       {

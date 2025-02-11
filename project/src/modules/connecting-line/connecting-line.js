@@ -1,4 +1,7 @@
 import { select } from '../../utils/helpers.js';
+  // const connectline = new ConnectingLine(
+  //   init_array(2, i => `.benefits-content .bc-list .bc-item:nth-child(${i+1}) .bci-media`)
+  // );
 
 export default class ConnectingLine {
   constructor(elements, options = {}) {

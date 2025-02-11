@@ -3,15 +3,10 @@ import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import SwipeMediaBlock from '../modules/swipe-media-block/swipe-media-block.js';
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
 import SimpleImageSlider from '../modules/simple-image-slider/simple-image-slider.js';
-import ConnectingLine from '../modules/connecting-line/connecting-line.js';
-
 
 onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
   new ThreeDSlider('process-slider');
-  // const connectline = new ConnectingLine(
-  //   init_array(2, i => `.benefits-content .bc-list .bc-item:nth-child(${i+1}) .bci-media`)
-  // );
   new TextAnimateSections([
     'first-reveal',
     'home-model-reveal',

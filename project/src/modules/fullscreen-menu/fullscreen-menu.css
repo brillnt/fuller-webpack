@@ -67,7 +67,7 @@
   color: transparent;
   background-image: linear-gradient(
     to right,
-    var(--serenity-accent) 50%,
+    var(--serenity-green) 50%,
     var(--brand-white) 50%
   );
   
