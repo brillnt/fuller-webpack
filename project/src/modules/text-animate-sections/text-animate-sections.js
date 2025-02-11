@@ -4,6 +4,10 @@ export default class TextAnimateSections {
   constructor(sections) {
     if (!Array.isArray(sections) || sections.length === 0) return;
 
+    if (window.innerWidth < 768) {
+      return;
+    }
+
     this.sections = sections;
     this.init();
   }
