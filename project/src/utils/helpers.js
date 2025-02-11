@@ -24,3 +24,5 @@ export const onReady = (fn) => {
     document.addEventListener('DOMContentLoaded', fn);
   }
 };
+
+export const pick = (haystack, needles) => needles.reduce((found, needle) => (haystack.hasOwnProperty(needle) && (found[needle] = haystack[needle]), found), {});

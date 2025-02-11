@@ -1,30 +1,29 @@
-import { select, selectId } from '../../utils/helpers.js';
+import { selectId } from '../../utils/helpers.js';
 import { gsap, SplitType } from '../../utils/animation.js';
+
+const TEXT_REVEAL_SELECTOR = '[data-reveal]';
 
 export default class TextAnimateLines {
   constructor(elementId, options = {}) {
+    // console.log(`TextAnimateLines called with elementId: ${elementId}`);
+    this.elementId = elementId;
     this.container = selectId(elementId);
     this.options = {
       types: 'lines',
       scrollTrigger: {
         trigger: this.container,
-        start: "top 60%",
+        start: "top 80%",
         once: true,
         ...options.scrollTrigger
       },
+      gsap : { ease: 'power4.out' },
       ...options
     };
     
-    // Store all SplitType instances
     this.splitInstances = [];
-    
-    // Store ScrollTrigger instance
     this.scrollTrigger = null;
+    this.allLinesCopy = [];
     
-    // Store all lines in order
-    this.allLines = [];
-    
-    // Bind methods
     this.handleResize = this.handleResize.bind(this);
     
     this.init();
@@ -43,41 +42,77 @@ export default class TextAnimateLines {
       styleSheet.id = 'text-animate-lines-styles';
       styleSheet.textContent = `
         .line {
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
           overflow: hidden;
+        }
+        .line__copy {
+          transform: translateY(100%);
+        }
+        .line__copy span {
+          display: inline;
         }
       `;
       document.head.appendChild(styleSheet);
     }
   }
 
+  wrapLineContents() {
+    this.allLinesCopy = [];
+    
+    this.splitInstances.forEach((instance) => {
+      if (instance.lines) {
+        instance.lines.forEach((line, lineIndex) => {
+          // fix trailing periods...
+          if (line.textContent.trim() === '.' && lineIndex > 0) {
+            const previousCopyWrapper = this.allLinesCopy[this.allLinesCopy.length - 1];
+            if (previousCopyWrapper) {
+              const span = document.createElement('span');
+              span.textContent = '.';
+              previousCopyWrapper.appendChild(span);
+
+              // hide original line
+              line.style = 'display: none;';
+            }
+          } else {
+            // Create wrapper for line content
+            const copyWrapper = document.createElement('div');
+            copyWrapper.className = 'line__copy';
+
+            // Move line's content into wrapper
+            while (line.firstChild) {
+              line.firstChild.style = '';
+              copyWrapper.appendChild(line.firstChild);
+            }
+            
+            // Add wrapper back to line
+            line.appendChild(copyWrapper);
+            
+            // Store reference to copy wrapper
+            this.allLinesCopy.push(copyWrapper);
+          }
+        });
+      }
+    });
+  }
+
   splitRevealElements() {
     // Clear previous instances
     this.splitInstances.forEach(instance => instance.revert());
     this.splitInstances = [];
-    this.allLines = [];
+    this.allLinesCopy = [];
 
-    // Find all elements with data-reveal="true"
-    const revealElements = this.container.querySelectorAll('[data-reveal]');
+    // [data-reveal] elements
+    const revealElements = this.container.querySelectorAll(TEXT_REVEAL_SELECTOR);
     
-    // Process each reveal element in DOM order
     revealElements.forEach(element => {
       const splitInstance = new SplitType(element, {
         types: this.options.types
       });
       
       this.splitInstances.push(splitInstance);
-      
-      // Add lines from this instance to our ordered collection
-      if (splitInstance.lines) {
-        this.allLines.push(...splitInstance.lines);
-      }
     });
 
-    // Set initial state for all lines
-    gsap.set(this.allLines, {
-      yPercent: 100,
-      opacity: 0
-    });
+    this.wrapLineContents();
   }
 
   createScrollTriggerAnimation() {
@@ -90,6 +125,7 @@ export default class TextAnimateLines {
       scrollTrigger: {
         ...this.options.scrollTrigger,
         onEnter: () => {
+          // console.log('onEnter', this.elementId);
           if (typeof this.options?.onEnter === 'function') {
             this.options.onEnter();
           }
@@ -102,13 +138,14 @@ export default class TextAnimateLines {
       }
     });
 
-    // Animate all lines in sequence
-    tl.to(this.allLines, {
-      duration: 1,
-      yPercent: 0,
-      opacity: 1,
-      stagger: 0.2,
-      ease: "expo.out"
+    // Animate all line contents in sequence
+    // console.log(this.allLinesCopy);
+    tl.to(this.allLinesCopy, {
+      duration: 1.2,
+      y: 0,
+      stagger: 0.1,
+      ease: "expo.out",
+      ...this.options.gsap
     });
 
     // Store the ScrollTrigger instance
@@ -116,15 +153,11 @@ export default class TextAnimateLines {
   }
 
   handleResize() {
-    // Kill existing ScrollTrigger
     if (this.scrollTrigger) {
       this.scrollTrigger.kill();
     }
 
-    // Re-split all text elements
     this.splitRevealElements();
-    
-    // Create new scroll-triggered animation
     this.createScrollTriggerAnimation();
   }
 
@@ -133,34 +166,27 @@ export default class TextAnimateLines {
       this.scrollTrigger.kill();
     }
 
-    gsap.set(this.allLines, {
-      yPercent: 50,
-      opacity: 0
+    gsap.set(this.allLinesCopy, {
+      yPercent: 100
     });
 
     this.createScrollTriggerAnimation();
   }
 
   destroy() {
-    // Kill ScrollTrigger
     if (this.scrollTrigger) {
       this.scrollTrigger.kill();
     }
 
-    // Kill any active GSAP animations
-    gsap.killTweensOf(this.allLines);
+    gsap.killTweensOf(this.allLinesCopy);
     
-    // Revert all split instances
     this.splitInstances.forEach(instance => instance.revert());
     
-    // Remove resize listener
     window.removeEventListener('resize', this.handleResize);
     
-    // Clear arrays
     this.splitInstances = [];
-    this.allLines = [];
+    this.allLinesCopy = [];
     
-    // Remove style tag if no other instances exist
     if (document.querySelectorAll('.line').length === 0) {
       const styleTag = document.querySelector('#text-animate-lines-styles');
       if (styleTag) {

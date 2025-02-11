@@ -1,11 +1,34 @@
 import { onReady } from '../utils/helpers.js';
 import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import SwipeMediaBlock from '../modules/swipe-media-block/swipe-media-block.js';
-import TextAnimateLines from '../modules/text-animate-lines/text-animate-lines.js';
+import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
+import SimpleImageSlider from '../modules/simple-image-slider/simple-image-slider.js';
 
 
 onReady(() => {
+  const swiper = new SwipeMediaBlock('home-learn');
   new ThreeDSlider('process-slider');
-  new SwipeMediaBlock('home-learn');
-  new TextAnimateLines('first-reveal');
+  new TextAnimateSections([
+    'first-reveal',
+    'home-model-reveal',
+    {
+      id: 'swipe-copy-1',
+      gsap: { delay: 0.5 },
+      scrollTrigger: {
+        trigger: swiper.container,
+        start: '0% top',
+        toggleActions: 'play reverse play reverse',
+      },
+    },
+    {
+      id: 'swipe-copy-2',
+      gsap: { delay: 0.5 },
+      scrollTrigger: {
+        trigger: swiper.container,
+        start: '50% top',
+        toggleActions: 'play reverse play reverse',
+      },
+    }
+  ]);
+  new SimpleImageSlider('.benefits-content .bc-list .bc-item:nth-child(1) .bci-media');
 });
