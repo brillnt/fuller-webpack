@@ -2042,6 +2042,10 @@ label {
   .contact-content {
     flex-flow: column;
   }
+
+  .cc-copy {
+    border-left-width: 0;
+  }
 }
 
 @media screen and (max-width: 479px) {
