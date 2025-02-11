@@ -1467,7 +1467,9 @@ label {
 }
 
 .supply-chain-section {
+  border-top: 1px solid var(--brand-gray--50);
   height: 100vh;
+  min-height: 800px;
 }
 
 .spc-content {
@@ -1477,6 +1479,7 @@ label {
 }
 
 .spc-copy {
+  border-right: 1px solid var(--brand-gray--50);
   flex-flow: column;
   justify-content: center;
   align-items: flex-end;
@@ -1485,7 +1488,6 @@ label {
 }
 
 .spc-blocks {
-  background-color: var(--brand-black);
   width: 100%;
   overflow: hidden;
 }
@@ -1634,6 +1636,7 @@ label {
 
   .supply-chain-section {
     height: auto;
+    min-height: 0;
   }
 
   .spc-content {
@@ -1642,6 +1645,9 @@ label {
 
   .spc-copy {
     padding: var(--_spacing---container--v-space) var(--_spacing---container--padding) 4rem;
+    border-bottom: 1px solid var(--brand-white--50);
+    border-right-style: none;
+    border-right-width: 0;
     justify-content: center;
     align-items: center;
   }
