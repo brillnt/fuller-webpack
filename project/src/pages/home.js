@@ -20,7 +20,7 @@ onReady(() => {
       gsap: { delay: 0.5 },
       scrollTrigger: {
         trigger: swiper.container,
-        start: '0% top',
+        start: 'top 75%',
         toggleActions: 'play reverse play reverse',
       },
     },

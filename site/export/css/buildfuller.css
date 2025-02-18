@@ -734,7 +734,8 @@ label {
 }
 
 .explore-models-section {
-  border-top: 1px solid var(--dark-gray--50);
+  border-top: 1px solid var(--brand-gray--50);
+  border-bottom: 1px solid var(--brand-gray--50);
   background-color: var(--pitch-black);
   flex-flow: column;
   justify-content: center;
@@ -1610,6 +1611,26 @@ label {
 
 .cc-block-item {
   max-width: 100px;
+}
+
+.success {
+  background-color: var(--serenity-green);
+}
+
+.success-txt {
+  color: var(--brand-black);
+  font-weight: 500;
+}
+
+.error-message {
+  background-color: var(--muted-salmon);
+  color: var(--brand-black);
+  margin-top: 2rem;
+}
+
+.error-txt {
+  text-align: center;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 991px) {

@@ -89,7 +89,7 @@ export default class SwipeMediaBlock {
   }
 
   firstTrigger() {
-    const scrollTrigger = { trigger: this.container, start: 'top 0%', end: '50% top', toggleActions: 'play none none reset' };
+    const scrollTrigger = { trigger: this.container, start: 'top 75%', end: '50% top', toggleActions: 'play none none reverse' };
 
     // reveal first image
     gsap.to(this.mediaFirst, {
