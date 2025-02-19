@@ -29,12 +29,12 @@
   --brand-gray--50: #bfc0c080;
   --brand-gray--10: #bfc0c01a;
   --_spacing---home-model-grid: 1.1rem;
-  --brand-white--50: #f4f7f580;
   --dark-gray--25: #26262640;
   --dark-gray: #262626;
   --brand-white--70: #f4f7f5b3;
   --dark-gray--75: #262626bf;
   --_spacing---container--2-column-space: 6rem;
+  --brand-white--50: #f4f7f580;
   --deep-serenity: #151819;
   --brand-gray--75: #bfc0c0bf;
   --pitch-black--50: #00000080;
@@ -773,7 +773,7 @@ label {
 
 .hgb-fade {
   z-index: 2;
-  background-image: linear-gradient(90deg, #00000017 24%, #000 66%);
+  background-image: linear-gradient(90deg, #00000017 15%, #000 44%);
   position: absolute;
   inset: 0%;
 }
@@ -800,7 +800,7 @@ label {
 
 .hgb-item {
   aspect-ratio: 4 / 5;
-  border: 1px solid var(--brand-white--50);
+  border: 1px solid #0000;
   width: 100%;
   position: relative;
 }
@@ -1637,21 +1637,21 @@ label {
   body {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-68eb0ec5-c292-8e30-c851-232852445963;
     ---mode--collection-7dec5aba-7ba5-9caf-7a02-bf4cdc645827: mode-12a0614f-60e6-7a2c-835d-fc2bb9410959;
-    --_typography---h1: 4rem;
-    --_typography---h2: 3.25rem;
-    --_typography---h3: 1.75rem;
+    --_typography---h1: 3.5rem;
+    --_typography---h2: 3rem;
+    --_typography---h3: 1.66rem;
     --_typography---h4: .939rem;
-    --_typography---p--regular: 1rem;
-    --_typography---p--small: .75rem;
-    --_typography---p--smaller: .66rem;
+    --_typography---p--regular: .875rem;
+    --_typography---p--small: .7rem;
+    --_typography---p--smaller: .6rem;
     --_typography---p--big: 1.25rem;
     --_typography---p--bigger: 1.618rem;
-    --_typography---h2--alt-small: 2.47rem;
+    --_typography---h2--alt-small: 1.54rem;
     --_spacing---container--width: 1280px;
     --_spacing---container--v-space: 7rem;
     --_spacing---container--padding: 4rem;
     --_spacing---home-model-grid: 1.1rem;
-    --_spacing---container--2-column-space: 6rem;
+    --_spacing---container--2-column-space: 3rem;
   }
 
   .p-small.p-eyebrow-footer {
@@ -1813,21 +1813,21 @@ label {
   body {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-4be4314e-28be-59bd-b315-6d8f28a86445;
     ---mode--collection-7dec5aba-7ba5-9caf-7a02-bf4cdc645827: mode-a6756f41-9108-12a8-72b7-d22264272569;
-    --_typography---h1: 4rem;
-    --_typography---h2: 3.25rem;
-    --_typography---h3: 1.75rem;
+    --_typography---h1: 3rem;
+    --_typography---h2: 1.85rem;
+    --_typography---h3: 1.52rem;
     --_typography---h4: .939rem;
     --_typography---p--regular: 1rem;
     --_typography---p--small: .75rem;
     --_typography---p--smaller: .66rem;
     --_typography---p--big: 1.25rem;
     --_typography---p--bigger: 1.618rem;
-    --_typography---h2--alt-small: 2.47rem;
+    --_typography---h2--alt-small: 1.85rem;
     --_spacing---container--width: 1280px;
-    --_spacing---container--v-space: 7rem;
-    --_spacing---container--padding: 4rem;
-    --_spacing---home-model-grid: 1.1rem;
-    --_spacing---container--2-column-space: 6rem;
+    --_spacing---container--v-space: 5rem;
+    --_spacing---container--padding: 3rem;
+    --_spacing---home-model-grid: .6rem;
+    --_spacing---container--2-column-space: 3rem;
   }
 
   img {
@@ -1973,7 +1973,7 @@ label {
   }
 
   .hgb-fade {
-    background-image: linear-gradient(#00000017, #000 47%);
+    background-image: linear-gradient(#00000017, #000 38%);
   }
 
   .tds-indicators {
@@ -2073,21 +2073,21 @@ label {
   body {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-3ae099cd-e068-2ac9-7473-d1ba8b144827;
     ---mode--collection-7dec5aba-7ba5-9caf-7a02-bf4cdc645827: mode-a2f04b76-7cbe-d9ec-2fb4-452be6de54d7;
-    --_typography---h1: 4rem;
-    --_typography---h2: 3.25rem;
-    --_typography---h3: 1.75rem;
+    --_typography---h1: 2.5rem;
+    --_typography---h2: 1.54rem;
+    --_typography---h3: 1.25rem;
     --_typography---h4: .939rem;
-    --_typography---p--regular: 1rem;
+    --_typography---p--regular: .8rem;
     --_typography---p--small: .75rem;
     --_typography---p--smaller: .66rem;
     --_typography---p--big: 1.25rem;
     --_typography---p--bigger: 1.618rem;
-    --_typography---h2--alt-small: 2.47rem;
+    --_typography---h2--alt-small: 1.54rem;
     --_spacing---container--width: 1280px;
-    --_spacing---container--v-space: 7rem;
-    --_spacing---container--padding: 4rem;
-    --_spacing---home-model-grid: 1.1rem;
-    --_spacing---container--2-column-space: 6rem;
+    --_spacing---container--v-space: 4rem;
+    --_spacing---container--padding: 2rem;
+    --_spacing---home-model-grid: .3rem;
+    --_spacing---container--2-column-space: 3rem;
   }
 
   .container {
@@ -2105,6 +2105,10 @@ label {
   .button {
     min-width: 220px;
     font-size: .75rem;
+  }
+
+  .hgb-fade {
+    background-image: linear-gradient(#00000017, #000 32%);
   }
 
   .mfs-content, .mfs-contact-content {

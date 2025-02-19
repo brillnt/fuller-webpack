@@ -32,10 +32,7 @@
         "replace": "brillnt/css/base.min.css"
       }
     ],
-    "inject": {
-      ".tds-slides": "content/tds-slide-list.html",
-      ".tds-indicators": "content/tds-indicators.html"
-    }
+    "inject": {}
   },
   "export/product.html": {
     "replace": [
@@ -70,7 +67,10 @@
         "replace": "brillnt/css/base.min.css"
       }
     ],
-    "inject": {}
+    "inject": {
+      ".tds-slides": "content/tds-slide-list.html",
+      ".tds-indicators": "content/tds-indicators.html"
+    }
   },
   "export/systems.html": {
     "replace": [

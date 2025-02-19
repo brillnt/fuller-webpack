@@ -1,6 +1,7 @@
 import { onReady, selectAll,  isMobile } from '../utils/helpers.js';
 import FullerAngleWatcher from '../modules/fuller-angle-watcher/fuller-angle-watcher.js';
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
+import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import { gsap } from '../utils/animation.js';
 
 
@@ -10,6 +11,7 @@ onReady(() => {
 
   const fullerCards = selectAll('.card-row .card');
   const twoPathCards = selectAll('.two-path-blocks .two-path-block');
+  new ThreeDSlider('process-slider');
 
   if (!isMobile()) {
     console.log('not mobile');

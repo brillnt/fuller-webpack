@@ -1,12 +1,10 @@
 import { onReady, init_array } from '../utils/helpers.js';
-import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import SwipeMediaBlock from '../modules/swipe-media-block/swipe-media-block.js';
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
 import SimpleImageSlider from '../modules/simple-image-slider/simple-image-slider.js';
 
 onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
-  new ThreeDSlider('process-slider');
   new TextAnimateSections([
     {
       id: 'first-reveal',
