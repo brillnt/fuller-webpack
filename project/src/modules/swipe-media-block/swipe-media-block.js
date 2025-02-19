@@ -89,7 +89,7 @@ export default class SwipeMediaBlock {
   }
 
   firstTrigger() {
-    const scrollTrigger = { trigger: this.container, start: 'top 75%', end: '50% top', toggleActions: 'play none none reverse' };
+    const scrollTrigger = { trigger: this.container, start: 'top 75%', toggleActions: 'play none none reverse' };
 
     // reveal first image
     gsap.to(this.mediaFirst, {
@@ -109,7 +109,7 @@ export default class SwipeMediaBlock {
   }
 
   secondTrigger() {
-    const scrollTrigger = { trigger: this.container, start: '50% top', toggleActions: 'play reverse play reverse' };
+    const scrollTrigger = { trigger: this.container, start: '25% top', toggleActions: 'play none none reverse' };
 
     // swipe image container to the right
     gsap.to(this.mediaWrapper, {

@@ -17,7 +17,6 @@ onReady(() => {
     'bci-0', 'bci-1', 'bci-2',
     {
       id: 'swipe-copy-1',
-      gsap: { delay: 0.5 },
       scrollTrigger: {
         trigger: swiper.container,
         start: 'top 75%',
@@ -26,10 +25,9 @@ onReady(() => {
     },
     {
       id: 'swipe-copy-2',
-      gsap: { delay: 0.5 },
       scrollTrigger: {
         trigger: swiper.container,
-        start: '50% top',
+        start: '25% top',
         toggleActions: 'play reverse play reverse',
       },
     }
