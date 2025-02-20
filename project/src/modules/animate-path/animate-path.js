@@ -78,6 +78,7 @@ export default class AnimatePath {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            console.log(`animating ${entry.target.id}`);
             // Find the corresponding element in elementsToAnimate
             const animationData = this.elementsToAnimate.find(item => item.element === entry.target);
 
@@ -102,7 +103,7 @@ export default class AnimatePath {
       {
         root: null,
         rootMargin: "0px",
-        threshold: threshold // Use calculated threshold
+        threshold: 0.5 // Use calculated threshold
       }
     );
 

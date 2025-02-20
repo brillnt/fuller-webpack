@@ -2,7 +2,8 @@ import { onReady, init_array } from '../utils/helpers.js';
 import SwipeMediaBlock from '../modules/swipe-media-block/swipe-media-block.js';
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
 import SimpleImageSlider from '../modules/simple-image-slider/simple-image-slider.js';
-import AnimatePath from '../modules/animate-path/animate-path.js';
+// import AnimatePath from '../modules/animate-path/animate-path.js';
+import ConnectingLine from '../modules/connecting-line/connecting-line.js';
 
 onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
@@ -32,12 +33,13 @@ onReady(() => {
     }
   ]);
   new SimpleImageSlider('.benefits-content .bc-list .bc-item:nth-child(1) .bci-media');
-  new AnimatePath('fuller-hero-brandmark');
-  new AnimatePath('abstract-line-0');
-  new AnimatePath('abstract-line-1');
-  new AnimatePath('abstract-line-2');
-  new AnimatePath('abstract-line-3');
-  new AnimatePath('abstract-line-4');
-  new AnimatePath('abstract-line-5');
-  new AnimatePath('abstract-line-6');
+  new ConnectingLine('fuller-hero-brandmark');
+  new ConnectingLine('abstract-line-0');
+  new ConnectingLine('abstract-line-1');
+  new ConnectingLine('abstract-line-2');
+  new ConnectingLine('abstract-line-3');
+  new ConnectingLine('abstract-line-4');
+  new ConnectingLine('abstract-line-5');
+  new ConnectingLine('abstract-line-6');
+  // new AnimatePath('hero-abstract', { delay: 5 });
 });

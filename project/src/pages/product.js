@@ -14,9 +14,9 @@ onReady(() => {
   const twoPathCards = selectAll('.two-path-blocks .two-path-block');
   new ThreeDSlider('process-slider');
 
-  new AnimatePath('house-pencil-icon', { duration: 1, delay: 5 });
-  new AnimatePath('color-picker-icon', { duration: 1, delay: 5 });
-  new AnimatePath('engineer-icon', { duration: 1, delay: 5 });
+  new AnimatePath('house-pencil-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
+  new AnimatePath('color-picker-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
+  new AnimatePath('engineer-icon', { duration: 2, delay: 10, viewportThreshold: 0.8  });
 
   if (!isMobile()) {
     console.log('not mobile');
