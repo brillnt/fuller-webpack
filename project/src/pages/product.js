@@ -3,6 +3,7 @@ import FullerAngleWatcher from '../modules/fuller-angle-watcher/fuller-angle-wat
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
 import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import { gsap } from '../utils/animation.js';
+import AnimatePath from '../modules/animate-path/animate-path.js';
 
 
 onReady(() => {
@@ -12,6 +13,10 @@ onReady(() => {
   const fullerCards = selectAll('.card-row .card');
   const twoPathCards = selectAll('.two-path-blocks .two-path-block');
   new ThreeDSlider('process-slider');
+
+  new AnimatePath('house-pencil-icon', { duration: 1, delay: 5 });
+  new AnimatePath('color-picker-icon', { duration: 1, delay: 5 });
+  new AnimatePath('engineer-icon', { duration: 1, delay: 5 });
 
   if (!isMobile()) {
     console.log('not mobile');
