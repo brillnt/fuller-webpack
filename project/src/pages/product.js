@@ -7,7 +7,7 @@ import AnimatePath from '../modules/animate-path/animate-path.js';
 
 
 onReady(() => {
-  new FullerAngleWatcher('.card, .two-path-block');
+  new FullerAngleWatcher('.card, .two-path-block, .fuller-gallery-control');
   new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'home-os', 'prototype-section', 'future-section']);
 
   const fullerCards = selectAll('.card-row .card');
@@ -33,7 +33,7 @@ onReady(() => {
 
   if (!isMobile()) {
     console.log('not mobile');
-    new FullerAngleWatcher('.fuller-gallery-control');
+    // new FullerAngleWatcher('.fuller-gallery-control');
     gsap.set(fullerCards, { x: -20, opacity: 0 });
     gsap.set(twoPathCards, { y: 20, opacity: 0 });
 

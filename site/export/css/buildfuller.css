@@ -2249,6 +2249,12 @@ label {
     grid-template-columns: 1fr;
   }
 
+  .fuller-gallery {
+    aspect-ratio: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
   .fuller-gallery-controls {
     grid-column-gap: 1rem;
     grid-row-gap: 1rem;
@@ -2258,15 +2264,21 @@ label {
   }
 
   .fuller-gallery-control {
-    height: 2.5rem;
+    height: 3.5rem;
+  }
+
+  .fuller-gallery__item {
+    overflow: visible;
   }
 
   .fuller-gallery__image-meta {
-    width: 35%;
+    width: 100%;
+    height: 150px;
+    position: static;
   }
 
   .fuller-gallery__image {
-    right: 22%;
+    right: auto;
   }
 }
 
@@ -2326,10 +2338,6 @@ label {
     grid-column-gap: 1rem;
     grid-row-gap: 1rem;
     justify-content: center;
-  }
-
-  .fuller-gallery-control {
-    height: 31rem;
   }
 }
 
