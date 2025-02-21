@@ -30,16 +30,30 @@ export default class AnimatePath {
     if (tagName === 'svg') {
       // Find animatable children within SVG
       const children = Array.from(this.element.querySelectorAll('path, line, rect, circle'));
-      this.elementsToAnimate = children.map((child, index) => ({
-        element: child,
-        pathLength: this.getLength(child),
-        delay: this.options.delay + (this.options.stagger * index) // Stagger delay
-      }));
+      this.elementsToAnimate = children.map((child, index) => {
+        const pathLength = this.getLength(child);
+        // SETUP STYLES HERE
+        child.style.transition = child.style.WebkitTransition = 'none';
+        child.style.strokeDasharray = pathLength + ' ' + pathLength;
+        child.style.strokeDashoffset = pathLength;
+
+        return {
+          element: child,
+          pathLength: pathLength,
+          delay: this.options.delay + (this.options.stagger * index) // Stagger delay
+        }
+      });
     } else if (['path', 'line', 'rect', 'circle'].includes(tagName)) {
       // Animate single element
+      const pathLength = this.getLength(this.element);
+      // SETUP STYLES HERE
+      this.element.style.transition = this.element.style.WebkitTransition = 'none';
+      this.element.style.strokeDasharray = pathLength + ' ' + pathLength;
+      this.element.style.strokeDashoffset = pathLength;
+
       this.elementsToAnimate = [{
         element: this.element,
-        pathLength: this.getLength(this.element),
+        pathLength: pathLength,
         delay: this.options.delay
       }];
     }
@@ -72,7 +86,7 @@ export default class AnimatePath {
   }
 
   init() {
-    const threshold = 1 - (this.options.viewportThreshold / 100); // Calculate threshold
+    // const threshold = 1 - (this.options.viewportThreshold / 100); // Calculate threshold
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -85,12 +99,9 @@ export default class AnimatePath {
             if (animationData) {
               const { element, pathLength, delay } = animationData;
 
-              element.style.transition = element.style.WebkitTransition = 'none';
-              element.style.strokeDasharray = pathLength + ' ' + pathLength;
-              element.style.strokeDashoffset = pathLength;
               element.getBoundingClientRect(); // Trigger reflow
 
-              // Apply delay and easing
+              // Apply delay and easing and START animation
               element.style.transition = element.style.WebkitTransition =
                 `stroke-dashoffset ${this.options.duration}s ${this.options.easing} ${delay}ms`; // Apply delay and easing
               element.style.strokeDashoffset = '0';

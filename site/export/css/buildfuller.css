@@ -688,7 +688,7 @@ label {
 }
 
 .benefits-section {
-  background-color: var(--brand-black--darker);
+  background-color: var(--brand-black);
 }
 
 .benefits-content {
@@ -718,6 +718,8 @@ label {
 .bci-media {
   aspect-ratio: 1;
   border: 1px solid var(--brand-gray--25);
+  background-color: var(--serenity-green);
+  color: var(--brand-white);
   height: 320px;
 }
 
@@ -817,7 +819,6 @@ label {
 
 .word-slot-section {
   height: 300vh;
-  display: none;
 }
 
 .ws-content {

@@ -1,0 +1,15 @@
+.bci-media .w-embed {
+  width: 100%;
+  height: 100%;
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bci-media .w-embed svg {
+  width: 100%;
+  height: 100%;
+  max-width: 7rem;
+  color: var(--stark-white);
+}
