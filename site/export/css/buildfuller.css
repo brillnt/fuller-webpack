@@ -392,7 +392,7 @@ label {
 }
 
 .hero-section {
-  border-bottom: 1px solid var(--brand-gray--25);
+  border-bottom: 1px none var(--brand-gray--25);
   background-color: var(--brand-black--darker);
   height: 100vh;
   min-height: 750px;
@@ -708,6 +708,8 @@ label {
 .bc-item {
   grid-column-gap: 4rem;
   grid-row-gap: 4rem;
+  justify-content: flex-start;
+  align-items: center;
   display: flex;
 }
 
@@ -719,8 +721,7 @@ label {
   aspect-ratio: 1;
   border: 1px solid var(--brand-gray--25);
   background-color: var(--serenity-green);
-  color: var(--brand-white);
-  height: 320px;
+  height: 250px;
 }
 
 .bci-media.bci-slider {
@@ -741,8 +742,8 @@ label {
 }
 
 .explore-models-section {
-  border-top: 1px solid var(--brand-gray--50);
-  border-bottom: 1px solid var(--brand-gray--50);
+  border-top: 1px solid var(--brand-gray--25);
+  border-bottom: 1px solid var(--brand-gray--25);
   background-color: var(--pitch-black);
   flex-flow: column;
   justify-content: center;
@@ -1564,6 +1565,11 @@ label {
   overflow: hidden;
 }
 
+.media-background.mb--dim-2 {
+  z-index: 3;
+  background-image: linear-gradient(180deg, #0000 83%, var(--pitch-black));
+}
+
 .basic-text-content {
   flex-flow: column;
   justify-content: center;
@@ -1659,6 +1665,20 @@ label {
 
 .ic-img {
   object-position: 100% 50%;
+}
+
+.bci-media__svg-wrap {
+  color: var(--brand-white);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 4rem;
+  display: flex;
+}
+
+.bci-copy__heading {
+  margin-bottom: 1.5rem;
 }
 
 @media screen and (max-width: 991px) {
