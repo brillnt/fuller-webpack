@@ -15,9 +15,9 @@ onReady(() => {
   const fullerGalleryControls = selectAll('.fuller-gallery-control');
   new ThreeDSlider('process-slider');
 
-  new AnimatePath('house-pencil-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
-  new AnimatePath('workflow-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
-  new AnimatePath('engineer-icon', { duration: 2, delay: 10, viewportThreshold: 0.8  });
+  // new AnimatePath('house-pencil-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
+  // new AnimatePath('workflow-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
+  // new AnimatePath('engineer-icon', { duration: 2, delay: 10, viewportThreshold: 0.8  });
 
   gsap.set(fullerGalleryControls, { opacity: 0, x: -20 });
   gsap.to(fullerGalleryControls, {
@@ -26,14 +26,14 @@ onReady(() => {
     stagger: 0.2,
     scrollTrigger: {
       trigger: '.fuller-gallery-controls',
-      start: 'top 95%',
+      start: 'top 86%',
       toggleActions: 'play none none reverse',
     },
   });
 
   if (!isMobile()) {
-    new FullerAngleWatcher('.fuller-gallery-control');
     console.log('not mobile');
+    new FullerAngleWatcher('.fuller-gallery-control');
     gsap.set(fullerCards, { x: -20, opacity: 0 });
     gsap.set(twoPathCards, { y: 20, opacity: 0 });
 
