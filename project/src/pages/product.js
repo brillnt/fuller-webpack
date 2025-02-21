@@ -7,16 +7,29 @@ import AnimatePath from '../modules/animate-path/animate-path.js';
 
 
 onReady(() => {
-  new FullerAngleWatcher('.card, .two-path-block');
-  new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal']);
+  new FullerAngleWatcher('.card, .two-path-block, .fuller-gallery-control');
+  new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'home-os', 'prototype-section', 'future-section']);
 
   const fullerCards = selectAll('.card-row .card');
   const twoPathCards = selectAll('.two-path-blocks .two-path-block');
+  const fullerGalleryControls = selectAll('.fuller-gallery-control');
   new ThreeDSlider('process-slider');
 
   new AnimatePath('house-pencil-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
-  new AnimatePath('color-picker-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
+  new AnimatePath('workflow-icon', { duration: 2, delay: 10, viewportThreshold: 0.8 });
   new AnimatePath('engineer-icon', { duration: 2, delay: 10, viewportThreshold: 0.8  });
+
+  gsap.set(fullerGalleryControls, { opacity: 0, x: -20 });
+  gsap.to(fullerGalleryControls, {
+    opacity: 1,
+    x: 0,
+    stagger: 0.2,
+    scrollTrigger: {
+      trigger: '.fuller-gallery-controls',
+      start: 'top 95%',
+      toggleActions: 'play none none reverse',
+    },
+  });
 
   if (!isMobile()) {
     console.log('not mobile');
