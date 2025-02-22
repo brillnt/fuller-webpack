@@ -60,6 +60,41 @@
   background-color: var(--pitch-black) !important;
 }
 
+.button.btn--gallery::before {
+  content: '';
+  background-color: var(--brand-white) !important;
+  -webkit-clip-path: polygon(0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%);
+  clip-path: polygon(0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%);
+  transition-property: background-color;
+  transition-duration: .6s;
+  transition-timing-function: cubic-bezier(.19, 1, .22, 1);
+  position: absolute;
+  z-index: 2;
+  inset: 2px;
+}
+
+.button.btn--gallery::after {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  padding: 1rem 2.5rem;
+  background-color: var(--brand-black) !important;
+  -webkit-clip-path: polygon(0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%);
+  clip-path: polygon(0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%);
+  position: absolute;
+  z-index: 1;
+}
+
+.button.btn--gallery:hover div.text--gallery {
+  color: var(--brand-white);
+}
+
+.button.btn--gallery:hover::before {
+  background-color: var(--brand-black) !important;
+}
+
 .input-wrap:has(:focus) label.input-label{
   color: var(--serenity-green);  
 }

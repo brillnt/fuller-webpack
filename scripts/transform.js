@@ -21,6 +21,7 @@ async function transform() {
 
   try {
     const config = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    const timestamp = Date.now();
 
     for (const [filePath, transformations] of Object.entries(config)) {
       const fullPath = path.join(configDir, filePath);
@@ -32,7 +33,9 @@ async function transform() {
 
         if (transformations.replace) {
           for (const replace of transformations.replace) {
-            $(`${replace.tag}[${replace.attr}="${replace.search}"]`).attr(replace.attr, replace.replace);
+            // const newAttrValue = `${replace.replace}?v=${timestamp}`;
+            const newAttrValue = `${replace.replace}`;
+            $(`${replace.tag}[${replace.attr}="${replace.search}"]`).attr(replace.attr, newAttrValue);
           }
         }
 
