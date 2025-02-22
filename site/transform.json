@@ -69,7 +69,8 @@
     ],
     "inject": {
       ".tds-slides": "content/tds-slide-list.html",
-      ".tds-indicators": "content/tds-indicators.html"
+      ".tds-indicators": "content/tds-indicators.html",
+      ".slider-preview-container": "content/slider-preview.html"
     }
   },
   "export/systems.html": {

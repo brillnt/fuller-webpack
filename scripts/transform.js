@@ -33,8 +33,7 @@ async function transform() {
 
         if (transformations.replace) {
           for (const replace of transformations.replace) {
-            // const newAttrValue = `${replace.replace}?v=${timestamp}`;
-            const newAttrValue = `${replace.replace}`;
+            const newAttrValue = `${replace.replace}?v=${timestamp}`;
             $(`${replace.tag}[${replace.attr}="${replace.search}"]`).attr(replace.attr, newAttrValue);
           }
         }

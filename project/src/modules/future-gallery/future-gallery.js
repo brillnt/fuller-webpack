@@ -30,7 +30,7 @@ export default class FutureGallery extends Base {
       x: 0,
       stagger: 0.2,
       scrollTrigger: {
-        trigger: '.fuller-gallery-controls',
+        trigger: select('.fuller-gallery-controls'),
         start: 'top 86%',
         toggleActions: 'play none none reverse',
       },

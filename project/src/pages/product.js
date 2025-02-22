@@ -3,7 +3,7 @@ import FullerAngleWatcher from '../modules/fuller-angle-watcher/fuller-angle-wat
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
 import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import FutureGallery from '../modules/future-gallery/future-gallery.js';
-
+import Slider from '../modules/slider/slider.js';
 import { gsap } from '../utils/animation.js';
 
 onReady(() => {
@@ -14,6 +14,13 @@ onReady(() => {
   new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'home-os', 'prototype-section', 'future-section']);
   new ThreeDSlider('process-slider');
   new FutureGallery('future-gallery', true);
+  new Slider('slider-wrapper', {
+    animationDuration: 1,
+    animationOffset: 1,
+    slideDuration: 5000,
+    waitUntilVisible: true,
+    autoplay: true,
+  });
 
   if (!isMobile()) {
     console.log('not mobile');
