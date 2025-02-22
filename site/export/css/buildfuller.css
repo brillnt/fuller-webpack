@@ -2160,16 +2160,21 @@ label {
 }
 
 .preview {
+  opacity: .8;
   cursor: pointer;
   border: 1px solid #fff0;
   flex: 1;
+  transition: border-color .6s cubic-bezier(.215, .61, .355, 1), opacity .6s cubic-bezier(.215, .61, .355, 1);
   position: relative;
   overflow: hidden;
 }
 
+.preview:hover {
+  opacity: .9;
+}
+
 .progress {
-  background-color: var(--stark-white);
-  mix-blend-mode: difference;
+  background-color: var(--serenity-green);
   width: 0%;
   height: 2px;
   position: absolute;

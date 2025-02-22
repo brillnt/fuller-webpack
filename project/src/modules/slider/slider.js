@@ -2,6 +2,8 @@ import { select, selectId } from '../../utils/helpers.js';
 import { gsap as gs } from '../../utils/animation.js';
 import Base from '../base/base.js';
 
+import './slider.css';
+
 export default class Slider extends Base {
   constructor(elementId, options, debug = false) {
     super(debug);
