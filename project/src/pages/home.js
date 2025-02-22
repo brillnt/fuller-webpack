@@ -42,5 +42,4 @@ onReady(() => {
   new ConnectingLine('abstract-line-4');
   new ConnectingLine('abstract-line-5');
   new ConnectingLine('abstract-line-6');
-  // new AnimatePath('hero-abstract', { delay: 5 });
 });
