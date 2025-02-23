@@ -1,30 +1,7 @@
 import FutureGallery from './future-gallery.js';
 import { selectId } from '../../utils/helpers.js';
 
-// Mock the selectId function
-jest.mock('../../utils/helpers.js', () => ({
-  selectId: jest.fn(),
-  select: jest.fn(),
-  selectAll: jest.fn(),
-}));
-
-// Mock the gsap library
-jest.mock('../../utils/animation.js', () => ({
-  gsap: {
-    set: jest.fn(),
-    to: jest.fn(),
-  },
-}));
-
-// Mock ResizeObserver
-global.ResizeObserver = class {
-  constructor(callback) {
-    this.callback = callback;
-  }
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
+// mocks are set up in <root>/test/jest.setup.js
 
 describe('FutureGallery', () => {
   let element;
