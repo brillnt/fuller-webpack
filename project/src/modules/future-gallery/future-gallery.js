@@ -15,6 +15,7 @@ const MODEL_ITEM_CLASS = 'fuller-gallery__model';
 const ACTIVE_CLASS = 'fgc-active';
 const FLAT_FROM_LEFT = "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)";
 const FULLY_VISIBLE = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
+const HEADER_HEIGHT = 50;
 
 export default class FutureGallery extends Base {
   constructor(elementId, debug = false) {
