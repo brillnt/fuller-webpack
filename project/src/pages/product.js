@@ -14,7 +14,7 @@ onReady(() => {
   new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'home-os', 'prototype-section', 'future-section']);
   new ThreeDSlider('process-slider');
   new FutureGallery('future-gallery', true);
-  new Slider('slider-wrapper', {
+  new Slider('slider-wrapper-2', {
     animationDuration: 1,
     animationOffset: 1,
     slideDuration: 5000,
