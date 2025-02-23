@@ -1,8 +1,10 @@
 import { selectAll } from '../../utils/helpers.js';
 import './fuller-angle-watcher.css';
+import Base from '../base/base.js';
 
-export default class FullerAngleWatcher {
-  constructor(fullerCubesSelector) {
+export default class FullerAngleWatcher extends Base {
+  constructor(fullerCubesSelector, debug = false) {
+    super(debug);
     if (!fullerCubesSelector) return;
 
     this.fullerCubes = selectAll(fullerCubesSelector);
@@ -16,6 +18,12 @@ export default class FullerAngleWatcher {
     const resizeObserver = new ResizeObserver(entries => {
       entries.forEach(entry => this.updateCubeClipPath(entry.target));
     });
+
+    // check if fullerCubes exist and are not empty
+    if (!this.fullerCubes || this.fullerCubes.length === 0) {
+      this.log('No cubes found');
+      return;
+    }
 
     this.fullerCubes.forEach(cube => {
       this.updateCubeClipPath(cube);
