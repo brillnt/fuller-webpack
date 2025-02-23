@@ -1,8 +1,13 @@
 import { select, selectId } from '../../utils/helpers.js';
+import Base from '../base/base.js';
 
-export default class ConnectingLine {
-  constructor(elementId) {
+export default class ConnectingLine extends Base {
+  constructor(elementId, debug = false) {
+    super(debug);
+
     if (!elementId) return;
+
+    this.log(`initialized with elementId: ${elementId}`);
 
     this.element = selectId(elementId);
     this.pathLength = this.getLength(); // Use a method to determine length

@@ -34,12 +34,12 @@ onReady(() => {
       },
     }
   ]);
-  new ConnectingLine('fuller-hero-brandmark');
-  new ConnectingLine('abstract-line-0');
-  new ConnectingLine('abstract-line-1');
-  new ConnectingLine('abstract-line-2');
-  new ConnectingLine('abstract-line-3');
-  new ConnectingLine('abstract-line-4');
-  new ConnectingLine('abstract-line-5');
-  new ConnectingLine('abstract-line-6');
+  new ConnectingLine('fuller-hero-brandmark', true);
+  new ConnectingLine('abstract-line-0', true);
+  new ConnectingLine('abstract-line-1', true);
+  new ConnectingLine('abstract-line-2', true);
+  new ConnectingLine('abstract-line-3', true);
+  new ConnectingLine('abstract-line-4', true);
+  new ConnectingLine('abstract-line-5', true);
+  new ConnectingLine('abstract-line-6', true);
 });
