@@ -12,6 +12,8 @@ const LIST_COLLECTION_CLASS = 'fuller-gallery__list-collection';
 const LIST_ITEM_CLASS = 'fuller-gallery__list';
 const MODEL_LIST_CLASS = 'fuller-gallery__model-list';
 const MODEL_ITEM_CLASS = 'fuller-gallery__model';
+const PREV_BUTTON_CLASS = 'fuller-gallery-prev';
+const NEXT_BUTTON_CLASS = 'fuller-gallery-next';
 const ACTIVE_CLASS = 'fgc-active';
 const FLAT_FROM_LEFT = "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)";
 const FULLY_VISIBLE = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
@@ -29,6 +31,8 @@ export default class FutureGallery extends Base {
     this.listItems = this.listCollection.querySelectorAll(`.${LIST_ITEM_CLASS}`);
     this.modelList = this.element.querySelector(`.${MODEL_LIST_CLASS}`);
     this.modelItems = this.modelList.querySelectorAll(`.${MODEL_ITEM_CLASS}`);
+    this.prevButton = this.element.querySelector(`.${PREV_BUTTON_CLASS}`);
+    this.nextButton = this.element.querySelector(`.${NEXT_BUTTON_CLASS}`);
     this.init();
   }
 

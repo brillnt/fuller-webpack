@@ -203,9 +203,13 @@ label {
 
 .container.c-hero-alt {
   flex-flow: column;
-  justify-content: center;
+  justify-content: flex-end;
   height: 100%;
   display: flex;
+}
+
+.container.c-hero-alt.product-hero-alt {
+  justify-content: center;
 }
 
 .container.right-side-alt {
