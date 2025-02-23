@@ -1,13 +1,20 @@
 import { selectId } from '../../utils/helpers.js';
 import { gsap, SplitType } from '../../utils/animation.js';
+import Base from '../base.js';
 
 const TEXT_REVEAL_SELECTOR = '[data-reveal]';
 
-export default class TextAnimateLines {
-  constructor(elementId, options = {}) {
-    // console.log(`TextAnimateLines called with elementId: ${elementId}`);
+export default class TextAnimateLines extends Base {
+  constructor(elementId, options = {}, debug = false) {
+    super(debug);
     this.elementId = elementId;
     this.container = selectId(elementId);
+
+    if (!this.container) {
+      this.log(`Element with ID ${elementId} not found.`);
+      return;
+    }
+
     this.options = {
       types: 'lines',
       scrollTrigger: {
