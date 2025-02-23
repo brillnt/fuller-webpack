@@ -3,9 +3,11 @@ import SwipeMediaBlock from '../modules/swipe-media-block/swipe-media-block.js';
 import TextAnimateSections from '../modules/text-animate-sections/text-animate-sections.js';
 import ConnectingLine from '../modules/connecting-line/connecting-line.js';
 import ThreePillars from '../modules/three-pillars/three-pillars.js';
+import ContactForm from '../modules/contact-form/contact-form.js';
 
 onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
+  new ContactForm('contact-form', true);
   new ThreePillars('benefits-content');
   new TextAnimateSections([
     {

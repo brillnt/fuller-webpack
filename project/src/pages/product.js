@@ -4,12 +4,14 @@ import TextAnimateSections from '../modules/text-animate-sections/text-animate-s
 import ThreeDSlider from '../modules/three-d-slider/three-d-slider.js';
 import FutureGallery from '../modules/future-gallery/future-gallery.js';
 import Slider from '../modules/slider/slider.js';
+import ContactForm from '../modules/contact-form/contact-form.js';
 import { gsap } from '../utils/animation.js';
 
 onReady(() => {
   const fullerCards = selectAll('.card-row .card');
   const twoPathCards = selectAll('.two-path-blocks .two-path-block');
 
+  new ContactForm('contact-form', true);
   new FullerAngleWatcher('.card, .two-path-block');
   new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'home-os', 'prototype-section', 'future-section']);
   new ThreeDSlider('process-slider');
