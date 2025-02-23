@@ -1,6 +1,6 @@
 import { selectId } from '../../utils/helpers.js';
 import { gsap, SplitType } from '../../utils/animation.js';
-import Base from '../base.js';
+import Base from '../base/base.js';
 
 const TEXT_REVEAL_SELECTOR = '[data-reveal]';
 
