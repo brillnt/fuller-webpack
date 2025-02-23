@@ -8,6 +8,8 @@ import './future-gallery.css';
 const CONTROL_CLASS = 'fuller-gallery-control';
 const HEADER_LIST_CLASS = 'fuller-gallery__header-list';
 const HEADER_CLASS = 'fuller-gallery__header';
+const LIST_COLLECTION_CLASS = 'fuller-gallery__list-collection';
+const LIST_ITEM_CLASS = 'fuller-gallery__list';
 const HEADER_HEIGHT = 50;
 const ACTIVE_CLASS = 'fgc-active';
 const PREV_BUTTON_CLASS = 'fuller-gallery-prev'; // Placeholder for previous button class
@@ -25,6 +27,8 @@ export default class FutureGallery extends Base {
     this.controls = this.element.querySelectorAll(`.${CONTROL_CLASS}`);
     this.headerList = this.element.querySelector(`.${HEADER_LIST_CLASS}`);
     this.headers = this.headerList.querySelectorAll(`.${HEADER_CLASS}`);
+    this.listCollection = this.element.querySelector(`.${LIST_COLLECTION_CLASS}`);
+    this.listItems = this.listCollection.querySelectorAll(`.${LIST_ITEM_CLASS}`);
     this.prevButton = this.element.querySelector(`.${PREV_BUTTON_CLASS}`);
     this.nextButton = this.element.querySelector(`.${NEXT_BUTTON_CLASS}`);
     this.log(`controls:`, this.controls);
@@ -74,6 +78,13 @@ export default class FutureGallery extends Base {
       const index = Array.from(this.headers).indexOf(targetHeader);
       const offset = -index * HEADER_HEIGHT;
       gsap.to(this.headerList, { y: offset, duration: 0.5, ease: 'expo.out' });
+    }
+
+    const targetListItem = Array.from(this.listItems).find(item => item.getAttribute('data-layout-id') === layoutId);
+    if (targetListItem) {
+      const index = Array.from(this.listItems).indexOf(targetListItem);
+      const offset = -index * this.listCollection.clientWidth;
+      gsap.to(this.listCollection, { x: offset, duration: 0.5, ease: 'expo.out' });
     }
   }
 

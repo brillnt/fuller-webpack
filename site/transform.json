@@ -71,7 +71,8 @@
       ".tds-slides": "content/tds-slide-list.html",
       ".tds-indicators": "content/tds-indicators.html",
       ".slider-preview-container": "content/slider-preview.html",
-      ".fuller-gallery__header-wrap": "content/fuller-gallery-header-list.html"
+      ".fuller-gallery__header-wrap": "content/fuller-gallery-header-list.html",
+      ".fuller-gallery__list-wrap": "content/fuller-gallery-body-list.html"
     }
   },
   "export/systems.html": {
