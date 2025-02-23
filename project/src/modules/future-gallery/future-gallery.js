@@ -10,29 +10,24 @@ const HEADER_LIST_CLASS = 'fuller-gallery__header-list';
 const HEADER_CLASS = 'fuller-gallery__header';
 const LIST_COLLECTION_CLASS = 'fuller-gallery__list-collection';
 const LIST_ITEM_CLASS = 'fuller-gallery__list';
-const HEADER_HEIGHT = 50;
+const MODEL_LIST_CLASS = 'fuller-gallery__model-list';
+const MODEL_ITEM_CLASS = 'fuller-gallery__model';
 const ACTIVE_CLASS = 'fgc-active';
-const PREV_BUTTON_CLASS = 'fuller-gallery-prev'; // Placeholder for previous button class
-const NEXT_BUTTON_CLASS = 'fuller-gallery-next'; // Placeholder for next button class
+const FLAT_FROM_LEFT = "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)";
+const FULLY_VISIBLE = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
 
 export default class FutureGallery extends Base {
   constructor(elementId, debug = false) {
     super(debug);
-
     if (!elementId) return;
-
-    this.log(`initialized with elementId: ${elementId}`);
-
     this.element = selectId(elementId);
     this.controls = this.element.querySelectorAll(`.${CONTROL_CLASS}`);
     this.headerList = this.element.querySelector(`.${HEADER_LIST_CLASS}`);
     this.headers = this.headerList.querySelectorAll(`.${HEADER_CLASS}`);
     this.listCollection = this.element.querySelector(`.${LIST_COLLECTION_CLASS}`);
     this.listItems = this.listCollection.querySelectorAll(`.${LIST_ITEM_CLASS}`);
-    this.prevButton = this.element.querySelector(`.${PREV_BUTTON_CLASS}`);
-    this.nextButton = this.element.querySelector(`.${NEXT_BUTTON_CLASS}`);
-    this.log(`controls:`, this.controls);
-    this.log(`element:`, this.element);
+    this.modelList = this.element.querySelector(`.${MODEL_LIST_CLASS}`);
+    this.modelItems = this.modelList.querySelectorAll(`.${MODEL_ITEM_CLASS}`);
     this.init();
   }
 
@@ -53,9 +48,8 @@ export default class FutureGallery extends Base {
     this.controls.forEach(control => {
       control.addEventListener('click', () => {
         const layoutId = control.getAttribute('data-layout-id');
-        this.log(`Control clicked: ${layoutId}`);
         this.animateToLayout(layoutId);
-        this.updateActiveControl(control);
+        this.updateActiveControl(control, layoutId);
       });
     });
 
@@ -86,14 +80,41 @@ export default class FutureGallery extends Base {
       const offset = -index * this.listCollection.clientWidth;
       gsap.to(this.listCollection, { x: offset, duration: 0.5, ease: 'expo.out' });
     }
+
+    const targetModelItem = Array.from(this.modelItems).find(item => item.getAttribute('data-layout-id') === layoutId);
+    if (targetModelItem) {
+      const activeModelItem = this.element.querySelector(`.${MODEL_ITEM_CLASS}.active`);
+      gsap.set(targetModelItem, { zIndex: 1 });
+      if (activeModelItem) {
+        gsap.set(activeModelItem, { zIndex: 0 });
+        activeModelItem.classList.remove('active');
+      }
+      targetModelItem.classList.add('active');
+
+      gsap.fromTo(
+        targetModelItem,
+        { clipPath: FLAT_FROM_LEFT },
+        {
+          clipPath: FULLY_VISIBLE,
+          duration: 0.5,
+          ease: 'hop',
+        }
+      );
+    }
   }
 
-  updateActiveControl(activeControl) {
-    this.log(`updateActiveControl:`, activeControl);
+  updateActiveControl(activeControl, layoutId) {
     this.controls.forEach(control => {
       control.classList.remove(ACTIVE_CLASS);
     });
     activeControl.classList.add(ACTIVE_CLASS);
+    this.modelItems.forEach(modelItem => {
+      modelItem.classList.remove('active');
+    });
+    const targetModelItem = Array.from(this.modelItems).find(item => item.getAttribute('data-layout-id') === layoutId);
+    if (targetModelItem) {
+      targetModelItem.classList.add('active');
+    }
   }
 
   navigateToPrevious() {
@@ -104,7 +125,7 @@ export default class FutureGallery extends Base {
       const previousControl = this.controls[previousIndex];
       const layoutId = previousControl.getAttribute('data-layout-id');
       this.animateToLayout(layoutId);
-      this.updateActiveControl(previousControl);
+      this.updateActiveControl(previousControl, layoutId);
     }
   }
 
@@ -116,7 +137,7 @@ export default class FutureGallery extends Base {
       const nextControl = this.controls[nextIndex];
       const layoutId = nextControl.getAttribute('data-layout-id');
       this.animateToLayout(layoutId);
-      this.updateActiveControl(nextControl);
+      this.updateActiveControl(nextControl, layoutId);
     }
   }
 }
