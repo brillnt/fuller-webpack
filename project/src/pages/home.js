@@ -4,11 +4,11 @@ import TextAnimateSections from '../modules/text-animate-sections/text-animate-s
 import ConnectingLine from '../modules/connecting-line/connecting-line.js';
 import ThreePillars from '../modules/three-pillars/three-pillars.js';
 import ContactForm from '../modules/contact-form/contact-form.js';
+import { UAParser } from 'ua-parser-js';
 
 onReady(() => {
   const swiper = new SwipeMediaBlock('home-learn');
   new ContactForm('contact-form', true);
-  new ThreePillars('benefits-content');
   new TextAnimateSections([
     {
       id: 'first-reveal',
@@ -42,4 +42,13 @@ onReady(() => {
   new ConnectingLine('abstract-line-4', true);
   new ConnectingLine('abstract-line-5', true);
   new ConnectingLine('abstract-line-6', true);
+
+  const { browser, cpu, device } = UAParser(navigator.userAgent);
+  console.log('Browser:', browser);
+  console.log('CPU:', cpu);
+  console.log('Device:', device);
+
+  if (browser.name !== 'Safari') {
+    new ThreePillars('benefits-content');
+  }
 });

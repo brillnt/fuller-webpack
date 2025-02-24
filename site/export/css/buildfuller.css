@@ -1735,7 +1735,7 @@ label {
 
 .cc-copy {
   border-left: 1px solid var(--brand-gray--25);
-  background-image: radial-gradient(circle farthest-corner at 0% 100%, var(--deep-serenity), var(--pitch-black));
+  background-image: radial-gradient(circle farthest-corner at 100% 100%, var(--deep-serenity), var(--pitch-black));
   flex-flow: column;
   justify-content: center;
   align-items: flex-start;
@@ -2570,6 +2570,7 @@ label {
 .network-grid-container {
   grid-column-gap: 2rem;
   grid-row-gap: 2rem;
+  background-image: radial-gradient(circle closest-side at 50% 50%, var(--deep-serenity), var(--pitch-black) 80%);
   flex-flow: column;
   justify-content: center;
   align-items: center;
@@ -3152,6 +3153,10 @@ label {
   .cc-copy {
     border-bottom-color: var(--brand-gray--25);
     border-left-width: 0;
+  }
+
+  .cc-block-item {
+    max-width: 80px;
   }
 
   .bci-media__svg-wrap {
