@@ -36,6 +36,7 @@ shopify/
 *.avi
 *.webm
 *.mov
+*.avif
 
 # ignore font files
 *.woff

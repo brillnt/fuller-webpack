@@ -667,7 +667,7 @@ label {
 .footer-logo {
   aspect-ratio: 1566 / 372;
   color: var(--stark-white);
-  width: 75%;
+  width: 50%;
 }
 
 .footer-logo.text-color-cool-bw-gradient.fl-alt {
@@ -1677,6 +1677,7 @@ label {
 
 .spc-block-item {
   max-width: 200px;
+  position: relative;
 }
 
 .build-smarter-section {
@@ -2577,6 +2578,23 @@ label {
   width: 100%;
   height: 100%;
   display: flex;
+}
+
+.card-row__heading--no-ligature {
+  font-variant-ligatures: none;
+}
+
+.fuller-supply__icon {
+  color: var(--serenity-green);
+  width: 3.5rem;
+  transform: translate(9px, 13px);
+}
+
+.fuller-supply__icon-wrap {
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0%;
 }
 
 @media screen and (max-width: 991px) {
