@@ -59,8 +59,8 @@ export default (env) => ({
   mode: 'production',
   performance: {
     hints: 'warning',
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
+    maxEntrypointSize: 1024000,
+    maxAssetSize: 1024000,
   },
   optimization: {
     minimize: env.production ? true : false,
