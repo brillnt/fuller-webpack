@@ -33,6 +33,8 @@
   --btn-shape: 0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%;
   --btn-shape--alt: 0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%;
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --breakpoint--tablet: 991px;
+  --breakpoint--mobile-large: 768px;
 }
 
 .button.btn-tertiary::before {
@@ -109,4 +111,18 @@
 
 .animate-path {
   will-change: stroke-dashoffset;
+}
+
+.offsite-grid__number sup {
+  background-image: inherit;
+  background-clip: inherit;
+  -webkit-background-clip: inherit;
+  padding: 0.1rem 0.2rem 0 0;
+  position: relative;
+  top: -0.5rem;
+}
+
+.offsite-grid__text {
+  font-size: 0.8rem;
+  color: var(--brand-white--70);
 }

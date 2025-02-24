@@ -1,0 +1,24 @@
+/* #fuller-network-container { } */
+
+.network-node {
+  position: absolute; /* Position nodes within the container */
+  width: 50px; /* Example size */
+  height: 50px; /* Example size */
+  border-radius: 50%; /* Make nodes circular */
+  background-color: transparent; /* Example node color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Indicate interactivity */
+  pointer-events: auto; /* Make nodes interactive */
+}
+
+.network-node img {
+  max-width: 80%; /* Adjust icon size within node */
+  max-height: 80%;
+  display: block; /* Prevent image from stretching */
+}
+
+.network-node.center-node {
+  background-color: transparent;
+}
