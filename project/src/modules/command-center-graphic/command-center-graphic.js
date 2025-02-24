@@ -19,11 +19,11 @@ export default class CommandCenterGraphic extends Base {
     }
 
     this.log(`Initializing with ID "${elementId}"`, 'info');
-
     this.tiles = this.element.querySelectorAll('.cc-block-item .fuller-cube-outline:not(.fco__accent)');
     this.log(`Tiles: ${this.tiles}`, 'info');
     this.centerTile = this.element.querySelector('.cc-block-item .fuller-cube-outline.fco__accent');
     this.log(`Center Tile: ${this.centerTile}`, 'info');
+    this.animationDelay = 3000;
     this.init();
   }
 
@@ -45,6 +45,7 @@ export default class CommandCenterGraphic extends Base {
         toggleActions: 'play none none reverse',
       },
       onComplete: () => {
+        this.log(`Starting tile animation...`);
         this.startTileAnimation();
       },
     });
@@ -63,20 +64,41 @@ export default class CommandCenterGraphic extends Base {
   }
 
   startTileAnimation() {
-    const initialPositions = Array.from(this.tiles).map(tile => {
+    const initialPositions = Array.from(this.tiles).map((tile, index) => {
       const rect = tile.getBoundingClientRect();
+      // add an attribute to keep track of the original position
+      tile.setAttribute('data-original-x', rect.left);
+      tile.setAttribute('data-original-y', rect.top);
+      tile.setAttribute('data-original-index', index);
+
       return { x: rect.left, y: rect.top };
     });
+
+    this.log('Initial Positions:', initialPositions);
 
     const clockwiseOrder = [0, 1, 2, 4, 7, 6, 5, 3];
     const counterClockwiseOrder = [0, 3, 5, 6, 7, 4, 2, 1];
 
     const moveTiles = (order) => {
-      const newPositions = order.map(index => initialPositions[index]);
+      this.log(`called moveTiles()`);
+      const newPositions = order.map(index => {
+        const orderPosition = order.indexOf(index);
+        const nextIndex = (orderPosition + 1) % order.length;
+
+        this.log(`mapping ${index} to ${order[nextIndex]}`);
+
+        return initialPositions[order[nextIndex]];
+      });
+
+      this.log('New Positions:', newPositions);
 
       this.tiles.forEach((tile, index) => {
+        if(index > 3) return;
         const dx = newPositions[index].x - initialPositions[index].x;
         const dy = newPositions[index].y - initialPositions[index].y;
+
+        this.log(`Moving tile ${index}`);
+
         gsap.to(tile, {
           x: `+=${dx}`,
           y: `+=${dy}`,
@@ -96,12 +118,16 @@ export default class CommandCenterGraphic extends Base {
           moveTiles(counterClockwiseOrder);
           setTimeout(() => {
             moveTiles(counterClockwiseOrder);
-            setTimeout(animateTiles, 3000);
-          }, 3000);
-        }, 3000);
-      }, 3000);
+            setTimeout(animateTiles, this.animationDelay);
+          }, this.animationDelay);
+        }, this.animationDelay);
+      }, this.animationDelay);
     };
 
-    setTimeout(animateTiles, 3000);
+    // setTimeout(animateTiles, this.animationDelay);
+    // this.log('setting timeout for animateTiles');
+    // setTimeout(() => {
+    //   moveTiles(clockwiseOrder);
+    // }, this.animationDelay);
   }
 }
