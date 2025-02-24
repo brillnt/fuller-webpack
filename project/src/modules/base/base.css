@@ -37,9 +37,9 @@
   --breakpoint--mobile-large: 768px;
 }
 
-* {
+/* * {
   font-variant-ligatures: none;
-}
+} */
 
 .button.btn-tertiary::before {
   content: '';
