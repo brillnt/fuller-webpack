@@ -1,13 +1,15 @@
 import TextAnimateLines from '../text-animate-lines/text-animate-lines.js';
+import Base from '../base/base.js';
 
-export default class TextAnimateSections {
+export default class TextAnimateSections extends Base {
   constructor(sections, debug = false) {
+    super(debug);
     this.debug = debug;
     if (!Array.isArray(sections) || sections.length === 0) return;
 
-    if (window.innerWidth < 768) {
-      return;
-    }
+    // if (window.innerWidth < 768) {
+    //   return;
+    // }
 
     this.sections = sections;
     this.init();

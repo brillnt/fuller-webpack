@@ -1269,7 +1269,7 @@ label {
 }
 
 .card {
-  background-color: var(--dark-gray);
+  background-color: var(--deep-serenity);
   padding: 3.25rem 2.8rem 2.5rem;
   transition: transform .5s cubic-bezier(.19, 1, .22, 1);
   position: relative;
@@ -1479,12 +1479,7 @@ label {
   transition: color .6s cubic-bezier(.19, 1, .22, 1), border-color .6s cubic-bezier(.19, 1, .22, 1);
 }
 
-.input-text:focus-visible {
-  border-bottom-color: var(--serenity-green);
-  color: var(--brand-white);
-}
-
-.input-text[data-wf-focus-visible] {
+.input-text:focus-visible, .input-text[data-wf-focus-visible] {
   border-bottom-color: var(--serenity-green);
   color: var(--brand-white);
 }
@@ -1510,12 +1505,7 @@ label {
   height: 3rem;
 }
 
-.input-select:focus-visible {
-  border-bottom-color: var(--serenity-green);
-  color: var(--brand-white);
-}
-
-.input-select[data-wf-focus-visible] {
+.input-select:focus-visible, .input-select[data-wf-focus-visible] {
   border-bottom-color: var(--serenity-green);
   color: var(--brand-white);
 }
@@ -1536,12 +1526,7 @@ label {
   transition: border-color .6s cubic-bezier(.19, 1, .22, 1), color .6s cubic-bezier(.19, 1, .22, 1);
 }
 
-.input-textarea:focus-visible {
-  border-bottom-color: var(--serenity-green);
-  color: var(--brand-white);
-}
-
-.input-textarea[data-wf-focus-visible] {
+.input-textarea:focus-visible, .input-textarea[data-wf-focus-visible] {
   border-bottom-color: var(--serenity-green);
   color: var(--brand-white);
 }
@@ -1712,8 +1697,9 @@ label {
 
 .media-background.mb--fuller-bg {
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-start;
   display: flex;
+  overflow: hidden;
 }
 
 .basic-text-content {
@@ -1837,6 +1823,8 @@ label {
 }
 
 .homeos-section {
+  border-top: 1px solid var(--brand-gray--25);
+  border-bottom: 1px solid var(--brand-gray--25);
   background-color: var(--deep-serenity);
   background-image: radial-gradient(circle farthest-corner at 100% 100%, var(--deep-serenity), var(--brand-black));
   position: relative;
@@ -2153,7 +2141,7 @@ label {
   flex-flow: column;
   flex: 1;
   justify-content: flex-end;
-  align-items: stretch;
+  align-items: center;
   display: flex;
 }
 
@@ -2186,6 +2174,7 @@ label {
   grid-column-gap: 2rem;
   grid-row-gap: 2rem;
   flex-flow: column;
+  align-items: stretch;
   display: flex;
 }
 
@@ -2625,8 +2614,9 @@ label {
 .fuller-background {
   opacity: .03;
   object-fit: cover;
-  width: 50vh;
+  width: 75vh;
   height: auto;
+  margin-top: 6rem;
   margin-right: 4rem;
 }
 
@@ -2890,6 +2880,10 @@ label {
     font-size: 1.5rem;
   }
 
+  .fuller-gallery__list {
+    align-items: flex-start;
+  }
+
   .fuller-gallery__list-item {
     grid-template-columns: 2rem 1fr;
   }
@@ -2948,10 +2942,15 @@ label {
     height: 600px;
   }
 
+  .fuller-supply__icon {
+    width: 3rem;
+  }
+
   .fuller-background {
     width: 66vh;
     margin-bottom: -4rem;
     margin-right: -4rem;
+    transform: translate(25%);
   }
 
   .tdss__nav-btn {
@@ -2968,8 +2967,8 @@ label {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-4be4314e-28be-59bd-b315-6d8f28a86445;
     ---mode--collection-7dec5aba-7ba5-9caf-7a02-bf4cdc645827: mode-a6756f41-9108-12a8-72b7-d22264272569;
     --_typography---h1: 3rem;
-    --_typography---h2: 1.85rem;
-    --_typography---h3: 1.52rem;
+    --_typography---h2: 2rem;
+    --_typography---h3: 1.66rem;
     --_typography---h4: .939rem;
     --_typography---p--regular: .9rem;
     --_typography---p--small: .75rem;
@@ -2978,7 +2977,7 @@ label {
     --_typography---p--bigger: 1.618rem;
     --_typography---h2--alt-small: 1.85rem;
     --_spacing---container--width: 1280px;
-    --_spacing---container--v-space: 5rem;
+    --_spacing---container--v-space: 7rem;
     --_spacing---container--padding: 3rem;
     --_spacing---home-model-grid: .6rem;
     --_spacing---container--2-column-space: 3rem;
@@ -3019,6 +3018,10 @@ label {
     bottom: 1rem;
     left: 50%;
     transform: translate(-50%);
+  }
+
+  .brand-link.w--current {
+    width: 56px;
   }
 
   .hero-content {
@@ -3125,6 +3128,8 @@ label {
   }
 
   .bc-item {
+    grid-column-gap: 3rem;
+    grid-row-gap: 3rem;
     flex-flow: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -3236,6 +3241,10 @@ label {
     grid-template-columns: 1fr;
   }
 
+  .card-row-title {
+    text-align: center;
+  }
+
   .progress-meter {
     display: none;
   }
@@ -3255,6 +3264,7 @@ label {
   .media-background.mb--fuller-bg {
     justify-content: center;
     align-items: flex-end;
+    display: none;
   }
 
   .cc-copy {
@@ -3379,6 +3389,10 @@ label {
     padding-right: 3rem;
   }
 
+  .fuller-supply__icon {
+    width: 2.75rem;
+  }
+
   .smart-living__content {
     flex-flow: column;
   }
@@ -3393,17 +3407,17 @@ label {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-3ae099cd-e068-2ac9-7473-d1ba8b144827;
     ---mode--collection-7dec5aba-7ba5-9caf-7a02-bf4cdc645827: mode-a2f04b76-7cbe-d9ec-2fb4-452be6de54d7;
     --_typography---h1: 2.5rem;
-    --_typography---h2: 1.54rem;
-    --_typography---h3: 1.25rem;
+    --_typography---h2: 2rem;
+    --_typography---h3: 1.5rem;
     --_typography---h4: .939rem;
-    --_typography---p--regular: .8rem;
+    --_typography---p--regular: .875rem;
     --_typography---p--small: .75rem;
     --_typography---p--smaller: .66rem;
     --_typography---p--big: 1.25rem;
     --_typography---p--bigger: 1.618rem;
     --_typography---h2--alt-small: 1.54rem;
     --_spacing---container--width: 1280px;
-    --_spacing---container--v-space: 4rem;
+    --_spacing---container--v-space: 6rem;
     --_spacing---container--padding: 2rem;
     --_spacing---home-model-grid: .3rem;
     --_spacing---container--2-column-space: 3rem;
@@ -3451,6 +3465,11 @@ label {
     padding-left: 2rem;
   }
 
+  .media-background.mb--fuller-bg {
+    display: none;
+    overflow: hidden;
+  }
+
   .fuller-gallery-controls {
     grid-column-gap: 1rem;
     grid-row-gap: 1rem;
@@ -3492,6 +3511,15 @@ label {
   .offsite-grid {
     flex-flow: column;
     display: flex;
+  }
+
+  .offsite-grid__item {
+    grid-template-rows: 5rem min-content 1fr;
+  }
+
+  .fuller-supply__icon {
+    width: 1.5rem;
+    transform: translate(3px, 5px);
   }
 
   .hero__heading {

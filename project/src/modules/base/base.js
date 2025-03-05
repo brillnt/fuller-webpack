@@ -8,4 +8,11 @@ export default class Base {
       console.log(`DEBUG [${this.constructor.name}]:`, ...args);
     }
   }
+
+  logObject(...args) {
+    if (this.debug) {
+      console.log(`DEBUG OBJECT [${this.constructor.name}]:`);
+      console.dir(...args);
+    }
+  }
 }
