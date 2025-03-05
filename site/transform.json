@@ -45,6 +45,12 @@
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
         "replace": "brillnt/js/base.bundle.min.js"
       },

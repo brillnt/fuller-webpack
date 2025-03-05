@@ -22,7 +22,7 @@ export default class HomepageAnimations extends Base {
     if (isMobile()) {
       const defaultScrollTrigger = {
         start: 'top 75%',
-        toggleActions: 'play reverse play reverse',
+        once: true,
       };
 
       new TextAnimateSections([
