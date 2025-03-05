@@ -24,7 +24,7 @@ export default class TextAnimateLines extends Base {
         ...options.scrollTrigger
       },
       gsap : { ease: 'power4.out' },
-      handleResizeOnMobile: true,
+      handleResizeOnMobile: false,
       ...options
     };
     
@@ -42,9 +42,10 @@ export default class TextAnimateLines extends Base {
     this.splitRevealElements();
     this.createScrollTriggerAnimation();
 
-    if (this.options.handleResizeOnMobile && window.innerWidth < 768) {
-      window.addEventListener('resize', this.handleResize);
-    } else {
+    if (
+      (window.innerWidth < 768 && this.options.handleResizeOnMobile) || 
+      (window.innerWidth >= 768)
+    ) {
       window.addEventListener('resize', this.handleResize);
     }
   }

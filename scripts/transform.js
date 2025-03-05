@@ -15,6 +15,14 @@ function isInsideMedia(node) {
   return false;
 }
 
+// Function to convert a wildcard pattern to a regex
+function wildcardToRegex(pattern) {
+  // Escape regex special characters except asterisk
+  const escapedPattern = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
+  // Replace asterisks with regex wildcard pattern
+  return new RegExp('^' + escapedPattern.replace(/\*/g, '.*') + '$');
+}
+
 async function transform() {
   const configPath = path.join(process.cwd(), 'site', 'transform.json');
   const configDir = path.dirname(configPath);
@@ -33,8 +41,24 @@ async function transform() {
 
         if (transformations.replace) {
           for (const replace of transformations.replace) {
-            const newAttrValue = `${replace.replace}?v=${timestamp}`;
-            $(`${replace.tag}[${replace.attr}="${replace.search}"]`).attr(replace.attr, newAttrValue);
+            // const newAttrValue = `${replace.replace}?v=${timestamp}`;
+            const newAttrValue = `${replace.replace}`;
+            
+            // Handle patterns with wildcards
+            if (replace.search.includes('*')) {
+              const regex = wildcardToRegex(replace.search);
+              
+              // Find elements with the specified tag and attribute, then check if the attribute value matches the regex
+              $(replace.tag).each((i, elem) => {
+                const attrValue = $(elem).attr(replace.attr);
+                if (attrValue && regex.test(attrValue)) {
+                  $(elem).attr(replace.attr, newAttrValue);
+                }
+              });
+            } else {
+              // Existing code for exact matches
+              $(`${replace.tag}[${replace.attr}="${replace.search}"]`).attr(replace.attr, newAttrValue);
+            }
           }
         }
 

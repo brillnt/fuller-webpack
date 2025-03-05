@@ -10,13 +10,31 @@
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
         "replace": "brillnt/js/base.bundle.min.js"
       },
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/home.bundle.min.js",
+        "replace": "brillnt/js/home.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/home.bundle.min.js",
         "replace": "brillnt/js/home.bundle.min.js"
       },
       {
@@ -28,7 +46,19 @@
       {
         "tag": "link",
         "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/home.min.css",
+        "replace": "brillnt/css/home.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
         "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/base.min.css",
         "replace": "brillnt/css/base.min.css"
       }
     ],
@@ -45,13 +75,31 @@
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
         "replace": "brillnt/js/base.bundle.min.js"
       },
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/product.bundle.min.js",
+        "replace": "brillnt/js/product.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/product.bundle.min.js",
         "replace": "brillnt/js/product.bundle.min.js"
       },
       {
@@ -63,7 +111,19 @@
       {
         "tag": "link",
         "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/product.min.css",
+        "replace": "brillnt/css/product.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
         "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/base.min.css",
         "replace": "brillnt/css/base.min.css"
       }
     ],
@@ -87,13 +147,31 @@
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
         "replace": "brillnt/js/base.bundle.min.js"
       },
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/systems.bundle.min.js",
+        "replace": "brillnt/js/systems.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/systems.bundle.min.js",
         "replace": "brillnt/js/systems.bundle.min.js"
       },
       {
@@ -105,7 +183,19 @@
       {
         "tag": "link",
         "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/systems.min.css",
+        "replace": "brillnt/css/systems.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
         "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/base.min.css",
         "replace": "brillnt/css/base.min.css"
       }
     ],
@@ -122,13 +212,31 @@
       {
         "tag": "script",
         "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
         "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/base.bundle.min.js",
         "replace": "brillnt/js/base.bundle.min.js"
       },
       {
         "tag": "link",
         "attr": "href",
         "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/base.min.css",
         "replace": "brillnt/css/base.min.css"
       }
     ],

@@ -11,10 +11,9 @@ import { gsap } from '../utils/animation.js';
 onReady(() => {
   new AnimateGridRows('spc-blocks-container', 'spc');
   new AnimateGridRows('spc-blocks-container', 'cc');
-  new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'fourth-reveal', 'fifth-reveal']);
+  new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'fourth-reveal', 'fifth-reveal', 'offsite-content']);
   new ContactForm('contact-form', true);
   new CommandCenterGraphic('cc-blocks-container', true);
-  // new FullerNetworkGraphic('fuller-network-graphic', true);
 
   const configuratorCards = selectAll('.config-blocks .config-block');
 
