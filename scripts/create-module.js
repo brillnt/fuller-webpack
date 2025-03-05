@@ -10,18 +10,25 @@ const __dirname = path.dirname(__filename);
 
 // Create template with provided class name
 function createTemplate(className) {
-  return `import { select, selectId } from '../../utils/helpers.js';
+  return `import { select } from '../../utils/helpers.js';
+import Base from '../base/base.js';
 
-export default class ${className} {
-  constructor(elementId) {
-    if (!elementId) return;
+export default class ${className} extends Base {
+  constructor(selector, debug = false) {
+    super(debug);
+    this.log(\`class instantiated\`);
 
-    this.element = selectId(elementId);
+    if (!selector) {
+      this.log(\`warning: must pass a selector value.\`)
+      return;
+    }
+
+    this.element = select(selector);
     this.init();
   }
 
   init() {
-    // Initialize your module here
+
   }
 }`;
 }

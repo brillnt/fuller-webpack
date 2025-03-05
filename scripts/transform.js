@@ -41,7 +41,8 @@ async function transform() {
 
         if (transformations.replace) {
           for (const replace of transformations.replace) {
-            const newAttrValue = `${replace.replace}?v=${timestamp}`;
+            // const newAttrValue = `${replace.replace}?v=${timestamp}`;
+            const newAttrValue = `${replace.replace}`;
             
             // Handle patterns with wildcards
             if (replace.search.includes('*')) {

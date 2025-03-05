@@ -5,6 +5,7 @@ import TextAnimateSections from '../text-animate-sections/text-animate-sections.
 import ConnectingLine from '../connecting-line/connecting-line.js';
 import ThreePillars from '../three-pillars/three-pillars.js';
 import SwipeMediaBlock from '../swipe-media-block/swipe-media-block.js';
+import ImageWipeReveal from '../image-wipe-reveal/image-wipe-reveal.js';
 
 export default class HomepageAnimations extends Base {
   constructor(device, debug) {
@@ -24,6 +25,8 @@ export default class HomepageAnimations extends Base {
         start: 'top 75%',
         once: true
       };
+
+      new ImageWipeReveal('.sc-media-mobile img, img.ic-img', this.debug);
 
       new TextAnimateSections([
         'home-model-reveal',
