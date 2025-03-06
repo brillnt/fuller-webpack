@@ -50,6 +50,7 @@ export default (env) => ({
     home: './project/src/pages/home.js',
     product: './project/src/pages/product.js',
     systems: './project/src/pages/systems.js',
+    modules: './project/src/pages/modules.js',
   },
   output: {
     filename: `${getFilePath(env, 'js')}${env.shopify ? 'br_' : ''}[name].bundle.min.js`,

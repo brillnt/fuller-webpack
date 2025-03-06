@@ -2566,6 +2566,7 @@ label {
 }
 
 .network-grid-wrap {
+  background-image: radial-gradient(circle closest-side at 50% 50%, #151819d1, var(--pitch-black) 78%);
   width: 100%;
   overflow: hidden;
 }
@@ -2573,7 +2574,7 @@ label {
 .network-grid-container {
   grid-column-gap: 2rem;
   grid-row-gap: 2rem;
-  background-image: radial-gradient(circle closest-side at 50% 50%, var(--deep-serenity), var(--pitch-black) 80%);
+  background-image: none;
   flex-flow: column;
   justify-content: center;
   align-items: center;
