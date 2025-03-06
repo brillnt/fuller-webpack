@@ -2,6 +2,8 @@ import { select, selectId } from '../../utils/helpers.js';
 import Base from '../base/base.js';
 import { gsap } from '../../utils/animation.js';
 
+import './command-center-graphic.css';
+
 export default class CommandCenterGraphic extends Base {
   constructor(elementId, debug = false) {
     super(debug);

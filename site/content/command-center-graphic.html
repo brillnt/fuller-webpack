@@ -1,3 +1,116 @@
+<style>
+  .network-grid-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .network-grid-container {
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    background-image: radial-gradient(circle closest-side at 50% 50%, var(--deep-serenity), var(--pitch-black) 80%);
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  .command-center-section {
+    border-top: 1px solid var(--brand-gray--25);
+    height: 100vh;
+    min-height: 800px;
+  }
+
+  .cc-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .cc-blocks {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .cc-copy {
+    border-left: 1px solid var(--brand-gray--25);
+    background-image: radial-gradient(circle farthest-corner at 100% 100%, var(--deep-serenity), var(--pitch-black));
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    display: flex;
+  }
+
+  .cc-copy-container {
+    padding-right: var(--_spacing---container--padding);
+    padding-left: var(--_spacing---container--padding);
+    width: 640px;
+  }
+
+  .fuller-cube-outline {
+    color: var(--serenity-green);
+  }
+
+  .fuller-cube-outline.fco__accent {
+    color: var(--brand-white);
+  }
+
+  .cc-block-row {
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    display: flex;
+  }
+
+  .cc-block-item {
+    max-width: 100px;
+  }
+
+  @media screen and (max-width: 991px) {
+    .network-grid-wrap {
+      height: 600px;
+    }
+
+    .command-center-section {
+      height: auto;
+      min-height: 0;
+    }
+
+    .cc-content {
+      flex-flow: column-reverse;
+    }
+
+    .cc-blocks {
+      height: 600px;
+    }
+
+    .cc-copy {
+      padding: var(--_spacing---container--v-space) var(--_spacing---container--padding) 4rem;
+      border-bottom: 1px solid var(--brand-white--50);
+      border-right-style: none;
+      border-right-width: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cc-copy-container {
+      width: auto;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .image-copy {
+      grid-column-gap: 4rem;
+      grid-row-gap: 4rem;
+      flex-flow: column-reverse;
+    }
+
+    .ic-copy {
+      padding-right: 0;
+    }
+  }
+</style>
+
 <section class="command-center-section">
   <div class="cc-content">
     <div id="cc-blocks-container" class="network-grid-wrap">
