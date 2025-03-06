@@ -4,6 +4,7 @@ import { gsap } from '../../utils/animation.js';
 
 import './command-center-graphic.css';
 
+// intelligent network version
 export default class CommandCenterGraphic extends Base {
   constructor(elementId, debug = false) {
     super(debug);
@@ -225,7 +226,7 @@ export default class CommandCenterGraphic extends Base {
         scale: 1,
         filter: 'none',
         duration: 0.5,
-        ease: 'power2.out'
+        ease: 'power4.out'
       });
       
       // Affect surrounding tiles
@@ -240,13 +241,13 @@ export default class CommandCenterGraphic extends Base {
             filter: 'brightness(1.2)',
             duration: 0.3,
             delay: delay,
-            ease: 'sine.out'
+            ease: 'expo.out'
           })
           .to(tile, {
             scale: 1,
             filter: 'none',
             duration: 0.4,
-            ease: 'power1.out'
+            ease: 'power4.out'
           });
       });
       
@@ -275,27 +276,65 @@ export default class CommandCenterGraphic extends Base {
   }
   
   createConnection(element1, element2, duration = 1.2, style = {}) {
-    // Get the center positions of both elements
+    // Get the bounding rectangles of both elements
     const rect1 = element1.getBoundingClientRect();
     const rect2 = element2.getBoundingClientRect();
     
     // Adjust positions to be relative to the connections container
     const containerRect = this.connectionsContainer.getBoundingClientRect();
     
-    const x1 = rect1.left + rect1.width/2 - containerRect.left;
-    const y1 = rect1.top + rect1.height/2 - containerRect.top;
-    const x2 = rect2.left + rect2.width/2 - containerRect.left;
-    const y2 = rect2.top + rect2.height/2 - containerRect.top;
+    // Calculate centers
+    const center1 = {
+      x: rect1.left + rect1.width/2 - containerRect.left,
+      y: rect1.top + rect1.height/2 - containerRect.top
+    };
+    
+    const center2 = {
+      x: rect2.left + rect2.width/2 - containerRect.left,
+      y: rect2.top + rect2.height/2 - containerRect.top
+    };
+    
+    // Calculate direction vector
+    const dir = {
+      x: center2.x - center1.x,
+      y: center2.y - center1.y
+    };
+    
+    // Calculate distance between centers
+    const distance = Math.sqrt(dir.x * dir.x + dir.y * dir.y);
+    
+    // Normalize the direction vector
+    const normalizedDir = {
+      x: dir.x / distance,
+      y: dir.y / distance
+    };
+    
+    // Estimate "edge" positions by moving from center toward the other element
+    // Use a percentage of the smaller dimension as an approximation for distance to edge
+    const edgeOffset1 = Math.min(rect1.width, rect1.height) * 0.4;
+    const edgeOffset2 = Math.min(rect2.width, rect2.height) * 0.4;
+    
+    const edgePoint1 = {
+      x: center1.x + normalizedDir.x * edgeOffset1,
+      y: center1.y + normalizedDir.y * edgeOffset1
+    };
+    
+    const edgePoint2 = {
+      x: center2.x - normalizedDir.x * edgeOffset2,
+      y: center2.y - normalizedDir.y * edgeOffset2
+    };
     
     // Create line element
     const line = document.createElementNS(this.svgNS, "line");
-    line.setAttribute("x1", x1);
-    line.setAttribute("y1", y1);
-    line.setAttribute("x2", x2);
-    line.setAttribute("y2", y2);
-    line.setAttribute("stroke", style.stroke || "rgba(105, 240, 174, 0.5)"); // Serenity green with transparency
-    line.setAttribute("stroke-width", style.strokeWidth || 1.5);
-    line.setAttribute("stroke-dasharray", "5,5");
+    line.setAttribute("x1", edgePoint1.x);
+    line.setAttribute("y1", edgePoint1.y);
+    line.setAttribute("x2", edgePoint2.x);
+    line.setAttribute("y2", edgePoint2.y);
+    
+    // Apply standardized styling - white with 25% opacity
+    line.setAttribute("stroke", "rgba(255, 255, 255, 0.25)");
+    line.setAttribute("stroke-width", style.strokeWidth || 1);
+    // Remove dash array for solid lines
     
     // Add line to the SVG container
     this.connectionsContainer.appendChild(line);
@@ -310,26 +349,21 @@ export default class CommandCenterGraphic extends Base {
       }
     });
     
-    // Fade in
+    // Simple fade in and out animation
     lineAnim.fromTo(line, 
-      { opacity: 0, strokeDashoffset: 100 },
-      { opacity: 1, strokeDashoffset: 0, duration: duration * 0.4, ease: "power2.inOut" }
+      { opacity: 0 },
+      { opacity: 1, duration: duration * 0.4, ease: "power2.inOut" }
     );
     
-    // Pulse
+    // Hold at full opacity
     lineAnim.to(line, { 
-      opacity: 0.7, 
-      stroke: style.pulseColor || "rgba(255, 255, 255, 0.8)", 
-      duration: duration * 0.2, 
-      yoyo: true, 
-      repeat: 1,
-      ease: "sine.inOut" 
+      duration: duration * 0.2
     });
     
     // Fade out
     lineAnim.to(line, { 
       opacity: 0, 
-      duration: duration * 0.3, 
+      duration: duration * 0.4, 
       ease: "power2.in" 
     });
     
