@@ -19,16 +19,19 @@ export default class CommandCenterGraphic extends Base {
     }
 
     this.log(`Initializing with ID "${elementId}"`, 'info');
-    this.tiles = this.element.querySelectorAll('.cc-block-item .fuller-cube-outline:not(.fco__accent)');
-    this.log(`Tiles: ${this.tiles}`, 'info');
+    // Convert NodeList to Array for easier manipulation
+    this.tiles = Array.from(this.element.querySelectorAll('.cc-block-item .fuller-cube-outline:not(.fco__accent)'));
+    this.log(`Found ${this.tiles.length} tiles`, 'info');
     this.centerTile = this.element.querySelector('.cc-block-item .fuller-cube-outline.fco__accent');
     this.log(`Center Tile: ${this.centerTile}`, 'info');
     this.animationDelay = 3000;
+    this.staggerDelay = 0.022;
+    this.iterationCount = 0;
     this.init();
   }
 
   init() {
-    // Initialize your module here
+    // Initialize with reveal animations
     gsap.set(this.tiles, { x: -20, opacity: 0 });
     gsap.set(this.centerTile, { y: 20, opacity: 0 });
 
@@ -45,8 +48,9 @@ export default class CommandCenterGraphic extends Base {
         toggleActions: 'play none none reverse',
       },
       onComplete: () => {
-        this.log(`Starting tile animation...`);
-        this.startTileAnimation();
+        this.log(`Reveal animation complete. Starting tile movement sequence...`);
+        // After the reveal animation completes, start our animation sequence
+        setTimeout(() => this.startAnimationSequence(), this.animationDelay);
       },
     });
 
@@ -63,71 +67,147 @@ export default class CommandCenterGraphic extends Base {
     });
   }
 
-  startTileAnimation() {
-    const initialPositions = Array.from(this.tiles).map((tile, index) => {
+  startAnimationSequence() {
+    this.log('Starting continuous animation sequence');
+    this.animateNextIteration();
+  }
+
+  animateNextIteration() {
+    this.iterationCount++;
+    const isSpecialIteration = this.iterationCount % 3 === 0;
+    
+    this.log(`Animation iteration ${this.iterationCount}, Special: ${isSpecialIteration}`);
+    
+    if (isSpecialIteration) {
+      // Every third iteration gets special treatment with back easing and counter-clockwise movement
+      this.moveCounterClockwise('power4.inOut', 1.2);
+    } else {
+      // Normal iteration with regular easing and clockwise movement
+      this.moveClockwise('expo.out', 1);
+    }
+    
+    // Schedule the next iteration
+    if (isSpecialIteration) {
+      setTimeout(() => this.animateNextIteration(), (this.animationDelay/2));
+    } else {
+      setTimeout(() => this.animateNextIteration(), this.animationDelay);
+    }
+  }
+
+  // Get the current positions of all tiles
+  getTilePositions() {
+    const positions = [
+      { name: 'top-left', index: 0 },
+      { name: 'top-middle', index: 1 },
+      { name: 'top-right', index: 2 },
+      { name: 'middle-left', index: 3 },
+      { name: 'middle-right', index: 4 },
+      { name: 'bottom-left', index: 5 },
+      { name: 'bottom-middle', index: 6 },
+      { name: 'bottom-right', index: 7 }
+    ];
+    
+    // Get the exact coordinates of each position from the current tiles
+    positions.forEach(pos => {
+      const tile = this.tiles[pos.index];
       const rect = tile.getBoundingClientRect();
-      // add an attribute to keep track of the original position
-      tile.setAttribute('data-original-x', rect.left);
-      tile.setAttribute('data-original-y', rect.top);
-      tile.setAttribute('data-original-index', index);
-
-      return { x: rect.left, y: rect.top };
+      pos.x = rect.left;
+      pos.y = rect.top;
+      this.log(`Position ${pos.name} (${pos.index}): (${pos.x}, ${pos.y})`);
     });
+    
+    return positions;
+  }
 
-    this.log('Initial Positions:', initialPositions);
-
-    const clockwiseOrder = [0, 1, 2, 4, 7, 6, 5, 3];
-    const counterClockwiseOrder = [0, 3, 5, 6, 7, 4, 2, 1];
-
-    const moveTiles = (order) => {
-      this.log(`called moveTiles()`);
-      const newPositions = order.map(index => {
-        const orderPosition = order.indexOf(index);
-        const nextIndex = (orderPosition + 1) % order.length;
-
-        this.log(`mapping ${index} to ${order[nextIndex]}`);
-
-        return initialPositions[order[nextIndex]];
+  moveClockwise(easing = 'power2.inOut', duration = 1.5) {
+    this.log(`Moving tiles clockwise with ${easing} easing`);
+    
+    const positions = this.getTilePositions();
+    
+    // Define the clockwise movement pattern based on actual DOM order
+    const moveTargets = [
+      1,  // DOM tile 0 (top-left) moves to position 1 (top-middle) 
+      2,  // DOM tile 1 (top-middle) moves to position 2 (top-right)
+      4,  // DOM tile 2 (top-right) moves to position 4 (middle-right)
+      0,  // DOM tile 3 (middle-left) moves to position 0 (top-left)
+      7,  // DOM tile 4 (middle-right) moves to position 7 (bottom-right)
+      3,  // DOM tile 5 (bottom-left) moves to position 3 (middle-left)
+      5,  // DOM tile 6 (bottom-middle) moves to position 5 (bottom-left)
+      6   // DOM tile 7 (bottom-right) moves to position 6 (bottom-middle)
+    ];
+    
+    // Animate each tile to its target position
+    this.tiles.forEach((tile, index) => {
+      // Find where this tile should move to
+      const targetPosition = positions[moveTargets[index]];
+      
+      // Calculate the required movement
+      const currentRect = tile.getBoundingClientRect();
+      const dx = targetPosition.x - currentRect.left;
+      const dy = targetPosition.y - currentRect.top;
+      
+      this.log(`Moving tile ${index} to ${targetPosition.name} (position ${moveTargets[index]})`);
+      
+      // Animate the tile to the new position
+      gsap.to(tile, {
+        x: `+=${dx}`,
+        y: `+=${dy}`,
+        duration: duration,
+        delay: index * this.staggerDelay,
+        ease: easing,
+        onStart: () => {
+          this.log(`Starting clockwise animation for tile ${index}`);
+        },
+        onComplete: () => {
+          this.log(`Completed clockwise animation for tile ${index}`);
+        }
       });
+    });
+  }
 
-      this.log('New Positions:', newPositions);
-
-      this.tiles.forEach((tile, index) => {
-        if(index > 3) return;
-        const dx = newPositions[index].x - initialPositions[index].x;
-        const dy = newPositions[index].y - initialPositions[index].y;
-
-        this.log(`Moving tile ${index}`);
-
-        gsap.to(tile, {
-          x: `+=${dx}`,
-          y: `+=${dy}`,
-          duration: 1,
-          ease: 'power4.out',
-        });
+  moveCounterClockwise(easing = 'power2.inOut', duration = 1.5) {
+    this.log(`Moving tiles counter-clockwise with ${easing} easing`);
+    
+    const positions = this.getTilePositions();
+    
+    // Define the counter-clockwise movement pattern
+    const moveTargets = [
+      3,  // DOM tile 0 (top-left) → position 3 (middle-left)
+      0,  // DOM tile 1 (top-middle) → position 0 (top-left)
+      1,  // DOM tile 2 (top-right) → position 1 (top-middle)
+      5,  // DOM tile 3 (middle-left) → position 5 (bottom-left)
+      2,  // DOM tile 4 (middle-right) → position 2 (top-right)
+      6,  // DOM tile 5 (bottom-left) → position 6 (bottom-middle)
+      7,  // DOM tile 6 (bottom-middle) → position 7 (bottom-right)
+      4   // DOM tile 7 (bottom-right) → position 4 (middle-right)
+    ];
+    
+    // Animate each tile to its target position
+    this.tiles.forEach((tile, index) => {
+      // Find where this tile should move to
+      const targetPosition = positions[moveTargets[index]];
+      
+      // Calculate the required movement
+      const currentRect = tile.getBoundingClientRect();
+      const dx = targetPosition.x - currentRect.left;
+      const dy = targetPosition.y - currentRect.top;
+      
+      this.log(`Moving tile ${index} to ${targetPosition.name} (position ${moveTargets[index]})`);
+      
+      // Animate the tile to the new position with a special easing
+      gsap.to(tile, {
+        x: `+=${dx}`,
+        y: `+=${dy}`,
+        duration: duration,
+        delay: index * this.staggerDelay,
+        ease: easing,
+        onStart: () => {
+          this.log(`Starting counter-clockwise animation for tile ${index}`);
+        },
+        onComplete: () => {
+          this.log(`Completed counter-clockwise animation for tile ${index}`);
+        }
       });
-
-      initialPositions.splice(0, initialPositions.length, ...newPositions);
-    };
-
-    const animateTiles = () => {
-      moveTiles(clockwiseOrder);
-      setTimeout(() => {
-        moveTiles(clockwiseOrder);
-        setTimeout(() => {
-          moveTiles(counterClockwiseOrder);
-          setTimeout(() => {
-            moveTiles(counterClockwiseOrder);
-            setTimeout(animateTiles, this.animationDelay);
-          }, this.animationDelay);
-        }, this.animationDelay);
-      }, this.animationDelay);
-    };
-
-    // setTimeout(animateTiles, this.animationDelay);
-    // this.log('setting timeout for animateTiles');
-    // setTimeout(() => {
-    //   moveTiles(clockwiseOrder);
-    // }, this.animationDelay);
+    });
   }
 }

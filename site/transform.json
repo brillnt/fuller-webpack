@@ -201,6 +201,71 @@
     ],
     "inject": {}
   },
+  "export/modules.html": {
+    "replace": [
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/common.bundle.min.js",
+        "replace": "brillnt/js/common.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/base.bundle.min.js",
+        "replace": "brillnt/js/base.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller.brillnt.com/js/modules.bundle.min.js",
+        "replace": "brillnt/js/modules.bundle.min.js"
+      },
+      {
+        "tag": "script",
+        "attr": "src",
+        "search": "https://fuller-webpack*.onrender.com/js/modules.bundle.min.js",
+        "replace": "brillnt/js/modules.bundle.min.js"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/modules.min.css",
+        "replace": "brillnt/css/modules.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/modules.min.css",
+        "replace": "brillnt/css/modules.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller.brillnt.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      },
+      {
+        "tag": "link",
+        "attr": "href",
+        "search": "https://fuller-webpack*.onrender.com/css/base.min.css",
+        "replace": "brillnt/css/base.min.css"
+      }
+    ],
+    "inject": {}
+  },
   "export/typography.html": {
     "replace": [
       {
