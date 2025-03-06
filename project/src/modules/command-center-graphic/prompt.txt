@@ -1,0 +1,55 @@
+# Command Center Animation Development Prompt
+
+## Project Overview
+I'm developing a dynamic animation for a command center interface using GSAP. The animation features 8 tiles arranged in a perimeter around a central "brain" tile in a 3x3 grid. I need help evolving this animation from its current state to something more fluid, organic, and visually interesting.
+
+## Current Implementation
+My animation has progressed through two key versions:
+
+1. **Basic Movement Version**: Tiles move clockwise/counterclockwise around the perimeter of the grid.
+   - Discovered DOM order vs. visual position mapping issue
+   - Fixed with explicit position mapping in `moveTargets` array
+   - Implemented staggered movements with varying timing
+
+2. **Intelligent Network Concept**: Currently exploring this enhanced version with:
+   - Four movement patterns (clockwise, counterclockwise, pair swaps, pattern groups)
+   - SVG connection lines between tiles that animate in/out
+   - Random processing "pulses" on individual tiles
+   - Center "brain" tile that periodically influences other tiles
+
+## Technical Details
+- Grid layout follows this structure, with each number representing tile index in DOM order:
+```
+   [0][1][2]
+   [3][ ][4]  (center excluded)
+   [5][6][7]
+```
+- Movements must account for this specific DOM structure
+- Animation features need to respect the current position of each tile
+- Currently using GSAP for all animations with standard DOM/SVG manipulation
+
+## Additional Animation Concepts
+Beyond the Intelligent Network, we've developed two other promising concepts:
+
+1. **Resonance Cascade System**: 
+   - Tiles oscillate subtly from the center
+   - "Cascade events" trigger chain reactions of movements
+   - Each tile's movement influences nearby tiles with decreasing intensity
+   - Elastic/bounce easing creates satisfying rhythmic quality
+   - Direction of cascade flows periodically reverses
+
+2. **Quantum State Observer**:
+   - Tiles occasionally split into semi-transparent "ghost" versions
+   - SVG morphing between different visual states
+   - "Entanglement" effects where tiles mirror each other
+   - Periodic "collapse" moments where animation pauses before resolving to new states
+   - Subtle color shifts indicating different energy states
+
+## Next Steps
+I'd like to continue refining these animation concepts or explore additional ideas that:
+1. Create fluid, somewhat unpredictable movement
+2. Maintain a "command center" aesthetic
+3. Look visually interesting and engaging
+4. Use modern animation techniques within my current technical framework
+
+When I share my code, please focus on enhancing the animation concepts while maintaining the technical approach I've established.
