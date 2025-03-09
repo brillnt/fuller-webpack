@@ -32,6 +32,14 @@ export default class ThreeDSlider extends Base {
     this.currentScrollIndex = 0;
     this.scrollLocked = false;
     this.scrollLockDuration = 1000; // 1 second lock after click navigation
+    
+    // Track active animations to cancel them when needed
+    this.activeAnimations = [];
+    this.animationInProgress = false;
+    this.pendingAnimationIndex = null;
+    
+    // Track the current animating slide to prevent duplicate animations
+    this.currentlyAnimatingToIndex = null;
 
     this.init();
   }
@@ -93,24 +101,43 @@ export default class ThreeDSlider extends Base {
     
     this.log(`Found ${this.waypoints.length} waypoints`);
     
-    // Create IntersectionObserver
+    // Create IntersectionObserver with optimized settings
     this.observer = new IntersectionObserver((entries) => {
       if (this.scrollLocked) return;
       
+      // Sort entries by timestamp to process the latest ones first
+      // This helps when multiple waypoints trigger at once during fast scrolling
+      entries.sort((a, b) => b.time - a.time);
+      
+      let processedWaypoint = false;
+      
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        // Only process the first intersecting entry in a batch to avoid conflicts
+        if (entry.isIntersecting && !processedWaypoint) {
+          processedWaypoint = true;
+          
           const waypointIndex = parseInt(entry.target.dataset.waypointIndex);
           this.log(`Waypoint ${waypointIndex} is intersecting`);
           
-          if (waypointIndex !== this.currentScrollIndex) {
+          // Check if this is a different waypoint than the one currently animating
+          if (waypointIndex !== this.currentScrollIndex && waypointIndex !== this.currentlyAnimatingToIndex) {
+            // For fast scrolling, if another animation is in progress, cancel it
+            if (this.animationInProgress) {
+              this.cancelActiveAnimations();
+              this.animationInProgress = false;
+            }
+            
             this.currentScrollIndex = waypointIndex;
             this.navigateToSlide(waypointIndex);
+          } else {
+            this.log(`Ignoring waypoint ${waypointIndex} - already current or animating`);
           }
         }
       });
     }, {
-      threshold: 0.5,
-      rootMargin: '-10% 0px -10% 0px'
+      // More responsive settings for fast scrolling
+      threshold: 0.2, // Trigger earlier
+      rootMargin: '-5% 0px -5% 0px' // Smaller margins for faster detection
     });
     
     // Observe all waypoints
@@ -131,7 +158,7 @@ export default class ThreeDSlider extends Base {
     if (this.scrollLocked) return;
     
     const now = Date.now();
-    if (now - this.lastScrollTime < 100) return; // 100ms throttle
+    if (now - this.lastScrollTime < 50) return; // Reduced throttle to 50ms for more responsive scrolling
     this.lastScrollTime = now;
     
     // Calculate scroll progress within section
@@ -153,10 +180,21 @@ export default class ThreeDSlider extends Base {
       this.indicators.length - 1
     );
     
-    // Only update if we're moving to a new slide
-    if (targetIndex !== this.currentScrollIndex && !this.scrollLocked) {
+    // Only update if we're moving to a new slide AND not currently animating to this index
+    if (targetIndex !== this.currentScrollIndex && 
+        !this.scrollLocked && 
+        targetIndex !== this.currentlyAnimatingToIndex) {
+      
       this.log(`Scroll progress: ${scrollProgress.toFixed(2)}, targeting slide ${targetIndex}`);
       this.currentScrollIndex = targetIndex;
+      
+      // For rapid scrolling, if we're several slides away, we might want to skip intermediate animations
+      if (Math.abs(targetIndex - this.currentScrollIndex) > 2 && this.animationInProgress) {
+        this.cancelActiveAnimations();
+        this.animationInProgress = false;
+        this.currentlyAnimatingToIndex = null;
+      }
+      
       this.navigateToSlide(targetIndex);
     }
   }
@@ -171,6 +209,20 @@ export default class ThreeDSlider extends Base {
       return;
     }
     
+    // Check if we're already animating to this index to prevent duplicate animations
+    if (this.currentlyAnimatingToIndex === index) {
+      this.log(`Already animating to slide ${index}, ignoring duplicate request`);
+      return;
+    }
+    
+    // If we're currently animating to a different index and a new animation is requested
+    if (this.animationInProgress) {
+      this.log(`Animation in progress to slide ${this.currentlyAnimatingToIndex}, queueing slide ${index}`);
+      this.pendingAnimationIndex = index;
+      return;
+    }
+    
+    this.currentlyAnimatingToIndex = index;
     const indicator = this.indicators[index];
     this.handleIndicatorClick(indicator, true);
   }
@@ -183,13 +235,20 @@ export default class ThreeDSlider extends Base {
   handleIndicatorClick(indicator, fromScroll = false) {
     let isActive = indicator.querySelector('.tdsi-active').classList.contains('tds--active');
     if (isActive) return;
+    
+    // Track the request
+    const requestedStep = parseInt(indicator.getAttribute(STEP_ATTR_INDICATOR));
+    this.log(`Indicator click for step ${requestedStep}, fromScroll: ${fromScroll}`);
 
     // If this was triggered by a click (not scroll), temporarily lock scroll navigation
     if (!fromScroll) {
+      // Kill any ongoing animations first
+      this.cancelActiveAnimations();
+      
       this.scrollLocked = true;
       this.log('Scroll navigation locked due to click');
       
-      // Optionally: Scroll to appropriate position
+      // Scroll to appropriate position
       const newStep = parseInt(indicator.getAttribute(STEP_ATTR_INDICATOR));
       const section = this.element.closest('.how-it-works-section');
       
@@ -266,29 +325,98 @@ export default class ThreeDSlider extends Base {
   }
 
   animateSlides(liveSlides, activeSlideIndex, movingForward) {
+    // Mark animation as in progress
+    this.animationInProgress = true;
+    this.log(`Starting animation to slide index ${activeSlideIndex}`);
+    
+    // Cancel all active animations first
+    this.cancelActiveAnimations();
+    
+    // Store the new animations
+    this.activeAnimations = [];
+    
+    // Determine the max animation duration for completion tracking
+    let maxDuration = 0;
+    
     liveSlides.forEach((slide, slideIndex) => {
       let offset = slideIndex - activeSlideIndex;
-      let delay = movingForward ? (slideIndex * 0.1) : ((this.slides.length - slideIndex - 1) * 0.1);
-
+      // Reduce delays for smoother rapid transitions
+      let delay = movingForward ? (slideIndex * 0.05) : ((this.slides.length - slideIndex - 1) * 0.05);
+      
+      // Always ensure slides are visible initially
       gsap.set(slide, { display: 'flex' });
 
+      let animation;
+      
       if (offset === 0) {
         // active slide
-        gsap.to(slide, { z: 0, y: 0, opacity: 1, ease: EASE_FUNCTION, duration: 0.7, delay });
+        animation = gsap.to(slide, { 
+          z: 0, 
+          y: 0, 
+          opacity: 1, 
+          ease: EASE_FUNCTION, 
+          duration: 0.5, // Slightly faster for smoother transitions
+          delay 
+        });
+        
+        maxDuration = Math.max(maxDuration, 0.5 + delay);
       } else {
         // non-active slides
         // offset > 0 ? behind active : in front of active slide
         let z = offset > 0 ? offset * -50 : null;
         let y = offset > 0 ? offset * -25 : offset * -100;
         let opacity = offset > 0 ? (0.7 - (offset * 0.1)) : 0;
-        let duration = offset > 0 ? 0.7 : 0.5;
-
+        let duration = offset > 0 ? 0.5 : 0.4; // Faster for smoother transitions
+        
         // slides that animate offscreen
-        gsap.to(slide, { z, y, opacity, duration, delay, ease: EASE_FUNCTION,
-          onComplete: offset > 0 ? () => {} : () => { gsap.set(slide, { display: 'none' }); }
+        animation = gsap.to(slide, { 
+          z, 
+          y, 
+          opacity, 
+          duration, 
+          delay, 
+          ease: EASE_FUNCTION,
+          onComplete: offset > 0 ? () => {} : () => { 
+            gsap.set(slide, { display: 'none' }); 
+          }
         });
+        
+        maxDuration = Math.max(maxDuration, duration + delay);
       }
+      
+      // Store the animation for later cancellation if needed
+      this.activeAnimations.push(animation);
     });
+    
+    // Set a timeout to mark animation as complete
+    setTimeout(() => {
+      this.animationInProgress = false;
+      this.currentlyAnimatingToIndex = null; // Clear the animating index
+      this.log('Animation sequence complete');
+      
+      // Process any pending animations that came in while we were animating
+      if (this.pendingAnimationIndex !== null) {
+        const pendingIndex = this.pendingAnimationIndex;
+        this.pendingAnimationIndex = null;
+        this.log(`Processing pending animation to slide ${pendingIndex}`);
+        this.navigateToSlide(pendingIndex);
+      }
+    }, maxDuration * 1000 + 50); // Add a small buffer
+  }
+  
+  /**
+   * Cancel any currently active animations
+   */
+  cancelActiveAnimations() {
+    if (this.activeAnimations.length > 0) {
+      this.log(`Cancelling ${this.activeAnimations.length} active animations`);
+      this.activeAnimations.forEach(animation => {
+        if (animation && animation.kill) {
+          animation.kill();
+        }
+      });
+      this.activeAnimations = [];
+    }
   }
 
   updateButtonStates() {
