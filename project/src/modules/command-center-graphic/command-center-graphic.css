@@ -1,0 +1,73 @@
+/* Command Center Graphic Styles */
+
+/* Ensure tiles can transition smoothly */
+.cc-block-item {
+  transition: filter 0.3s ease;
+  position: relative;
+}
+
+/* Allow for special effects on the SVG elements */
+.fuller-cube-outline {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  transform-origin: center center;
+}
+
+/* Special styling for when tiles are processing or active */
+.cc-block-item.processing .fuller-cube-outline {
+  filter: drop-shadow(0 0 5px rgba(105, 240, 174, 0.6));
+}
+
+/* Special styling for the center "brain" tile */
+.fuller-cube-outline.fco__accent {
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* Container for the connections needs to be positioned properly */
+.network-grid-container {
+  position: relative;
+}
+
+/* Make sure the grid wrap can handle absolute positioned elements */
+.network-grid-wrap {
+  position: relative;
+}
+
+/* Additional animation classes that can be applied dynamically */
+.pulse-effect {
+  animation: pulse 1.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.2); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* For active tiles during connections */
+.tile-active {
+  filter: brightness(1.2) !important;
+}
+
+/* For tiles that are "thinking" or processing */
+.tile-processing {
+  animation: processing 2s infinite alternate;
+}
+
+@keyframes processing {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.15) saturate(1.2); }
+}
+
+/* Brain pulse ripple effect overlay */
+.brain-pulse-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
