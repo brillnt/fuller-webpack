@@ -1,0 +1,434 @@
+{
+  "top-left-to-top-middle": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    },
+    "to": {
+      "position": "top-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-left-to-top-right": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    },
+    "to": {
+      "position": "top-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "top-left-to-middle-left": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 30,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "middle-left",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-left-to-middle-right": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    },
+    "to": {
+      "position": "middle-right",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-left-to-bottom-left": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 30,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-left",
+      "offsetX": 40,
+      "offsetY": 42.071875000000006
+    }
+  },
+  "top-left-to-bottom-middle": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 30,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-left-to-bottom-right": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 33,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "top-middle-to-top-right": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "top-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "top-middle-to-middle-left": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 38.5,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "middle-left",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-middle-to-middle-right": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 38.5,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "middle-right",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-middle-to-bottom-left": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-left",
+      "offsetX": 40,
+      "offsetY": 42.071875000000006
+    }
+  },
+  "top-middle-to-bottom-middle": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-middle-to-bottom-right": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "top-right-to-middle-left": {
+    "from": {
+      "position": "top-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    },
+    "to": {
+      "position": "middle-left",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-right-to-middle-right": {
+    "from": {
+      "position": "top-right",
+      "offsetX": 30,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "middle-right",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-right-to-bottom-left": {
+    "from": {
+      "position": "top-right",
+      "offsetX": 33,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "bottom-left",
+      "offsetX": 40,
+      "offsetY": 42.071875000000006
+    }
+  },
+  "top-right-to-bottom-middle": {
+    "from": {
+      "position": "top-right",
+      "offsetX": 30,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "top-right-to-bottom-right": {
+    "from": {
+      "position": "top-right",
+      "offsetX": 30,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "middle-left-to-middle-right": {
+    "from": {
+      "position": "middle-left",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "middle-right",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "middle-left-to-bottom-left": {
+    "from": {
+      "position": "middle-left",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-left",
+      "offsetX": 40,
+      "offsetY": 42.071875000000006
+    }
+  },
+  "middle-left-to-bottom-middle": {
+    "from": {
+      "position": "middle-left",
+      "offsetX": 38.5,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "middle-left-to-bottom-right": {
+    "from": {
+      "position": "middle-left",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "middle-right-to-bottom-left": {
+    "from": {
+      "position": "middle-right",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "bottom-left",
+      "offsetX": 40,
+      "offsetY": 42.071875000000006
+    }
+  },
+  "middle-right-to-bottom-middle": {
+    "from": {
+      "position": "middle-right",
+      "offsetX": 38.5,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "middle-right-to-bottom-right": {
+    "from": {
+      "position": "middle-right",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "bottom-left-to-bottom-middle": {
+    "from": {
+      "position": "bottom-left",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    },
+    "to": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    }
+  },
+  "bottom-left-to-bottom-right": {
+    "from": {
+      "position": "bottom-left",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "bottom-middle-to-bottom-right": {
+    "from": {
+      "position": "bottom-middle",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "bottom-right",
+      "offsetX": 45,
+      "offsetY": 31.553906249999997
+    }
+  },
+  "top-left-to-center": {
+    "from": {
+      "position": "top-left",
+      "offsetX": 33,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 50,
+      "offsetY": 53.25
+    }
+  },
+  "top-middle-to-center": {
+    "from": {
+      "position": "top-middle",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 50,
+      "offsetY": 53.25
+    }
+  },
+  "top-right-to-center": {
+    "from": {
+      "position": "top-right",
+      "offsetX": 33,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 50,
+      "offsetY": 53.25
+    }
+  },
+  "middle-left-to-center": {
+    "from": {
+      "position": "middle-left",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 50,
+      "offsetY": 53.25
+    }
+  },
+  "middle-right-to-center": {
+    "from": {
+      "position": "middle-right",
+      "offsetX": 45,
+      "offsetY": 36.812890624999994
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 50,
+      "offsetY": 53.25
+    }
+  },
+  "bottom-left-to-center": {
+    "from": {
+      "position": "bottom-left",
+      "offsetX": 33,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 55.00000000000001,
+      "offsetY": 58.575
+    }
+  },
+  "bottom-middle-to-center": {
+    "from": {
+      "position": "bottom-middle",
+      "offsetX": 35,
+      "offsetY": 47.330859375
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 50,
+      "offsetY": 53.25
+    }
+  },
+  "bottom-right-to-center": {
+    "from": {
+      "position": "bottom-right",
+      "offsetX": 33,
+      "offsetY": 52.06394531250001
+    },
+    "to": {
+      "position": "center",
+      "offsetX": 55.00000000000001,
+      "offsetY": 58.575
+    }
+  }
+}

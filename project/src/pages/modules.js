@@ -5,5 +5,12 @@ import CommandCenterGraphic from '../modules/command-center-graphic/command-cent
 
 onReady(() => {
   new ContactForm('contact-form', true);
-  new CommandCenterGraphic('cc-blocks-container', true);
+  // new CommandCenterGraphic('cc-blocks-container', true);
+  const commandCenter = new CommandCenterGraphic('cc-blocks-container', {
+    debug:true,
+    devMode: true,
+    refinementMode: true,
+    refinementConnection: 'top-left-to-top-middle', // Connection to test
+    connectionRepeatDelay: 2000 // How often to refresh the visualization
+  });
 });
