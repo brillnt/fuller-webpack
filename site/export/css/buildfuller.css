@@ -283,6 +283,12 @@ label {
   padding-bottom: 10rem;
 }
 
+.container.container--sticky {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
 .type-content {
   margin-bottom: var(--_spacing---container--v-space);
   grid-column-gap: 2rem;
@@ -957,6 +963,8 @@ label {
 
 .how-it-works-section {
   background-image: radial-gradient(circle farthest-side at 50% 100%, var(--deep-serenity), var(--pitch-black));
+  height: 600vh;
+  position: relative;
 }
 
 .three-d-slider {
@@ -2651,6 +2659,37 @@ label {
   align-items: center;
   width: 1.5rem;
   display: flex;
+}
+
+.slide-waypoint {
+  opacity: 0;
+  pointer-events: none;
+  height: 1px;
+  position: absolute;
+}
+
+.slide-waypoint._1 {
+  top: 20%;
+}
+
+.slide-waypoint._0 {
+  top: 0;
+}
+
+.slide-waypoint._2 {
+  top: 40%;
+}
+
+.slide-waypoint._3 {
+  top: 60%;
+}
+
+.slide-waypoint._4 {
+  top: 80%;
+}
+
+.slide-waypoint._5 {
+  top: 95%;
 }
 
 @media screen and (max-width: 991px) {

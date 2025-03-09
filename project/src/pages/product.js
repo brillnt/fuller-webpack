@@ -13,7 +13,7 @@ onReady(() => {
   new ContactForm('contact-form', true);
   new FullerAngleWatcher('.card');
   new TextAnimateSections(['first-reveal', 'second-reveal', 'third-reveal', 'home-os', 'prototype-section', 'future-section']);
-  new ThreeDSlider('process-slider');
+  new ThreeDSlider('process-slider', true);
   new FutureGallery('future-gallery', true);
   new Slider('slider-wrapper-2', {
     animationDuration: 1,
