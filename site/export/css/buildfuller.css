@@ -963,7 +963,6 @@ label {
 
 .how-it-works-section {
   background-image: radial-gradient(circle farthest-side at 50% 100%, var(--deep-serenity), var(--pitch-black));
-  height: 600vh;
   position: relative;
 }
 
@@ -1477,12 +1476,18 @@ label {
   line-height: 162%;
 }
 
+.input-label.input-label--multiselect {
+  color: var(--serenity-green);
+  font-weight: 500;
+}
+
 .input-text {
   border-style: none none solid;
   border-width: 1px;
   border-color: transparent transparent var(--brand-white--50);
   background-color: var(--dark-gray);
   color: var(--brand-white--70);
+  border-radius: 0;
   height: 3rem;
   transition: color .6s cubic-bezier(.19, 1, .22, 1), border-color .6s cubic-bezier(.19, 1, .22, 1);
 }
@@ -1510,6 +1515,7 @@ label {
   border-color: transparent transparent var(--brand-white--50);
   background-color: var(--dark-gray);
   color: var(--brand-white--70);
+  border-radius: 0;
   height: 3rem;
 }
 
@@ -1519,7 +1525,7 @@ label {
 }
 
 .input-select.input-select--multi {
-  padding: 1rem;
+  padding: 0 0 0 1rem;
   line-height: 200%;
 }
 
@@ -1529,6 +1535,7 @@ label {
   border-color: transparent transparent var(--brand-white--50);
   background-color: var(--dark-gray);
   color: var(--brand-white--70);
+  border-radius: 0;
   height: 10rem;
   min-height: 10rem;
   transition: border-color .6s cubic-bezier(.19, 1, .22, 1), color .6s cubic-bezier(.19, 1, .22, 1);
@@ -3031,6 +3038,11 @@ label {
 
   .container {
     position: relative;
+  }
+
+  .container.nav-alt {
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   .container.container--tall {
