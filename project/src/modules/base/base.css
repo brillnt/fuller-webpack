@@ -1,40 +1,42 @@
 /* custom code for fuller */
 :root {
-  --brand-black: #121212;
-  --brand-black--darker: #020202;
-  --brand-white--70: #f4f7f5b3;
-  --brand-white: #f4f7f5;
+  --_spacing---container--padding: 4rem;
+  --_spacing---container--v-space: 10rem;
+  --_spacing---container--width: 1280px;
   --_typography---h1: 4rem;
+  --_typography---h2--alt-small: 2.47rem;
   --_typography---h2: 2.47rem;
   --_typography---h3: 1.52rem;
   --_typography---h4: .939rem;
-  --_typography---p--regular: .9rem;
-  --_spacing---container--width: 1280px;
-  --_spacing---container--v-space: 10rem;
-  --_spacing---container--padding: 4rem;
-  --_typography---p--small: .75rem;
-  --serenity-accent: #8fb8b9;
-  --serenity-green: #588e91;
-  --_typography---p--smaller: .66rem;
   --_typography---p--big: 1.25rem;
   --_typography---p--bigger: 1.618rem;
-  --brand-gray: #bfc0c0;
-  --gray: #6f6f6f;
-  --brand-gray--25: #bfc0c040;
-  --dark-gray--50: #26262680;
-  --_typography---h2--alt-small: 2.47rem;
-  --dark-gray: #262626;
-  --pitch-black: black;
-  --stark-white: #fff;
-  --brand-gray--50: #bfc0c080;
+  --_typography---p--regular: .9rem;
+  --_typography---p--small: .75rem;
+  --_typography---p--smaller: .66rem;
+  --brand-black--darker: #020202;
+  --brand-black: #121212;
   --brand-gray--10: #bfc0c01a;
-  --pitch-black--50: #00000080;
-  --dark-gray--25: #26262640;
-  --btn-shape: 0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%;
-  --btn-shape--alt: 0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%;
-  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-  --breakpoint--tablet: 991px;
+  --brand-gray--25: #bfc0c040;
+  --brand-gray--50: #bfc0c080;
+  --brand-gray: #bfc0c0;
+  --brand-white--70: #f4f7f5b3;
+  --brand-white: #f4f7f5;
   --breakpoint--mobile-large: 768px;
+  --breakpoint--tablet: 991px;
+  --btn-shape--alt: 0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%;
+  --btn-shape: 0 0, 91% 0, 100% 20%, 100% 100%, 9% 100%, 0 80%;
+  --dark-gray--25: #26262640;
+  --dark-gray--25: #26262640;
+  --dark-gray--50: #26262680;
+  --dark-gray: #262626;
+  --deep-serenity: #151819;
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --gray: #6f6f6f;
+  --pitch-black--50: #00000080;
+  --pitch-black: black;
+  --serenity-accent: #8fb8b9;
+  --serenity-green: #588e91;
+  --stark-white: #fff;
 }
 
 /* * {
@@ -129,4 +131,57 @@
 .offsite-grid__text {
   font-size: 0.8rem;
   color: var(--brand-white--70);
+}
+
+select[multiple] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  z-index: 1;
+  outline: none;
+}
+
+.input-wrap--multiselect {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+}
+
+.input-wrap--multiselect select[multiple],
+.input-wrap--multiselect::after {
+  grid-area: select;
+}
+
+.input-wrap--multiselect select[multiple] option {
+  padding: 0.5em 0;
+  font-size: 0.9rem;
+}
+
+
+.input-wrap--multiselect {
+  border: 1px solid var(--brand-gray--25);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  line-height: 1.1;
+  background: linear-gradient(to bottom, var(--brand-black) 0%, var(--deep-serenity) 100%);
+}
+
+.input-wrap--multiselect::after {
+  content: "";
+  justify-self: end;
+  width: 0.8em;
+  height: 0.5em;
+  background-color: var(--serenity-green);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }

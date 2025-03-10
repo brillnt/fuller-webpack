@@ -963,7 +963,6 @@ label {
 
 .how-it-works-section {
   background-image: radial-gradient(circle farthest-side at 50% 100%, var(--deep-serenity), var(--pitch-black));
-  height: 600vh;
   position: relative;
 }
 
@@ -3031,6 +3030,11 @@ label {
 
   .container {
     position: relative;
+  }
+
+  .container.nav-alt {
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   .container.container--tall {
