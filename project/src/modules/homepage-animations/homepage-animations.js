@@ -26,7 +26,17 @@ export default class HomepageAnimations extends Base {
         once: true
       };
 
-      new ImageWipeReveal('.sc-media-mobile img, img.ic-img', this.debug);
+      new ImageWipeReveal(
+        '#swipe-copy-1 .sc-media-mobile img, img.ic-img', 
+        { direction: 'left' },
+        this.debug
+      );
+
+      new ImageWipeReveal(
+        '#swipe-copy-2 .sc-media-mobile img', 
+        { direction: 'right' },
+        this.debug
+      );
 
       new TextAnimateSections([
         'home-model-reveal',
