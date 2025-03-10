@@ -150,23 +150,16 @@ select[multiple] {
   outline: none;
 }
 
-.input-wrap--multiselect {
-  display: grid;
-  grid-template-areas: "select";
-  align-items: center;
-  position: relative;
-}
-
-.input-wrap--multiselect select[multiple],
-.input-wrap--multiselect::after {
-  grid-area: select;
-}
-
 .input-wrap--multiselect select[multiple] option {
-  padding: 0.5em 0;
+  padding: 0.5em 0 0.5rem 0.5rem;
   font-size: 0.9rem;
+  transition: background-color 0.4s ease-in-out;
 }
 
+.input-wrap--multiselect select[multiple] option:checked {
+  background-color: var(--serenity-green);
+  color: var(--brand-white);
+}
 
 .input-wrap--multiselect {
   border: 1px solid var(--brand-gray--25);
@@ -174,14 +167,5 @@ select[multiple] {
   padding: 0.25em 0.5em;
   cursor: pointer;
   line-height: 1.1;
-  background: linear-gradient(to bottom, var(--brand-black) 0%, var(--deep-serenity) 100%);
-}
-
-.input-wrap--multiselect::after {
-  content: "";
-  justify-self: end;
-  width: 0.8em;
-  height: 0.5em;
-  background-color: var(--serenity-green);
-  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  background: var(--dark-gray);
 }
