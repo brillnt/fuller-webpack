@@ -3045,6 +3045,11 @@ label {
     align-items: flex-start;
   }
 
+  .container.c-hero-alt.product-hero-alt {
+    justify-content: flex-end;
+    align-items: stretch;
+  }
+
   .container.container--tall {
     padding-top: 7rem;
     padding-bottom: 7rem;
@@ -3070,6 +3075,10 @@ label {
     bottom: 1rem;
     left: 50%;
     transform: translate(-50%);
+  }
+
+  .hero-section {
+    height: 100svh;
   }
 
   .brand-link.w--current {
@@ -3479,10 +3488,6 @@ label {
 
   .container {
     width: 100%;
-  }
-
-  .container.c-hero-alt {
-    padding-bottom: 10rem;
   }
 
   .container.container--tall {
