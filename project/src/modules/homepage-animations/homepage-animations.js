@@ -91,14 +91,6 @@ export default class HomepageAnimations extends Base {
         }
       ], this.debug);
     }
-    new ConnectingLine('fuller-hero-brandmark', this.debug);
-    new ConnectingLine('abstract-line-0', this.debug);
-    new ConnectingLine('abstract-line-1', this.debug);
-    new ConnectingLine('abstract-line-2', this.debug);
-    new ConnectingLine('abstract-line-3', this.debug);
-    new ConnectingLine('abstract-line-4', this.debug);
-    new ConnectingLine('abstract-line-5', this.debug);
-    new ConnectingLine('abstract-line-6', this.debug);
 
     if (this.device?.browser.name !== 'Safari') {
       new ThreePillars('benefits-content');
