@@ -521,7 +521,7 @@ label {
 
 .hero-content {
   width: 61.8%;
-  max-width: 700px;
+  max-width: 600px;
 }
 
 .hero-content.hero-content--center {
@@ -660,11 +660,11 @@ label {
   display: flex;
 }
 
-.footer-logo-wrap {
+.footer-col--half {
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   flex-flow: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   width: 50%;
   display: flex;
@@ -673,7 +673,7 @@ label {
 .footer-logo {
   aspect-ratio: 1566 / 372;
   color: var(--stark-white);
-  width: 50%;
+  max-width: 225px;
 }
 
 .footer-logo.text-color-cool-bw-gradient.fl-alt {
@@ -843,6 +843,7 @@ label {
   background-color: var(--serenity-green);
   background-image: radial-gradient(circle farthest-corner at 50% 100%, #1c2121, var(--brand-black));
   height: 250px;
+  position: relative;
 }
 
 .bci-media.bci-slider {
@@ -1707,7 +1708,7 @@ label {
 
 .media-background.mb--dim-2 {
   z-index: 3;
-  background-image: linear-gradient(180deg, #0000 83%, var(--pitch-black));
+  background-image: linear-gradient(180deg, #0000 43%, var(--pitch-black));
 }
 
 .media-background.mb--fuller-bg {
@@ -1823,6 +1824,7 @@ label {
 }
 
 .bci-media__svg-wrap {
+  z-index: 5;
   border-bottom: 1px solid var(--serenity-green);
   color: var(--brand-white);
   justify-content: center;
@@ -1831,6 +1833,7 @@ label {
   height: 100%;
   padding: 4rem;
   display: flex;
+  position: relative;
 }
 
 .bci-copy__heading {
@@ -2699,6 +2702,30 @@ label {
   top: 95%;
 }
 
+.footer-logo-wrap {
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  flex-flow: column;
+  align-items: center;
+  display: flex;
+}
+
+.hero-image {
+  opacity: .37;
+  height: 66%;
+  transform: translate(0, 33%);
+}
+
+.hero-image-gradient {
+  background-image: none;
+  height: 66%;
+  transform: translate(0, 33%);
+  -webkit-mask-image: url('../images/fuller-dots-4.png');
+  mask-image: url('../images/fuller-dots-4.png');
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
 @media screen and (max-width: 991px) {
   body {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-68eb0ec5-c292-8e30-c851-232852445963;
@@ -2744,7 +2771,6 @@ label {
 
   .hero-content {
     width: 70%;
-    max-width: 700px;
   }
 
   .h2-alt {
@@ -3081,7 +3107,7 @@ label {
     height: 100svh;
   }
 
-  .brand-link.w--current {
+  .brand-link, .brand-link.w--current {
     width: 56px;
   }
 
@@ -3134,7 +3160,7 @@ label {
     align-items: center;
   }
 
-  .footer-logo-wrap {
+  .footer-col--half {
     align-self: flex-start;
     width: 100%;
   }
@@ -3460,6 +3486,11 @@ label {
 
   .fuller-background {
     width: 50vh;
+  }
+
+  .hero-image, .hero-image-gradient {
+    height: 50%;
+    transform: translate(0, 25%);
   }
 }
 
