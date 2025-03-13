@@ -2717,13 +2717,33 @@ label {
 }
 
 .hero-image-gradient {
-  background-image: none;
+  background-image: linear-gradient(90deg, var(--serenity-green), var(--pitch-black) 25%, var(--serenity-green) 50%, var(--pitch-black) 75%, var(--serenity-green) 100%, var(--serenity-green));
   height: 66%;
   transform: translate(0, 33%);
   -webkit-mask-image: url('../images/fuller-dots-4.png');
   mask-image: url('../images/fuller-dots-4.png');
   -webkit-mask-size: cover;
   mask-size: cover;
+}
+
+.hero-image-gradient.hero-img-gradient--product {
+  opacity: .42;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  -webkit-mask-image: url('../images/product-page-hero.png');
+  mask-image: url('../images/product-page-hero.png');
+}
+
+.hero-image-gradient.hero-img-gradient--systems {
+  opacity: .42;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  -webkit-mask-image: url('../images/Systems-Page-3.png');
+  mask-image: url('../images/Systems-Page-3.png');
 }
 
 @media screen and (max-width: 991px) {

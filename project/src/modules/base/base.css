@@ -188,7 +188,7 @@ div.hero-image-gradient {
     var(--pitch-black) 175%,
     var(--serenity-green) 200%
   );
-  animation: moveGradient 5s linear infinite;
+  animation: moveGradient 10s linear infinite;
   background-size: 200% 100%;
 }
 
