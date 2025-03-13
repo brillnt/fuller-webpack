@@ -6,6 +6,7 @@ import ConnectingLine from '../connecting-line/connecting-line.js';
 import ThreePillars from '../three-pillars/three-pillars.js';
 import SwipeMediaBlock from '../swipe-media-block/swipe-media-block.js';
 import ImageWipeReveal from '../image-wipe-reveal/image-wipe-reveal.js';
+import FullerAngleWatcher from '../fuller-angle-watcher/fuller-angle-watcher.js';
 
 export default class HomepageAnimations extends Base {
   constructor(device, debug) {
@@ -20,6 +21,9 @@ export default class HomepageAnimations extends Base {
   }
 
   init() {
+    new FullerAngleWatcher('.ic-media', this.debug);
+    new ImageWipeReveal('img.ic-img', this.debug);
+
     if (isMobile()) {
       const defaultScrollTrigger = {
         start: 'top 75%',
@@ -27,7 +31,7 @@ export default class HomepageAnimations extends Base {
       };
 
       new ImageWipeReveal(
-        '#swipe-copy-1 .sc-media-mobile img, img.ic-img', 
+        '#swipe-copy-1 .sc-media-mobile img', 
         { direction: 'left' },
         this.debug
       );
