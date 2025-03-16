@@ -18,7 +18,7 @@ export default class TextAnimateSections extends Base {
   init() {
     this.sections.forEach(params => {
       if (typeof params === 'string') {
-        new TextAnimateLines(params);
+        new TextAnimateLines(params, {}, this.debug);
       } else if (typeof params === 'object' && params !== null && params.id) {
         const { id, ...animationOptions } = params;
         new TextAnimateLines(id, animationOptions, this.debug);

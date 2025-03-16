@@ -21,7 +21,7 @@ export default class HomepageAnimations extends Base {
   }
 
   init() {
-    new FullerAngleWatcher('.ic-media', this.debug);
+    new FullerAngleWatcher('.ic-media', { debug: this.debug });
     new ImageWipeReveal('img.ic-img', this.debug);
 
     if (isMobile()) {
