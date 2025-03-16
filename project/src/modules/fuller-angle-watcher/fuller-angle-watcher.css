@@ -3,6 +3,12 @@
   background-color: var(--serenity-green);
 } */
 
+.fuller-angle-watch {
+  --dynamic-clip: polygon(0 0, 93.3% 0, 100% 4.47%, 100% 100%, 6.7% 100%, 0 95.53%); 
+  -webkit-clip-path: var(--dynamic-clip);
+  clip-path: var(--dynamic-clip);
+}
+
 .two-path-block, 
 .card {
   --dynamic-clip: polygon(0 0, 93.3% 0, 100% 4.47%, 100% 100%, 6.7% 100%, 0 95.53%); 
