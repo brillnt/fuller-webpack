@@ -6,7 +6,7 @@ import Base from '../modules/base/base.js';
 import HomepageAnimations from '../modules/homepage-animations/homepage-animations.js';
 
 class HomePage extends Base {
-  constructor(debug = true) {
+  constructor(debug = false) {
     super(debug);
 
     onReady(() => {
