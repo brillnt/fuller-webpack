@@ -38,34 +38,73 @@ export default class CommandCenterGraphic extends Base {
     // Configuration objects for animations
     this.config = {
       defaultOpacity: 0.6,
+      centerTileOpacity: 0.9,
       activeOpacity: 1,
-      defaultColor: 'currentColor',
+      defaultColor: '#588e91',
       activeColor: 'white',
+      centerColor: 'white',  // Center tile is always white
       timing: {
         entranceStagger: 0.04,
         entranceDuration: 0.6,
         animationDuration: 0.4,
-        activeStateDuration: 2,
+        activeStateDuration: 1,
         pauseBetweenAnimations: 3,
-        concentricStagger: 0.15
+        concentricStagger: 0.05  // Time between layers (not within layer)
       },
       easing: {
-        entrance: 'power2.out',
-        animation: 'power2.inOut',
-        return: 'power1.inOut'
+        entrance: 'power4.out',
+        animation: 'expo.out',
+        return: 'expo.out'
       }
     };
     
     // Animation settings
     this.currentAnimation = 0;
     this.animations = [
-      this.pulseAnimation.bind(this),
-      this.waveAnimation.bind(this),
       this.concentricAnimation.bind(this),
-      this.randomConnectionAnimation.bind(this)
+      this.randomConnectionAnimation.bind(this),
+      this.waveAnimation.bind(this),
+      this.pulseAnimation.bind(this)
     ];
     
+    // Animation names for debug display
+    this.animationNames = ['Concentric', 'Random Connection', 'Wave', 'Pulse'];
+    
+    // Create debug display if debug mode is enabled
+    if (debug) {
+      this.createDebugDisplay();
+    }
+    
     this.init();
+  }
+
+  createDebugDisplay() {
+    // Create debug display element
+    this.debugDisplay = document.createElement('div');
+    this.debugDisplay.className = 'cc-debug-display';
+    this.debugDisplay.style.cssText = `
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      z-index: 10;
+      font-family: monospace;
+      pointer-events: none;
+    `;
+    
+    // Add to parent element
+    this.element.style.position = 'relative'; // Ensure parent has positioning
+    this.element.appendChild(this.debugDisplay);
+    
+    // Set initial text
+    this.updateDebugDisplay('Initializing...');
+  }
+  
+  updateDebugDisplay(text) {
+    if (this.debugDisplay) {
+      this.debugDisplay.textContent = text;
+    }
   }
 
   createTileMatrix() {
@@ -136,8 +175,14 @@ export default class CommandCenterGraphic extends Base {
 
   init() {
     // Set initial state - all tiles invisible
-    gsap.set(this.allTiles, { 
-      opacity: 0
+    gsap.set(this.outerTiles, { 
+      opacity: 0,
+      color: this.config.defaultColor
+    });
+    
+    gsap.set(this.centerTile, {
+      opacity: 0,
+      color: this.config.centerColor
     });
 
     // Create entrance animation
@@ -153,13 +198,14 @@ export default class CommandCenterGraphic extends Base {
       },
       onComplete: () => {
         this.log('Entrance animation complete, starting animation sequence');
+        this.updateDebugDisplay('Entrance Complete');
         this.startAnimationSequence();
       }
     });
 
     // First, fade in center tile
     timeline.to(this.centerTile, {
-      opacity: this.config.defaultOpacity,
+      opacity: this.config.centerTileOpacity,
       duration: this.config.timing.entranceDuration,
       ease: this.config.easing.entrance
     });
@@ -184,7 +230,10 @@ export default class CommandCenterGraphic extends Base {
   runNextAnimation() {
     // Run current animation and set up next one
     const animation = this.animations[this.currentAnimation];
-    this.log(`Running animation: ${this.currentAnimation}`);
+    const animationName = this.animationNames[this.currentAnimation];
+    
+    this.log(`Running animation: ${animationName}`);
+    this.updateDebugDisplay(`DEBUG MODE - Animation: ${animationName}, Pause: ${this.config.timing.pauseBetweenAnimations}s`);
     
     // Create timeline for this animation
     const tl = animation();
@@ -200,7 +249,7 @@ export default class CommandCenterGraphic extends Base {
     });
   }
 
-  // Animation 1: Pulse animation (ripple out from center) - kept but not used in current sequence
+  // Animation 1: Pulse animation (kept but not used in current sequence)
   pulseAnimation() {
     this.log('Running pulse animation');
     const tl = gsap.timeline();
@@ -217,7 +266,7 @@ export default class CommandCenterGraphic extends Base {
     })
     .to(centerLayer, { 
       scale: 1, 
-      opacity: this.config.defaultOpacity, 
+      opacity: this.config.centerTileOpacity, 
       duration: this.config.timing.animationDuration, 
       ease: this.config.easing.return 
     }, '+=0.1')
@@ -253,7 +302,7 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 2: Wave animation (horizontal waves) - kept but not used in current sequence
+  // Animation 2: Wave animation (kept but not used in current sequence)
   waveAnimation() {
     this.log('Running wave animation');
     const tl = gsap.timeline();
@@ -284,7 +333,7 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 3: Concentric animation (emanates out from center)
+  // Animation 3: Concentric animation with cascading return to default
   concentricAnimation() {
     this.log('Running concentric animation');
     const tl = gsap.timeline();
@@ -292,40 +341,57 @@ export default class CommandCenterGraphic extends Base {
     // Get layers from center outward
     const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
 
+    // Timing variables
+    const animDuration = this.config.timing.animationDuration * 0.5;
+    const layerDelay = this.config.timing.concentricStagger;
+
     // Animate center layer
     tl.to(centerLayer, {
       scale: 1.1,
       opacity: this.config.activeOpacity,
-      duration: this.config.timing.animationDuration,
+      duration: animDuration,
       ease: this.config.easing.animation
     });
     
-    // Animate inner ring
+    // Start inner ring animation
     tl.to(innerRing, {
       scale: 1.1,
       opacity: this.config.activeOpacity,
-      stagger: 0.05,
-      duration: this.config.timing.animationDuration,
+      duration: animDuration,
       ease: this.config.easing.animation
-    }, `-=${this.config.timing.concentricStagger}`);
+    }, `+=${layerDelay}`);
     
-    // Animate outer ring
+    // At same time inner ring starts, center returns to default
+    tl.to(centerLayer, {
+      scale: 1,
+      opacity: this.config.centerTileOpacity,
+      duration: animDuration,
+      ease: this.config.easing.return
+    }, `-=${animDuration}`); // Start at same time as inner ring animation
+    
+    // Start outer ring animation
     tl.to(outerRing, {
       scale: 1.1,
       opacity: this.config.activeOpacity,
-      stagger: 0.03,
-      duration: this.config.timing.animationDuration,
+      duration: animDuration,
       ease: this.config.easing.animation
-    }, `-=${this.config.timing.concentricStagger}`);
-
-    // Return all to default state
-    tl.to([...centerLayer, ...innerRing, ...outerRing], {
+    }, `+=${layerDelay}`);
+    
+    // At same time outer ring starts, inner ring returns to default
+    tl.to(innerRing, {
       scale: 1,
       opacity: this.config.defaultOpacity,
-      duration: this.config.timing.animationDuration,
-      stagger: 0.03,
+      duration: animDuration * 2.5,
       ease: this.config.easing.return
-    }, `+=${this.config.timing.activeStateDuration}`);
+    }, `-=${animDuration}`); // Start at same time as outer ring animation
+    
+    // Immediately after outer ring finishes lighting up, it returns to default
+    tl.to(outerRing, {
+      scale: 1,
+      opacity: this.config.defaultOpacity,
+      duration: animDuration * 2.5,
+      ease: this.config.easing.return
+    });
     
     return tl;
   }
@@ -342,12 +408,11 @@ export default class CommandCenterGraphic extends Base {
     // Light up center tile
     tl.to(this.centerTile, {
       opacity: this.config.activeOpacity,
-      color: this.config.activeColor,
       duration: this.config.timing.animationDuration,
       ease: this.config.easing.animation
     });
     
-    // Light up random tile
+    // Light up random tile and change its color to white
     tl.to(randomTile, {
       opacity: this.config.activeOpacity,
       color: this.config.activeColor,
@@ -359,15 +424,22 @@ export default class CommandCenterGraphic extends Base {
     tl.to({}, { duration: this.config.timing.activeStateDuration });
     
     // Return to default state
-    tl.to([this.centerTile, randomTile], {
-      opacity: this.config.defaultOpacity,
-      color: this.config.defaultColor,
+    tl.to(this.centerTile, {
+      opacity: this.config.centerTileOpacity,
       duration: this.config.timing.animationDuration,
       ease: this.config.easing.return
     });
     
-    // After 1 second, run concentric animation
+    tl.to(randomTile, {
+      opacity: this.config.defaultOpacity,
+      color: this.config.defaultColor,  // Return to default teal color
+      duration: this.config.timing.animationDuration,
+      ease: this.config.easing.return
+    }, `-=${this.config.timing.animationDuration}`);
+    
+    // After 1 second, run concentric animation and update debug display
     tl.add(() => {
+      this.updateDebugDisplay('Animation: Concentric (Triggered)');
       setTimeout(() => {
         this.concentricAnimation();
       }, 1000);
