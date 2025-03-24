@@ -62,29 +62,41 @@ export default class CommandCenterGraphic extends Base {
         peakScale: 1.08,         // How much tiles scale at peak
         easingType: 'sineWave',  // Which easing function to use: 'sineWave', 'bellCurve', 'elasticRebound'
         rippleStyle: 'advanced', // Which ripple style to use: 'basic', 'advanced', 'organic'
-        looping: true,           // Whether to continuously loop through animations
+        looping: false,           // Whether to continuously loop through animations
         useStandardEasing: true  // Use standard GSAP easing instead of custom
       },
       connection: {
-        lineDuration: 0.6,       // Duration of line drawing animation (seconds)
-        lineEasing: "expo.inOut", // Easing function for line animation
+        lineDuration: 1.2,       // Duration of line drawing animation (seconds)
+        lineEasing: "expo.out", // Easing function for line animation
         lineOpacity: 1,          // Opacity of the connection line
         lineWidth: 2,            // Width of the connection line
         lineColor: 'white',      // Color of the connection line
         useGradient: false,      // Whether to use a gradient for the line
         holdDuration: 0.8,       // How long to hold the connection before fading
         fadeOutDuration: 0.6,    // Duration of the fade out animation
+        patternIndex: 0,         // Current index in the connection pattern
+        // Ordered pattern for connections (clockwise from top-left)
+        pattern: [
+          "topLeft",    // [1,1]
+          "top",        // [1,2]
+          "topRight",   // [1,3]
+          "right",      // [2,3]
+          "bottomRight",// [3,3]
+          "bottom",     // [3,2]
+          "bottomLeft", // [3,1]
+          "left"        // [2,1]
+        ],
         // Custom edge offsets based on tile positions (direction from center)
         edgeOffsets: {
           default: 0.5,   // Default is 50% of min tile dimension
           top: 0.4,       // [1,2] - Direct top
-          topRight: 0.45, // [1,3] - Top right diagonal
+          topRight: 0.4, // [1,3] - Top right diagonal
           right: 0.4,     // [2,3] - Direct right
           bottomRight: 0.45, // [3,3] - Bottom right diagonal
           bottom: 0.4,    // [3,2] - Direct bottom
           bottomLeft: 0.45, // [3,1] - Bottom left diagonal
           left: 0.4,      // [2,1] - Direct left
-          topLeft: 0.45   // [1,1] - Top left diagonal
+          topLeft: 0.8   // [1,1] - Top left diagonal
         }
       },
       debug: {
@@ -153,20 +165,20 @@ export default class CommandCenterGraphic extends Base {
     this.animations = [
       this.advancedRippleAnimation.bind(this),   // Use advanced ripple by default
       this.randomConnectionAnimation.bind(this),
-      this.concentricAnimation.bind(this),
-      this.organicRippleAnimation.bind(this),
-      this.waveAnimation.bind(this),
-      this.pulseAnimation.bind(this)
+      // this.concentricAnimation.bind(this),
+      // this.organicRippleAnimation.bind(this),
+      // this.waveAnimation.bind(this),
+      // this.pulseAnimation.bind(this)
     ];
     
     // Animation names for debug display
     this.animationNames = [
       'Advanced Ripple', 
       'Random Connection',
-      'Concentric',
-      'Organic Ripple',
-      'Wave',
-      'Pulse'
+      // 'Concentric',
+      // 'Organic Ripple',
+      // 'Wave',
+      // 'Pulse'
     ];
     
     // Create debug display if debug mode is enabled
@@ -811,28 +823,33 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 4: Random Connection (light up center and inner ring tile with connecting line)
+  // Animation 4: Patterned Connection (light up center and inner ring tile with connecting line)
   randomConnectionAnimation() {
-    this.log('Running random connection animation');
+    this.log('Running patterned connection animation');
     const tl = gsap.timeline({
       onStart: () => {
-        this.log('Random connection animation starting', 'info');
+        this.log('Connection animation starting', 'info');
       },
       onComplete: () => {
-        this.log('Random connection animation completed', 'info');
+        this.log('Connection animation completed', 'info');
       }
     });
     
-    // Get a random tile from the inner ring only
+    // Get inner ring tiles
     const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
-    const randomIndex = Math.floor(Math.random() * innerRing.length);
-    const randomTile = innerRing[randomIndex];
+    
+    // Use the current pattern index to determine which connection to make
+    const currentPattern = this.config.connection.pattern[this.config.connection.patternIndex];
+    this.log(`Making connection to ${currentPattern} (pattern index: ${this.config.connection.patternIndex})`, 'info');
+    
+    // Find the target tile based on the pattern
+    const targetTile = this.getTileByPosition(currentPattern, innerRing);
     
     // Get position data for the selected tile (for custom edge offset)
-    const tilePos = this.getTilePosition(randomTile);
+    const tilePos = this.getTilePosition(targetTile);
     
-    // Create an SVG line element to connect center and random tile
-    const line = this.createConnectionLine(this.centerTile, randomTile, tilePos);
+    // Create an SVG line element to connect center and target tile
+    const line = this.createConnectionLine(this.centerTile, targetTile, tilePos);
     
     // Light up center tile
     tl.to(this.centerTile, {
@@ -871,22 +888,61 @@ export default class CommandCenterGraphic extends Base {
       }
     });
     
-    // Return center and random tile to default state
+    // Return center and target tile to default state
     tl.to(this.centerTile, {
       opacity: this.config.centerTileOpacity,
       duration: this.config.timing.animationDuration,
       ease: this.config.easing.return
     }, `-=${this.config.connection.fadeOutDuration * 0.5}`);
     
-    tl.to(randomTile, {
+    tl.to(targetTile, {
       opacity: this.config.defaultOpacity,
       color: this.config.defaultColor,  // Return to default teal color
       duration: this.config.timing.animationDuration,
       ease: this.config.easing.return
     }, `-=${this.config.timing.animationDuration}`);
     
+    // Update the pattern index for next time
+    tl.call(() => {
+      // Move to next pattern index, cycling back to start if needed
+      this.config.connection.patternIndex = 
+        (this.config.connection.patternIndex + 1) % this.config.connection.pattern.length;
+      this.log(`Next connection will be to ${this.config.connection.pattern[this.config.connection.patternIndex]}`, 'info');
+    });
+    
     // End the timeline
     return tl;
+  }
+  
+  // Find a tile by its position name in the inner ring
+  getTileByPosition(positionName, innerRing) {
+    // Position name to coordinates mapping
+    const positionMap = {
+      'top': [1, 2],        // Top
+      'topRight': [1, 3],   // Top-right
+      'right': [2, 3],      // Right
+      'bottomRight': [3, 3],// Bottom-right
+      'bottom': [3, 2],     // Bottom
+      'bottomLeft': [3, 1], // Bottom-left
+      'left': [2, 1],       // Left
+      'topLeft': [1, 1]     // Top-left
+    };
+    
+    // Get coordinates for the requested position
+    const coords = positionMap[positionName];
+    if (!coords) {
+      this.log(`Unknown position: ${positionName}, using top instead`, 'warn');
+      return this.tileMatrix[1][2]; // Default to top
+    }
+    
+    // Return the tile at the specified position
+    const tile = this.tileMatrix[coords[0]][coords[1]];
+    if (!tile) {
+      this.log(`No tile found at position ${positionName} (${coords[0]},${coords[1]})`, 'warn');
+      return innerRing[0]; // Fallback to first inner ring tile
+    }
+    
+    return tile;
   }
   
   // Get the named position of a tile relative to center
