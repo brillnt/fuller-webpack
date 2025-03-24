@@ -84,7 +84,7 @@ export default class CommandCenterGraphic extends Base {
       this.randomConnectionAnimation.bind(this),
       // Uncomment to use additional animation types
       // this.concentricAnimation.bind(this),
-      this.organicRippleAnimation.bind(this),
+      // this.organicRippleAnimation.bind(this),
       // this.waveAnimation.bind(this),
       // this.pulseAnimation.bind(this)
     ];
@@ -92,9 +92,9 @@ export default class CommandCenterGraphic extends Base {
     // Animation names for debug display
     this.animationNames = [
       'Advanced Ripple', 
-      'Random Connection',
+      'Random Connection'
       // 'Concentric',
-      'Organic Ripple',
+      // 'Organic Ripple',
       // 'Wave',
       // 'Pulse'
     ];
@@ -260,6 +260,9 @@ export default class CommandCenterGraphic extends Base {
   }
 
   startAnimationSequence() {
+    // Set initial animation to the random connection animation if that's preferred
+    // this.currentAnimation = 1; // Uncomment to start with random connection
+    
     // Run the first animation
     this.runNextAnimation();
   }
@@ -605,7 +608,7 @@ export default class CommandCenterGraphic extends Base {
     tl.to(line, {
       strokeDashoffset: 0,
       duration: lineDuration,
-      ease: "power2.inOut"
+      ease: "expo.inOut"
     }, `-=${this.config.timing.animationDuration * 0.8}`);
     
     // Light up random tile and change its color to white
@@ -644,14 +647,7 @@ export default class CommandCenterGraphic extends Base {
       ease: this.config.easing.return
     }, `-=${this.config.timing.animationDuration}`);
     
-    // After 1 second, run advanced ripple animation and update debug display
-    tl.add(() => {
-      this.updateDebugDisplay('Animation: Advanced Ripple (Triggered)');
-      setTimeout(() => {
-        this.advancedRippleAnimation();
-      }, 1000);
-    });
-    
+    // End the timeline (don't trigger additional animations)
     return tl;
   }
   
@@ -668,12 +664,30 @@ export default class CommandCenterGraphic extends Base {
     const toRect = toTile.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
     
-    // Adjust positioning to account for the isometric hexagon shape
-    // Target the center of each tile with slight adjustments for the cube design
-    const fromX = fromRect.left + (fromRect.width / 2) - containerRect.left;
-    const fromY = fromRect.top + (fromRect.height / 2) - containerRect.top;
-    const toX = toRect.left + (toRect.width / 2) - containerRect.left;
-    const toY = toRect.top + (toRect.height / 2) - containerRect.top;
+    // Calculate centers first (needed for vector calculations)
+    const fromCenterX = fromRect.left + (fromRect.width / 2) - containerRect.left;
+    const fromCenterY = fromRect.top + (fromRect.height / 2) - containerRect.top;
+    const toCenterX = toRect.left + (toRect.width / 2) - containerRect.left;
+    const toCenterY = toRect.top + (toRect.height / 2) - containerRect.top;
+    
+    // Calculate vector from center tile to target tile
+    const vectorX = toCenterX - fromCenterX;
+    const vectorY = toCenterY - fromCenterY;
+    
+    // Normalize the vector
+    const length = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+    const normalizedX = vectorX / length;
+    const normalizedY = vectorY / length;
+    
+    // Calculate edge points by moving from center toward edge
+    // Use 40% of the tile width/height as the distance to ensure we're at the edge
+    const edgeOffset = Math.min(fromRect.width, fromRect.height) * 0.4;
+    
+    // Calculate points on the edges of the tiles
+    const fromX = fromCenterX + (normalizedX * edgeOffset);
+    const fromY = fromCenterY + (normalizedY * edgeOffset);
+    const toX = toCenterX - (normalizedX * edgeOffset);
+    const toY = toCenterY - (normalizedY * edgeOffset);
     
     // Set line attributes
     line.setAttribute("x1", fromX);
