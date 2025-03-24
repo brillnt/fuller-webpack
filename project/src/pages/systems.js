@@ -9,36 +9,36 @@ import { gsap } from '../utils/animation.js';
 
 
 onReady(() => {
-  new AnimateGridRows('spc-blocks-container', 'spc');
-  new AnimateGridRows('spc-blocks-container', 'cc');
-  new TextAnimateSections([
-    'first-reveal',
-    {
-      id: 'second-reveal',
-      scrollTrigger: {
-        trigger: '#second-reveal',
-        start: 'top 85%',
-      },
-    },
-    'third-reveal',
-    'fourth-reveal',
-    'fifth-reveal',
-    'offsite-content'
-  ]);
-  new ContactForm('contact-form', true);
+  // new AnimateGridRows('spc-blocks-container', 'spc');
+  // new AnimateGridRows('spc-blocks-container', 'cc');
+  // new TextAnimateSections([
+  //   'first-reveal',
+  //   {
+  //     id: 'second-reveal',
+  //     scrollTrigger: {
+  //       trigger: '#second-reveal',
+  //       start: 'top 85%',
+  //     },
+  //   },
+  //   'third-reveal',
+  //   'fourth-reveal',
+  //   'fifth-reveal',
+  //   'offsite-content'
+  // ]);
+  // new ContactForm('contact-form', true);
   new CommandCenterGraphic('cc-blocks-container', true);
 
-  const configuratorCards = selectAll('.config-blocks .config-block');
+  // const configuratorCards = selectAll('.config-blocks .config-block');
 
-  gsap.set(configuratorCards, { x: 20, opacity: 0 });
-  gsap.to(configuratorCards, {
-    x: 0,
-    opacity: 1,
-    stagger: 0.2,
-    scrollTrigger: {
-      trigger: '.config-blocks',
-      start: 'top 75%',
-      once: true
-    },
-  });
+  // gsap.set(configuratorCards, { x: 20, opacity: 0 });
+  // gsap.to(configuratorCards, {
+  //   x: 0,
+  //   opacity: 1,
+  //   stagger: 0.2,
+  //   scrollTrigger: {
+  //     trigger: '.config-blocks',
+  //     start: 'top 75%',
+  //     once: true
+  //   },
+  // });
 });

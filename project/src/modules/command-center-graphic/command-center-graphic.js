@@ -46,29 +46,38 @@ export default class CommandCenterGraphic extends Base {
       timing: {
         entranceStagger: 0.04,
         entranceDuration: 0.6,
-        animationDuration: 0.4,
+        animationDuration: 0.8,
         activeStateDuration: 1,
-        pauseBetweenAnimations: 3,
-        concentricStagger: 0.05  // Time between layers (not within layer)
+        pauseBetweenAnimations: 2,
+        concentricStagger: 0.2  // Time between layers (not within layer)
       },
       easing: {
-        entrance: 'power4.out',
-        animation: 'expo.out',
-        return: 'expo.out'
+        entrance: 'power4.inOut',
+        animation: 'expo.inOut',
+        return: 'expo.inOut'
       }
     };
     
+    this.easings = {
+      sineWave: progress => Math.sin(progress * Math.PI),
+      bellCurve: progress => Math.exp(-Math.pow((progress - 0.5) * 3.5, 2)),
+      elasticRebound: progress => {
+        // Damped sine wave that peaks and then returns to zero
+        return Math.sin(progress * Math.PI * 1.2) * (1 - progress * 0.3);
+      }
+    };
+
     // Animation settings
     this.currentAnimation = 0;
     this.animations = [
       this.concentricAnimation.bind(this),
       this.randomConnectionAnimation.bind(this),
-      this.waveAnimation.bind(this),
-      this.pulseAnimation.bind(this)
+      // this.waveAnimation.bind(this),
+      // this.pulseAnimation.bind(this)
     ];
     
     // Animation names for debug display
-    this.animationNames = ['Concentric', 'Random Connection', 'Wave', 'Pulse'];
+    this.animationNames = ['Concentric', 'Random Connection' /*, 'Wave', 'Pulse'*/];
     
     // Create debug display if debug mode is enabled
     if (debug) {
@@ -333,7 +342,7 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 3: Concentric animation with cascading return to default
+  // Animation 3: Concentric animation with smooth continuous motion
   concentricAnimation() {
     this.log('Running concentric animation');
     const tl = gsap.timeline();
@@ -342,56 +351,56 @@ export default class CommandCenterGraphic extends Base {
     const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
 
     // Timing variables
-    const animDuration = this.config.timing.animationDuration * 0.5;
+    const animDuration = this.config.timing.animationDuration * 2; // Longer duration for full cycle
     const layerDelay = this.config.timing.concentricStagger;
 
-    // Animate center layer
+    // Define custom easing functions (select one to use)
+    const easingOptions = {
+      // Option 1: Sine Wave - smooth symmetric rise and fall
+      sineWave: "sine.inOut",
+      
+      // Option 2: Bell Curve - faster rise and fall with emphasized peak
+      bellCurve: CustomEase.create("custom", "M0,0 C0.098,0.3 0.142,0.734 0.5,1 0.858,0.734 0.902,0.3 1,0"),
+      
+      // Option 3: Elastic Bounce - adds slight overshoot for more dynamic feel
+      elasticBounce: "elastic.out(1, 0.5)"
+    };
+    
+    // Select which easing to use
+    const selectedEasing = easingOptions.sineWave;
+
+    // Center tile animation - complete cycle
     tl.to(centerLayer, {
-      scale: 1.1,
-      opacity: this.config.activeOpacity,
+      keyframes: {
+        "0%": { scale: 1, opacity: this.config.centerTileOpacity },
+        "50%": { scale: 1.1, opacity: this.config.activeOpacity },
+        "100%": { scale: 1, opacity: this.config.centerTileOpacity }
+      },
       duration: animDuration,
-      ease: this.config.easing.animation
+      ease: selectedEasing
     });
     
-    // Start inner ring animation
+    // Inner ring animation - starts slightly after center
     tl.to(innerRing, {
-      scale: 1.1,
-      opacity: this.config.activeOpacity,
+      keyframes: {
+        "0%": { scale: 1, opacity: this.config.defaultOpacity },
+        "50%": { scale: 1.1, opacity: this.config.activeOpacity },
+        "100%": { scale: 1, opacity: this.config.defaultOpacity }
+      },
       duration: animDuration,
-      ease: this.config.easing.animation
-    }, `+=${layerDelay}`);
+      ease: selectedEasing
+    }, layerDelay); // Slight delay
     
-    // At same time inner ring starts, center returns to default
-    tl.to(centerLayer, {
-      scale: 1,
-      opacity: this.config.centerTileOpacity,
-      duration: animDuration,
-      ease: this.config.easing.return
-    }, `-=${animDuration}`); // Start at same time as inner ring animation
-    
-    // Start outer ring animation
+    // Outer ring animation - starts slightly after inner ring
     tl.to(outerRing, {
-      scale: 1.1,
-      opacity: this.config.activeOpacity,
+      keyframes: {
+        "0%": { scale: 1, opacity: this.config.defaultOpacity },
+        "50%": { scale: 1.1, opacity: this.config.activeOpacity },
+        "100%": { scale: 1, opacity: this.config.defaultOpacity }
+      },
       duration: animDuration,
-      ease: this.config.easing.animation
-    }, `+=${layerDelay}`);
-    
-    // At same time outer ring starts, inner ring returns to default
-    tl.to(innerRing, {
-      scale: 1,
-      opacity: this.config.defaultOpacity,
-      duration: animDuration * 2.5,
-      ease: this.config.easing.return
-    }, `-=${animDuration}`); // Start at same time as outer ring animation
-    
-    // Immediately after outer ring finishes lighting up, it returns to default
-    tl.to(outerRing, {
-      scale: 1,
-      opacity: this.config.defaultOpacity,
-      duration: animDuration * 2.5,
-      ease: this.config.easing.return
-    });
+      ease: selectedEasing
+    }, layerDelay * 2); // Further delay
     
     return tl;
   }
