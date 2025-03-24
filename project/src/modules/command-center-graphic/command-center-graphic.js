@@ -58,13 +58,22 @@ export default class CommandCenterGraphic extends Base {
       },
       animation: {
         rippleSpeed: 0.1,        // Speed of ripple propagation
-        useColorChange: true,    // Whether to change color during peak
+        useColorChange: false,   // Whether to change color during peak
         peakScale: 1.08,         // How much tiles scale at peak
         easingType: 'sineWave',  // Which easing function to use: 'sineWave', 'bellCurve', 'elasticRebound'
-        rippleStyle: 'advanced'  // Which ripple style to use: 'basic', 'advanced', 'organic'
+        rippleStyle: 'advanced', // Which ripple style to use: 'basic', 'advanced', 'organic'
+        looping: true,          // Whether to continuously loop through animations (default: OFF)
+        useStandardEasing: true // DEBUG OPTION: Set to true to use standard GSAP easing instead of custom
+      },
+      debug: {
+        enabled: true,           // Force debug mode on for testing
+        verbose: true,           // Enable verbose logging
+        logAnimationSteps: true, // Log each animation step
+        showEasingGraph: true    // Show easing function visualization to diagnose the issue
       }
     };
     
+    // Original easing functions
     this.easings = {
       sineWave: progress => Math.sin(progress * Math.PI),
       bellCurve: progress => Math.exp(-Math.pow((progress - 0.5) * 3.5, 2)),
@@ -73,6 +82,27 @@ export default class CommandCenterGraphic extends Base {
         return Math.sin(progress * Math.PI * 1.2) * (1 - progress * 0.3);
       }
     };
+    
+    // Keyframe-optimized easing functions (modified to work better with keyframes)
+    this.keyframeEasings = {
+      // Linear rise from 0-50%, linear fall from 50-100% (helps prevent double peaks)
+      sineWave: progress => progress <= 0.5 ? progress * 2 : (1 - progress) * 2,
+      
+      // Bell curve adjusted to have a single clear peak
+      bellCurve: progress => Math.exp(-Math.pow((progress - 0.5) * 4, 2)),
+      
+      // Simplified rebound with single peak
+      elasticRebound: progress => {
+        return Math.sin(progress * Math.PI); // Simplified to standard sine
+      }
+    };
+
+    // Animation state tracking
+    this.animationInProgress = false;      // Flag to track if an animation is currently running
+    this.animationCycleCompleted = false;  // Flag to track if we've completed a full cycle
+    
+    // Debug counter for advanced ripple animation
+    this.advancedRippleCounter = 0;
 
     // Register custom easing functions with GSAP
     this.initCustomEasings();
@@ -109,10 +139,15 @@ export default class CommandCenterGraphic extends Base {
 
   // Register custom easing functions with GSAP
   initCustomEasings() {
-    // Register custom easing functions with GSAP
+    // Register original custom easing functions with GSAP
     gsap.registerEase("customSineWave", progress => this.easings.sineWave(progress));
     gsap.registerEase("customBellCurve", progress => this.easings.bellCurve(progress));
     gsap.registerEase("customElasticRebound", progress => this.easings.elasticRebound(progress));
+    
+    // Register keyframe-optimized versions
+    gsap.registerEase("keyframeSineWave", progress => this.keyframeEasings.sineWave(progress));
+    gsap.registerEase("keyframeBellCurve", progress => this.keyframeEasings.bellCurve(progress));
+    gsap.registerEase("keyframeElasticRebound", progress => this.keyframeEasings.elasticRebound(progress));
   }
 
   createDebugDisplay() {
@@ -136,12 +171,89 @@ export default class CommandCenterGraphic extends Base {
     
     // Set initial text
     this.updateDebugDisplay('Initializing...');
+    
+    // Add easing visualization if enabled
+    if (this.config.debug.showEasingGraph) {
+      this.createEasingGraph();
+    }
   }
   
   updateDebugDisplay(text) {
     if (this.debugDisplay) {
       this.debugDisplay.textContent = text;
     }
+  }
+  
+  // Optional debugging function to visualize easing curves
+  createEasingGraph() {
+    const graphContainer = document.createElement('div');
+    graphContainer.className = 'easing-graph';
+    graphContainer.style.cssText = `
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 150px;
+      height: 100px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 10;
+    `;
+    
+    // Create SVG for graph
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "150");
+    svg.setAttribute("height", "100");
+    
+    // Draw axes
+    const axes = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    axes.setAttribute("d", "M10,10 L10,90 L140,90");
+    axes.setAttribute("stroke", "rgba(255,255,255,0.3)");
+    axes.setAttribute("fill", "none");
+    svg.appendChild(axes);
+    
+    // Draw easing curve based on current easing
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("stroke", "rgba(255,255,255,0.8)");
+    path.setAttribute("stroke-width", "2");
+    path.setAttribute("fill", "none");
+    
+    // Generate path data based on current easing function
+    let pathData = "M10,90 ";
+    const easingFunction = this.keyframeEasings[this.config.animation.easingType] || 
+                           this.easings[this.config.animation.easingType];
+    
+    for (let x = 0; x <= 1; x += 0.05) {
+      // Convert 0-1 range to SVG coordinates
+      const svgX = 10 + x * 130;
+      const svgY = 90 - easingFunction(x) * 80;
+      pathData += `L${svgX},${svgY} `;
+    }
+    
+    path.setAttribute("d", pathData);
+    svg.appendChild(path);
+    
+    graphContainer.appendChild(svg);
+    this.element.appendChild(graphContainer);
+    
+    // Update the graph when easing type changes
+    this.easingGraph = {
+      container: graphContainer,
+      path: path,
+      updateGraph: () => {
+        // Update path data based on current easing
+        let newPathData = "M10,90 ";
+        const updatedFunction = this.keyframeEasings[this.config.animation.easingType] || 
+                               this.easings[this.config.animation.easingType];
+        
+        for (let x = 0; x <= 1; x += 0.05) {
+          const svgX = 10 + x * 130;
+          const svgY = 90 - updatedFunction(x) * 80;
+          newPathData += `L${svgX},${svgY} `;
+        }
+        
+        path.setAttribute("d", newPathData);
+      }
+    };
   }
 
   createTileMatrix() {
@@ -268,54 +380,122 @@ export default class CommandCenterGraphic extends Base {
   }
 
   runNextAnimation() {
+    // Check if we've completed the full animation sequence and looping is disabled
+    if (!this.config.animation.looping && this.animationCycleCompleted) {
+      this.log('Animation cycle completed and looping is disabled. Stopping animations.', 'info');
+      this.updateDebugDisplay('DEBUG MODE - Animations completed (looping disabled)');
+      return;
+    }
+    
     // Run current animation and set up next one
     const animation = this.animations[this.currentAnimation];
     const animationName = this.animationNames[this.currentAnimation];
     
-    this.log(`Running animation: ${animationName}`);
+    this.log(`Starting animation sequence: ${animationName} (${this.currentAnimation})`, 'info');
     this.updateDebugDisplay(`DEBUG MODE - Animation: ${animationName}, Pause: ${this.config.timing.pauseBetweenAnimations}s`);
+    
+    // Set flag that animation is now running
+    this.animationInProgress = true;
     
     // Create timeline for this animation
     const tl = animation();
     
+    // Track when animation starts
+    const startTime = performance.now();
+    
     // When animation completes, queue up the next one
     tl.eventCallback('onComplete', () => {
+      // Calculate actual duration
+      const endTime = performance.now();
+      const actualDuration = (endTime - startTime) / 1000; // Convert to seconds
+      
+      this.log(`Animation "${animationName}" completed in ${actualDuration.toFixed(2)}s`, 'info');
+      
+      // Reset animation in progress flag
+      this.animationInProgress = false;
+      
       // Move to next animation in sequence
+      const previousAnimation = this.currentAnimation;
       this.currentAnimation = (this.currentAnimation + 1) % this.animations.length;
-      // Pause before next animation
-      setTimeout(() => {
-        this.runNextAnimation();
-      }, this.config.timing.pauseBetweenAnimations * 1000);
+      
+      // Check if we've completed a full cycle through all animations
+      if (this.currentAnimation === 0 && previousAnimation === this.animations.length - 1) {
+        this.animationCycleCompleted = true;
+        this.log('Completed full animation cycle', 'info');
+      }
+      
+      // Log what's next
+      this.log(`Next animation will be: ${this.animationNames[this.currentAnimation]} (${this.currentAnimation})`, 'info');
+      
+      // Pause before next animation (or stop if we're done and not looping)
+      if (!this.config.animation.looping && this.animationCycleCompleted) {
+        this.log('Animation cycle completed and looping is disabled. Stopping animations.', 'info');
+        this.updateDebugDisplay('DEBUG MODE - Animations completed (looping disabled)');
+      } else {
+        setTimeout(() => {
+          this.runNextAnimation();
+        }, this.config.timing.pauseBetweenAnimations * 1000);
+      }
     });
   }
 
   // Advanced ripple effect based on distance from center
   advancedRippleAnimation() {
-    this.log('Running advanced ripple animation');
-    const tl = gsap.timeline();
+    // Increment ripple counter for debugging
+    this.advancedRippleCounter++;
+    
+    this.log(`Running advanced ripple animation (#${this.advancedRippleCounter})`, 'info');
+    
+    // Create main timeline
+    const tl = gsap.timeline({
+      onStart: () => {
+        this.log(`Advanced ripple #${this.advancedRippleCounter} starting`, 'info');
+      },
+      onComplete: () => {
+        this.log(`Advanced ripple #${this.advancedRippleCounter} completed`, 'info');
+      }
+    });
     
     // Timing and animation parameters
     const animDuration = this.config.timing.animationDuration * 2;
     const rippleSpeed = this.config.animation.rippleSpeed;
     const maxDistance = Math.sqrt(8); // Max distance from center in a 5x5 grid (diagonal)
     
-    // Select easing function based on config
+    // Select easing function based on config and debug settings
     let selectedEasing;
-    switch(this.config.animation.easingType) {
-      case 'bellCurve':
-        selectedEasing = "customBellCurve";
-        break;
-      case 'elasticRebound':
-        selectedEasing = "customElasticRebound";
-        break;
-      case 'sineWave':
-      default:
-        selectedEasing = "customSineWave";
+    
+    if (this.config.animation.useStandardEasing) {
+      // Use standard GSAP easing for debugging
+      selectedEasing = "power1.inOut";
+      this.log(`Using standard GSAP easing: ${selectedEasing}`, 'debug');
+    } else {
+      // Use either the original easings or the keyframe-optimized versions
+      const prefix = "keyframe"; // Use keyframe-optimized versions by default
+      
+      switch(this.config.animation.easingType) {
+        case 'bellCurve':
+          selectedEasing = `${prefix}BellCurve`;
+          break;
+        case 'elasticRebound':
+          selectedEasing = `${prefix}ElasticRebound`;
+          break;
+        case 'sineWave':
+        default:
+          selectedEasing = `${prefix}SineWave`;
+      }
+      
+      this.log(`Using custom easing: ${selectedEasing}`, 'debug');
     }
     
     // Calculate center point (for a 5x5 grid, center is at [2,2])
     const centerRow = 2;
     const centerCol = 2;
+    
+    // No special ripple options needed, just using keyframes as-is
+    const rippleOptions = {};
+    
+    // Count of tiles animated (for debugging)
+    let tileCount = 0;
     
     // Animate each tile based on distance from center
     for (let row = 0; row < 5; row++) {
@@ -341,7 +521,15 @@ export default class CommandCenterGraphic extends Base {
         const peakColor = isCenter ? this.config.centerColor : 
           (this.config.animation.useColorChange ? this.config.activeColor : this.config.defaultColor);
         
-        // Create animation for this tile
+        // Count tiles for debugging
+        tileCount++;
+        
+        // Log tile animation if detailed debugging is enabled
+        if (this.config.debug.logAnimationSteps) {
+          this.log(`Setting up animation for tile [${row},${col}], distance=${distance.toFixed(2)}, delay=${delay.toFixed(2)}`, 'debug');
+        }
+        
+        // Create animation for this tile - EXPLICITLY setting repeat:0 to prevent default repeating behavior
         tl.to(tile, {
           keyframes: {
             "0%": { 
@@ -361,10 +549,13 @@ export default class CommandCenterGraphic extends Base {
             }
           },
           duration: animDuration,
-          ease: selectedEasing
+          ease: selectedEasing,
+          repeat: 0 // CRITICAL: Explicitly set to run only once
         }, delay);
       }
     }
+    
+    this.log(`Advanced ripple animation set up with ${tileCount} tiles`, 'info');
     
     return tl;
   }
@@ -586,7 +777,14 @@ export default class CommandCenterGraphic extends Base {
   // Animation 4: Random Connection (light up center and inner ring tile with connecting line)
   randomConnectionAnimation() {
     this.log('Running random connection animation');
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onStart: () => {
+        this.log('Random connection animation starting', 'info');
+      },
+      onComplete: () => {
+        this.log('Random connection animation completed', 'info');
+      }
+    });
     
     // Get a random tile from the inner ring only
     const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
@@ -680,8 +878,8 @@ export default class CommandCenterGraphic extends Base {
     const normalizedY = vectorY / length;
     
     // Calculate edge points by moving from center toward edge
-    // Use 40% of the tile width/height as the distance to ensure we're at the edge
-    const edgeOffset = Math.min(fromRect.width, fromRect.height) * 0.4;
+    // Use 50% of the tile width/height as the distance to ensure we're at the edge
+    const edgeOffset = Math.min(fromRect.width, fromRect.height) * 0.5;
     
     // Calculate points on the edges of the tiles
     const fromX = fromCenterX + (normalizedX * edgeOffset);
