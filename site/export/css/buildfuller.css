@@ -2609,6 +2609,7 @@ label {
 .network-grid-wrap {
   background-image: radial-gradient(circle closest-side at 50% 50%, #151819d1, var(--pitch-black) 78%);
   width: 100%;
+  position: relative;
   overflow: hidden;
 }
 
