@@ -55,6 +55,13 @@ export default class CommandCenterGraphic extends Base {
         entrance: 'power4.inOut',
         animation: 'expo.inOut',
         return: 'expo.inOut'
+      },
+      animation: {
+        rippleSpeed: 0.1,        // Speed of ripple propagation
+        useColorChange: true,    // Whether to change color during peak
+        peakScale: 1.08,         // How much tiles scale at peak
+        easingType: 'sineWave',  // Which easing function to use: 'sineWave', 'bellCurve', 'elasticRebound'
+        rippleStyle: 'advanced'  // Which ripple style to use: 'basic', 'advanced', 'organic'
       }
     };
     
@@ -67,17 +74,30 @@ export default class CommandCenterGraphic extends Base {
       }
     };
 
+    // Register custom easing functions with GSAP
+    this.initCustomEasings();
+
     // Animation settings
     this.currentAnimation = 0;
     this.animations = [
-      this.concentricAnimation.bind(this),
+      this.advancedRippleAnimation.bind(this),   // Use advanced ripple by default
       this.randomConnectionAnimation.bind(this),
+      // Uncomment to use additional animation types
+      // this.concentricAnimation.bind(this),
+      // this.organicRippleAnimation.bind(this),
       // this.waveAnimation.bind(this),
       // this.pulseAnimation.bind(this)
     ];
     
     // Animation names for debug display
-    this.animationNames = ['Concentric', 'Random Connection' /*, 'Wave', 'Pulse'*/];
+    this.animationNames = [
+      'Advanced Ripple', 
+      'Random Connection'
+      // 'Concentric',
+      // 'Organic Ripple',
+      // 'Wave',
+      // 'Pulse'
+    ];
     
     // Create debug display if debug mode is enabled
     if (debug) {
@@ -85,6 +105,14 @@ export default class CommandCenterGraphic extends Base {
     }
     
     this.init();
+  }
+
+  // Register custom easing functions with GSAP
+  initCustomEasings() {
+    // Register custom easing functions with GSAP
+    gsap.registerEase("customSineWave", progress => this.easings.sineWave(progress));
+    gsap.registerEase("customBellCurve", progress => this.easings.bellCurve(progress));
+    gsap.registerEase("customElasticRebound", progress => this.easings.elasticRebound(progress));
   }
 
   createDebugDisplay() {
@@ -258,6 +286,142 @@ export default class CommandCenterGraphic extends Base {
     });
   }
 
+  // Advanced ripple effect based on distance from center
+  advancedRippleAnimation() {
+    this.log('Running advanced ripple animation');
+    const tl = gsap.timeline();
+    
+    // Timing and animation parameters
+    const animDuration = this.config.timing.animationDuration * 2;
+    const rippleSpeed = this.config.animation.rippleSpeed;
+    const maxDistance = Math.sqrt(8); // Max distance from center in a 5x5 grid (diagonal)
+    
+    // Select easing function based on config
+    let selectedEasing;
+    switch(this.config.animation.easingType) {
+      case 'bellCurve':
+        selectedEasing = "customBellCurve";
+        break;
+      case 'elasticRebound':
+        selectedEasing = "customElasticRebound";
+        break;
+      case 'sineWave':
+      default:
+        selectedEasing = "customSineWave";
+    }
+    
+    // Calculate center point (for a 5x5 grid, center is at [2,2])
+    const centerRow = 2;
+    const centerCol = 2;
+    
+    // Animate each tile based on distance from center
+    for (let row = 0; row < 5; row++) {
+      for (let col = 0; col < 5; col++) {
+        const tile = this.tileMatrix[row][col];
+        if (!tile) continue; // Skip if no tile exists at this position
+        
+        // Calculate distance from center
+        const distance = Math.sqrt(
+          Math.pow(row - centerRow, 2) + 
+          Math.pow(col - centerCol, 2)
+        );
+        
+        // Calculate delay based on distance (further = more delay)
+        const delay = distance * rippleSpeed;
+        
+        // Determine if this is the center tile
+        const isCenter = row === centerRow && col === centerCol;
+        
+        // Set appropriate initial and peak values based on tile type
+        const initialOpacity = isCenter ? this.config.centerTileOpacity : this.config.defaultOpacity;
+        const initialColor = isCenter ? this.config.centerColor : this.config.defaultColor;
+        const peakColor = isCenter ? this.config.centerColor : 
+          (this.config.animation.useColorChange ? this.config.activeColor : this.config.defaultColor);
+        
+        // Create animation for this tile
+        tl.to(tile, {
+          keyframes: {
+            "0%": { 
+              scale: 1, 
+              opacity: initialOpacity,
+              color: initialColor
+            },
+            "50%": { 
+              scale: this.config.animation.peakScale, 
+              opacity: this.config.activeOpacity,
+              color: peakColor
+            },
+            "100%": { 
+              scale: 1, 
+              opacity: initialOpacity,
+              color: initialColor
+            }
+          },
+          duration: animDuration,
+          ease: selectedEasing
+        }, delay);
+      }
+    }
+    
+    return tl;
+  }
+
+  // Organic ripple animation using GSAP's grid stagger
+  organicRippleAnimation() {
+    this.log('Running organic ripple animation');
+    const tl = gsap.timeline();
+    
+    // Flatten the tile matrix for easier animation
+    const allTiles = [];
+    for (let row = 0; row < 5; row++) {
+      for (let col = 0; col < 5; col++) {
+        if (this.tileMatrix[row][col]) {
+          allTiles.push({
+            element: this.tileMatrix[row][col],
+            row: row,
+            col: col,
+            isCenter: (row === 2 && col === 2)
+          });
+        }
+      }
+    }
+    
+    // Animation parameters
+    const animDuration = this.config.timing.animationDuration * 1.5;
+    const staggerDuration = this.config.timing.animationDuration * 3; // Total stagger time
+    
+    // First phase: expanding ripple
+    tl.to(allTiles.map(t => t.element), {
+      scale: this.config.animation.peakScale,
+      opacity: (i) => allTiles[i].isCenter ? this.config.activeOpacity : this.config.activeOpacity,
+      color: (i) => allTiles[i].isCenter ? this.config.centerColor : 
+        (this.config.animation.useColorChange ? this.config.activeColor : this.config.defaultColor),
+      duration: animDuration,
+      stagger: {
+        grid: [5, 5], // 5x5 grid
+        from: "center",
+        amount: staggerDuration / 2,
+        ease: "sine.in"
+      }
+    });
+    
+    // Second phase: contracting ripple
+    tl.to(allTiles.map(t => t.element), {
+      scale: 1,
+      opacity: (i) => allTiles[i].isCenter ? this.config.centerTileOpacity : this.config.defaultOpacity,
+      color: (i) => allTiles[i].isCenter ? this.config.centerColor : this.config.defaultColor,
+      duration: animDuration,
+      stagger: {
+        grid: [5, 5],
+        from: "edges",
+        amount: staggerDuration / 2,
+        ease: "sine.out"
+      }
+    });
+    
+    return tl;
+  }
+
   // Animation 1: Pulse animation (kept but not used in current sequence)
   pulseAnimation() {
     this.log('Running pulse animation');
@@ -360,20 +524,31 @@ export default class CommandCenterGraphic extends Base {
       sineWave: "sine.inOut",
       
       // Option 2: Bell Curve - faster rise and fall with emphasized peak
-      bellCurve: CustomEase.create("custom", "M0,0 C0.098,0.3 0.142,0.734 0.5,1 0.858,0.734 0.902,0.3 1,0"),
+      bellCurve: "customBellCurve",
       
       // Option 3: Elastic Bounce - adds slight overshoot for more dynamic feel
-      elasticBounce: "elastic.out(1, 0.5)"
+      elasticBounce: "customElasticRebound"
     };
     
-    // Select which easing to use
-    const selectedEasing = easingOptions.sineWave;
+    // Select which easing to use based on config
+    let selectedEasing;
+    switch(this.config.animation.easingType) {
+      case 'bellCurve':
+        selectedEasing = easingOptions.bellCurve;
+        break;
+      case 'elasticRebound':
+        selectedEasing = easingOptions.elasticBounce;
+        break;
+      case 'sineWave':
+      default:
+        selectedEasing = easingOptions.sineWave;
+    }
 
     // Center tile animation - complete cycle
     tl.to(centerLayer, {
       keyframes: {
         "0%": { scale: 1, opacity: this.config.centerTileOpacity },
-        "50%": { scale: 1.1, opacity: this.config.activeOpacity },
+        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity },
         "100%": { scale: 1, opacity: this.config.centerTileOpacity }
       },
       duration: animDuration,
@@ -384,7 +559,7 @@ export default class CommandCenterGraphic extends Base {
     tl.to(innerRing, {
       keyframes: {
         "0%": { scale: 1, opacity: this.config.defaultOpacity },
-        "50%": { scale: 1.1, opacity: this.config.activeOpacity },
+        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity },
         "100%": { scale: 1, opacity: this.config.defaultOpacity }
       },
       duration: animDuration,
@@ -395,7 +570,7 @@ export default class CommandCenterGraphic extends Base {
     tl.to(outerRing, {
       keyframes: {
         "0%": { scale: 1, opacity: this.config.defaultOpacity },
-        "50%": { scale: 1.1, opacity: this.config.activeOpacity },
+        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity },
         "100%": { scale: 1, opacity: this.config.defaultOpacity }
       },
       duration: animDuration,
@@ -446,11 +621,11 @@ export default class CommandCenterGraphic extends Base {
       ease: this.config.easing.return
     }, `-=${this.config.timing.animationDuration}`);
     
-    // After 1 second, run concentric animation and update debug display
+    // After 1 second, run advanced ripple animation and update debug display
     tl.add(() => {
-      this.updateDebugDisplay('Animation: Concentric (Triggered)');
+      this.updateDebugDisplay('Animation: Advanced Ripple (Triggered)');
       setTimeout(() => {
-        this.concentricAnimation();
+        this.advancedRippleAnimation();
       }, 1000);
     });
     
