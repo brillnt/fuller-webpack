@@ -26,7 +26,7 @@ onReady(() => {
     'offsite-content'
   ]);
   new ContactForm('contact-form', true);
-  new CommandCenterGraphic('cc-blocks-container', false);
+  new CommandCenterGraphic('cc-blocks-container', true);
 
   const configuratorCards = selectAll('.config-blocks .config-block');
 

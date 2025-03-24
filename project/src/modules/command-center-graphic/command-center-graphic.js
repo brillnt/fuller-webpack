@@ -48,7 +48,7 @@ export default class CommandCenterGraphic extends Base {
         entranceDuration: 0.6,
         animationDuration: 0.8,
         activeStateDuration: 1,
-        pauseBetweenAnimations: 2,
+        pauseBetweenAnimations: 1,
         concentricStagger: 0.2  // Time between layers (not within layer)
       },
       easing: {
@@ -62,14 +62,14 @@ export default class CommandCenterGraphic extends Base {
         peakScale: 1.08,         // How much tiles scale at peak
         easingType: 'sineWave',  // Which easing function to use: 'sineWave', 'bellCurve', 'elasticRebound'
         rippleStyle: 'advanced', // Which ripple style to use: 'basic', 'advanced', 'organic'
-        looping: true,          // Whether to continuously loop through animations (default: OFF)
-        useStandardEasing: true // DEBUG OPTION: Set to true to use standard GSAP easing instead of custom
+        looping: true,           // Whether to continuously loop through animations (default: OFF)
+        useStandardEasing: true  // DEBUG OPTION: Set to true to use standard GSAP easing instead of custom
       },
       debug: {
         enabled: true,           // Force debug mode on for testing
         verbose: true,           // Enable verbose logging
         logAnimationSteps: true, // Log each animation step
-        showEasingGraph: true    // Show easing function visualization to diagnose the issue
+        showEasingGraph: false    // Show easing function visualization to diagnose the issue
       }
     };
     
@@ -113,20 +113,20 @@ export default class CommandCenterGraphic extends Base {
       this.advancedRippleAnimation.bind(this),   // Use advanced ripple by default
       this.randomConnectionAnimation.bind(this),
       // Uncomment to use additional animation types
-      // this.concentricAnimation.bind(this),
-      // this.organicRippleAnimation.bind(this),
-      // this.waveAnimation.bind(this),
-      // this.pulseAnimation.bind(this)
+      this.concentricAnimation.bind(this),
+      this.organicRippleAnimation.bind(this),
+      this.waveAnimation.bind(this),
+      this.pulseAnimation.bind(this)
     ];
     
     // Animation names for debug display
     this.animationNames = [
       'Advanced Ripple', 
-      'Random Connection'
-      // 'Concentric',
-      // 'Organic Ripple',
-      // 'Wave',
-      // 'Pulse'
+      'Random Connection',
+      'Concentric',
+      'Organic Ripple',
+      'Wave',
+      'Pulse'
     ];
     
     // Create debug display if debug mode is enabled
