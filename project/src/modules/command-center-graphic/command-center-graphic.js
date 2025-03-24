@@ -84,7 +84,7 @@ export default class CommandCenterGraphic extends Base {
       this.randomConnectionAnimation.bind(this),
       // Uncomment to use additional animation types
       // this.concentricAnimation.bind(this),
-      // this.organicRippleAnimation.bind(this),
+      this.organicRippleAnimation.bind(this),
       // this.waveAnimation.bind(this),
       // this.pulseAnimation.bind(this)
     ];
@@ -92,9 +92,9 @@ export default class CommandCenterGraphic extends Base {
     // Animation names for debug display
     this.animationNames = [
       'Advanced Ripple', 
-      'Random Connection'
+      'Random Connection',
       // 'Concentric',
-      // 'Organic Ripple',
+      'Organic Ripple',
       // 'Wave',
       // 'Pulse'
     ];
@@ -580,14 +580,18 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 4: Random Connection (light up center and random tile)
+  // Animation 4: Random Connection (light up center and inner ring tile with connecting line)
   randomConnectionAnimation() {
     this.log('Running random connection animation');
     const tl = gsap.timeline();
     
-    // Get a random outer tile
-    const randomIndex = Math.floor(Math.random() * this.outerTiles.length);
-    const randomTile = this.outerTiles[randomIndex];
+    // Get a random tile from the inner ring only
+    const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
+    const randomIndex = Math.floor(Math.random() * innerRing.length);
+    const randomTile = innerRing[randomIndex];
+    
+    // Create an SVG line element to connect center and random tile
+    const line = this.createConnectionLine(this.centerTile, randomTile);
     
     // Light up center tile
     tl.to(this.centerTile, {
@@ -595,6 +599,14 @@ export default class CommandCenterGraphic extends Base {
       duration: this.config.timing.animationDuration,
       ease: this.config.easing.animation
     });
+    
+    // Animate the line (draw from center to target)
+    const lineDuration = this.config.timing.animationDuration * 1.5;
+    tl.to(line, {
+      strokeDashoffset: 0,
+      duration: lineDuration,
+      ease: "power2.inOut"
+    }, `-=${this.config.timing.animationDuration * 0.8}`);
     
     // Light up random tile and change its color to white
     tl.to(randomTile, {
@@ -607,12 +619,23 @@ export default class CommandCenterGraphic extends Base {
     // Hold for specified duration
     tl.to({}, { duration: this.config.timing.activeStateDuration });
     
-    // Return to default state
+    // Fade out the line
+    tl.to(line, {
+      opacity: 0,
+      duration: this.config.timing.animationDuration,
+      ease: "power2.out",
+      onComplete: () => {
+        // Remove the line element when animation is complete
+        line.remove();
+      }
+    });
+    
+    // Return center and random tile to default state
     tl.to(this.centerTile, {
       opacity: this.config.centerTileOpacity,
       duration: this.config.timing.animationDuration,
       ease: this.config.easing.return
-    });
+    }, `-=${this.config.timing.animationDuration * 0.5}`);
     
     tl.to(randomTile, {
       opacity: this.config.defaultOpacity,
@@ -630,5 +653,64 @@ export default class CommandCenterGraphic extends Base {
     });
     
     return tl;
+  }
+  
+  // Helper method to create and setup the connecting line
+  createConnectionLine(fromTile, toTile) {
+    // Get the parent SVG container
+    const container = this.element.querySelector('.network-grid-container');
+    
+    // Create the SVG line element
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    
+    // Calculate positions for the line endpoints
+    const fromRect = fromTile.getBoundingClientRect();
+    const toRect = toTile.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    
+    // Adjust positioning to account for the isometric hexagon shape
+    // Target the center of each tile with slight adjustments for the cube design
+    const fromX = fromRect.left + (fromRect.width / 2) - containerRect.left;
+    const fromY = fromRect.top + (fromRect.height / 2) - containerRect.top;
+    const toX = toRect.left + (toRect.width / 2) - containerRect.left;
+    const toY = toRect.top + (toRect.height / 2) - containerRect.top;
+    
+    // Set line attributes
+    line.setAttribute("x1", fromX);
+    line.setAttribute("y1", fromY);
+    line.setAttribute("x2", toX);
+    line.setAttribute("y2", toY);
+    line.setAttribute("stroke", this.config.activeColor);
+    line.setAttribute("stroke-width", "2");
+    line.setAttribute("opacity", "1");
+    
+    // Create SVG wrapper if needed
+    let svgWrapper = container.querySelector('.connection-lines-container');
+    if (!svgWrapper) {
+      svgWrapper = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svgWrapper.classList.add('connection-lines-container');
+      svgWrapper.style.position = "absolute";
+      svgWrapper.style.top = "0";
+      svgWrapper.style.left = "0";
+      svgWrapper.style.width = "100%";
+      svgWrapper.style.height = "100%";
+      svgWrapper.style.pointerEvents = "none";
+      svgWrapper.style.zIndex = "5";
+      container.appendChild(svgWrapper);
+    }
+    
+    // Add the line to the SVG
+    svgWrapper.appendChild(line);
+    
+    // Calculate line length for dash animation
+    const lineLength = Math.sqrt(
+      Math.pow(toX - fromX, 2) + Math.pow(toY - fromY, 2)
+    );
+    
+    // Setup stroke dash properties for the drawing animation
+    line.setAttribute("stroke-dasharray", lineLength);
+    line.setAttribute("stroke-dashoffset", lineLength);
+    
+    return line;
   }
 }
