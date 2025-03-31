@@ -62,42 +62,8 @@ export default class CommandCenterGraphic extends Base {
         peakScale: 1.08,         // How much tiles scale at peak
         easingType: 'sineWave',  // Which easing function to use: 'sineWave', 'bellCurve', 'elasticRebound'
         rippleStyle: 'advanced', // Which ripple style to use: 'basic', 'advanced', 'organic'
-        looping: false,           // Whether to continuously loop through animations
+        looping: false,          // Whether to continuously loop through animations
         useStandardEasing: true  // Use standard GSAP easing instead of custom
-      },
-      connection: {
-        lineDuration: 1.2,       // Duration of line drawing animation (seconds)
-        lineEasing: "expo.out", // Easing function for line animation
-        lineOpacity: 1,          // Opacity of the connection line
-        lineWidth: 2,            // Width of the connection line
-        lineColor: 'white',      // Color of the connection line
-        useGradient: false,      // Whether to use a gradient for the line
-        holdDuration: 0.8,       // How long to hold the connection before fading
-        fadeOutDuration: 0.6,    // Duration of the fade out animation
-        patternIndex: 0,         // Current index in the connection pattern
-        // Ordered pattern for connections (clockwise from top-left)
-        pattern: [
-          "topLeft",    // [1,1]
-          "top",        // [1,2]
-          "topRight",   // [1,3]
-          "right",      // [2,3]
-          "bottomRight",// [3,3]
-          "bottom",     // [3,2]
-          "bottomLeft", // [3,1]
-          "left"        // [2,1]
-        ],
-        // Custom edge offsets based on tile positions (direction from center)
-        edgeOffsets: {
-          default: 0.5,   // Default is 50% of min tile dimension
-          top: 0.4,       // [1,2] - Direct top
-          topRight: 0.4, // [1,3] - Top right diagonal
-          right: 0.4,     // [2,3] - Direct right
-          bottomRight: 0.45, // [3,3] - Bottom right diagonal
-          bottom: 0.4,    // [3,2] - Direct bottom
-          bottomLeft: 0.45, // [3,1] - Bottom left diagonal
-          left: 0.4,      // [2,1] - Direct left
-          topLeft: 0.8   // [1,1] - Top left diagonal
-        }
       },
       debug: {
         enabled: true,           // Force debug mode on for testing
@@ -160,26 +126,32 @@ export default class CommandCenterGraphic extends Base {
     // Register custom easing functions with GSAP
     this.initCustomEasings();
 
-    // Animation settings
-    this.currentAnimation = 0;
+    // Animation settings - Combined array with name and function
     this.animations = [
-      this.advancedRippleAnimation.bind(this),   // Use advanced ripple by default
-      this.randomConnectionAnimation.bind(this),
-      // this.concentricAnimation.bind(this),
-      // this.organicRippleAnimation.bind(this),
-      // this.waveAnimation.bind(this),
-      // this.pulseAnimation.bind(this)
+      {
+        name: 'Pulse',
+        fn: this.pulseAnimation.bind(this)
+      },
+      {
+        name: 'Advanced Ripple',
+        fn: this.advancedRippleAnimation.bind(this)
+      },
+      {
+        name: 'Concentric',
+        fn: this.concentricAnimation.bind(this)
+      },
+      {
+        name: 'Organic Ripple',
+        fn: this.organicRippleAnimation.bind(this)
+      },
+      {
+        name: 'Wave',
+        fn: this.waveAnimation.bind(this)
+      },
     ];
     
-    // Animation names for debug display
-    this.animationNames = [
-      'Advanced Ripple', 
-      'Random Connection',
-      // 'Concentric',
-      // 'Organic Ripple',
-      // 'Wave',
-      // 'Pulse'
-    ];
+    // Current animation index
+    this.currentAnimation = 0;
     
     // Create debug display if debug mode is enabled
     if (this.config.debug.enabled) {
@@ -424,9 +396,6 @@ export default class CommandCenterGraphic extends Base {
   }
 
   startAnimationSequence() {
-    // Set initial animation to the random connection animation if that's preferred
-    // this.currentAnimation = 1; // Uncomment to start with random connection
-    
     // Run the first animation
     this.runNextAnimation();
   }
@@ -439,18 +408,17 @@ export default class CommandCenterGraphic extends Base {
       return;
     }
     
-    // Run current animation and set up next one
+    // Get current animation from the combined array
     const animation = this.animations[this.currentAnimation];
-    const animationName = this.animationNames[this.currentAnimation];
     
-    this.log(`Starting animation sequence: ${animationName} (${this.currentAnimation})`, 'info');
-    this.updateDebugDisplay(`DEBUG MODE - Animation: ${animationName}, Pause: ${this.config.timing.pauseBetweenAnimations}s`);
+    this.log(`Starting animation sequence: ${animation.name} (${this.currentAnimation})`, 'info');
+    this.updateDebugDisplay(`DEBUG MODE - Animation: ${animation.name}, Pause: ${this.config.timing.pauseBetweenAnimations}s`);
     
     // Set flag that animation is now running
     this.animationInProgress = true;
     
     // Create timeline for this animation
-    const tl = animation();
+    const tl = animation.fn();
     
     // Track when animation starts
     const startTime = performance.now();
@@ -461,7 +429,7 @@ export default class CommandCenterGraphic extends Base {
       const endTime = performance.now();
       const actualDuration = (endTime - startTime) / 1000; // Convert to seconds
       
-      this.log(`Animation "${animationName}" completed in ${actualDuration.toFixed(2)}s`, 'info');
+      this.log(`Animation "${animation.name}" completed in ${actualDuration.toFixed(2)}s`, 'info');
       
       // Reset animation in progress flag
       this.animationInProgress = false;
@@ -477,7 +445,7 @@ export default class CommandCenterGraphic extends Base {
       }
       
       // Log what's next
-      this.log(`Next animation will be: ${this.animationNames[this.currentAnimation]} (${this.currentAnimation})`, 'info');
+      this.log(`Next animation will be: ${this.animations[this.currentAnimation].name} (${this.currentAnimation})`, 'info');
       
       // Pause before next animation (or stop if we're done and not looping)
       if (!this.config.animation.looping && this.animationCycleCompleted) {
@@ -665,7 +633,7 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 1: Pulse animation (kept but not used in current sequence)
+  // Animation 1: Pulse animation
   pulseAnimation() {
     this.log('Running pulse animation');
     const tl = gsap.timeline();
@@ -718,7 +686,7 @@ export default class CommandCenterGraphic extends Base {
     return tl;
   }
 
-  // Animation 2: Wave animation (kept but not used in current sequence)
+  // Animation 2: Wave animation
   waveAnimation() {
     this.log('Running wave animation');
     const tl = gsap.timeline();
@@ -821,321 +789,5 @@ export default class CommandCenterGraphic extends Base {
     }, layerDelay * 2); // Further delay
     
     return tl;
-  }
-
-  // Animation 4: Patterned Connection (light up center and inner ring tile with connecting line)
-  randomConnectionAnimation() {
-    this.log('Running patterned connection animation');
-    const tl = gsap.timeline({
-      onStart: () => {
-        this.log('Connection animation starting', 'info');
-      },
-      onComplete: () => {
-        this.log('Connection animation completed', 'info');
-      }
-    });
-    
-    // Get inner ring tiles
-    const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
-    
-    // Use the current pattern index to determine which connection to make
-    const currentPattern = this.config.connection.pattern[this.config.connection.patternIndex];
-    this.log(`Making connection to ${currentPattern} (pattern index: ${this.config.connection.patternIndex})`, 'info');
-    
-    // Find the target tile based on the pattern
-    const targetTile = this.getTileByPosition(currentPattern, innerRing);
-    
-    // Get position data for the selected tile (for custom edge offset)
-    const tilePos = this.getTilePosition(targetTile);
-    
-    // Create an SVG line element to connect center and target tile
-    const line = this.createConnectionLine(this.centerTile, targetTile, tilePos);
-    
-    // Light up center tile
-    tl.to(this.centerTile, {
-      opacity: this.config.activeOpacity,
-      duration: this.config.timing.animationDuration,
-      ease: this.config.easing.animation
-    });
-    
-    // Animate the line (draw from center to target)
-    const lineDuration = this.config.connection.lineDuration;
-    tl.to(line, {
-      strokeDashoffset: 0,
-      duration: lineDuration,
-      ease: this.config.connection.lineEasing
-    }, `-=${this.config.timing.animationDuration * 0.8}`);
-    
-    // Light up random tile and change its color to white
-    tl.to(randomTile, {
-      opacity: this.config.activeOpacity,
-      color: this.config.activeColor,
-      duration: this.config.timing.animationDuration,
-      ease: this.config.easing.animation
-    }, `-=${this.config.timing.animationDuration / 2}`);
-    
-    // Hold for specified duration
-    tl.to({}, { duration: this.config.connection.holdDuration });
-    
-    // Fade out the line
-    tl.to(line, {
-      opacity: 0,
-      duration: this.config.connection.fadeOutDuration,
-      ease: "power2.out",
-      onComplete: () => {
-        // Remove the line element when animation is complete
-        line.remove();
-      }
-    });
-    
-    // Return center and target tile to default state
-    tl.to(this.centerTile, {
-      opacity: this.config.centerTileOpacity,
-      duration: this.config.timing.animationDuration,
-      ease: this.config.easing.return
-    }, `-=${this.config.connection.fadeOutDuration * 0.5}`);
-    
-    tl.to(targetTile, {
-      opacity: this.config.defaultOpacity,
-      color: this.config.defaultColor,  // Return to default teal color
-      duration: this.config.timing.animationDuration,
-      ease: this.config.easing.return
-    }, `-=${this.config.timing.animationDuration}`);
-    
-    // Update the pattern index for next time
-    tl.call(() => {
-      // Move to next pattern index, cycling back to start if needed
-      this.config.connection.patternIndex = 
-        (this.config.connection.patternIndex + 1) % this.config.connection.pattern.length;
-      this.log(`Next connection will be to ${this.config.connection.pattern[this.config.connection.patternIndex]}`, 'info');
-    });
-    
-    // End the timeline
-    return tl;
-  }
-  
-  // Find a tile by its position name in the inner ring
-  getTileByPosition(positionName, innerRing) {
-    // Position name to coordinates mapping
-    const positionMap = {
-      'top': [1, 2],        // Top
-      'topRight': [1, 3],   // Top-right
-      'right': [2, 3],      // Right
-      'bottomRight': [3, 3],// Bottom-right
-      'bottom': [3, 2],     // Bottom
-      'bottomLeft': [3, 1], // Bottom-left
-      'left': [2, 1],       // Left
-      'topLeft': [1, 1]     // Top-left
-    };
-    
-    // Get coordinates for the requested position
-    const coords = positionMap[positionName];
-    if (!coords) {
-      this.log(`Unknown position: ${positionName}, using top instead`, 'warn');
-      return this.tileMatrix[1][2]; // Default to top
-    }
-    
-    // Return the tile at the specified position
-    const tile = this.tileMatrix[coords[0]][coords[1]];
-    if (!tile) {
-      this.log(`No tile found at position ${positionName} (${coords[0]},${coords[1]})`, 'warn');
-      return innerRing[0]; // Fallback to first inner ring tile
-    }
-    
-    return tile;
-  }
-  
-  // Get the named position of a tile relative to center
-  getTilePosition(tile) {
-    // Default position info
-    const defaultPos = {
-      name: 'unknown',
-      edgeOffset: this.config.connection.edgeOffsets.default
-    };
-    
-    // For center tile
-    if (tile === this.centerTile) {
-      return {
-        name: 'center',
-        edgeOffset: this.config.connection.edgeOffsets.default
-      };
-    }
-    
-    // Find row and column
-    let tileRow = -1, tileCol = -1;
-    
-    // Search in matrix
-    for (let row = 0; row < 5; row++) {
-      for (let col = 0; col < 5; col++) {
-        if (this.tileMatrix[row][col] === tile) {
-          tileRow = row;
-          tileCol = col;
-          break;
-        }
-      }
-      if (tileRow !== -1) break;
-    }
-    
-    // If not found in matrix
-    if (tileRow === -1 || tileCol === -1) {
-      return defaultPos;
-    }
-    
-    // Determine position name based on coordinates relative to center [2,2]
-    if (tileRow === 1 && tileCol === 2) {
-      return { name: 'top', edgeOffset: this.config.connection.edgeOffsets.top };
-    } else if (tileRow === 1 && tileCol === 3) {
-      return { name: 'topRight', edgeOffset: this.config.connection.edgeOffsets.topRight };
-    } else if (tileRow === 2 && tileCol === 3) {
-      return { name: 'right', edgeOffset: this.config.connection.edgeOffsets.right };
-    } else if (tileRow === 3 && tileCol === 3) {
-      return { name: 'bottomRight', edgeOffset: this.config.connection.edgeOffsets.bottomRight };
-    } else if (tileRow === 3 && tileCol === 2) {
-      return { name: 'bottom', edgeOffset: this.config.connection.edgeOffsets.bottom };
-    } else if (tileRow === 3 && tileCol === 1) {
-      return { name: 'bottomLeft', edgeOffset: this.config.connection.edgeOffsets.bottomLeft };
-    } else if (tileRow === 2 && tileCol === 1) {
-      return { name: 'left', edgeOffset: this.config.connection.edgeOffsets.left };
-    } else if (tileRow === 1 && tileCol === 1) {
-      return { name: 'topLeft', edgeOffset: this.config.connection.edgeOffsets.topLeft };
-    }
-    
-    // Default fallback
-    return defaultPos;
-  }
-  
-  // Helper method to create and setup the connecting line with custom edge offset
-  createConnectionLine(fromTile, toTile, tilePosition) {
-    // Get the parent SVG container
-    const container = this.element.querySelector('.network-grid-container');
-    
-    // Create the SVG line element
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    
-    // Calculate positions for the line endpoints
-    const fromRect = fromTile.getBoundingClientRect();
-    const toRect = toTile.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    
-    // Calculate centers first (needed for vector calculations)
-    const fromCenterX = fromRect.left + (fromRect.width / 2) - containerRect.left;
-    const fromCenterY = fromRect.top + (fromRect.height / 2) - containerRect.top;
-    const toCenterX = toRect.left + (toRect.width / 2) - containerRect.left;
-    const toCenterY = toRect.top + (toRect.height / 2) - containerRect.top;
-    
-    // Calculate vector from center tile to target tile
-    const vectorX = toCenterX - fromCenterX;
-    const vectorY = toCenterY - fromCenterY;
-    
-    // Normalize the vector
-    const length = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
-    const normalizedX = vectorX / length;
-    const normalizedY = vectorY / length;
-    
-    // Get custom edge offset for this specific tile pairing
-    let fromEdgeOffset, toEdgeOffset;
-    
-    // Default edge offset (50% of min dimension)
-    const defaultOffset = Math.min(fromRect.width, fromRect.height) * this.config.connection.edgeOffsets.default;
-    
-    // Use tile position-specific edge offset if available
-    if (tilePosition && tilePosition.edgeOffset) {
-      // Calculate offset distances
-      fromEdgeOffset = Math.min(fromRect.width, fromRect.height) * this.config.connection.edgeOffsets.default;
-      toEdgeOffset = Math.min(toRect.width, toRect.height) * tilePosition.edgeOffset;
-      
-      this.log(`Using custom edge offset for ${tilePosition.name} connection: ${tilePosition.edgeOffset}`, 'debug');
-    } else {
-      // Fallback to default offsets
-      fromEdgeOffset = defaultOffset;
-      toEdgeOffset = defaultOffset;
-    }
-    
-    // Calculate points on the edges of the tiles
-    const fromX = fromCenterX + (normalizedX * fromEdgeOffset);
-    const fromY = fromCenterY + (normalizedY * fromEdgeOffset);
-    const toX = toCenterX - (normalizedX * toEdgeOffset);
-    const toY = toCenterY - (normalizedY * toEdgeOffset);
-    
-    // Set line attributes
-    line.setAttribute("x1", fromX);
-    line.setAttribute("y1", fromY);
-    line.setAttribute("x2", toX);
-    line.setAttribute("y2", toY);
-    line.setAttribute("stroke", this.config.connection.lineColor);
-    line.setAttribute("stroke-width", this.config.connection.lineWidth);
-    line.setAttribute("opacity", this.config.connection.lineOpacity);
-    line.setAttribute("stroke-linecap", "round"); // Rounded line ends
-    
-    // Create SVG wrapper if needed
-    let svgWrapper = container.querySelector('.connection-lines-container');
-    if (!svgWrapper) {
-      svgWrapper = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svgWrapper.classList.add('connection-lines-container');
-      svgWrapper.style.position = "absolute";
-      svgWrapper.style.top = "0";
-      svgWrapper.style.left = "0";
-      svgWrapper.style.width = "100%";
-      svgWrapper.style.height = "100%";
-      svgWrapper.style.pointerEvents = "none";
-      svgWrapper.style.zIndex = "5";
-      container.appendChild(svgWrapper);
-    }
-    
-    // Use gradient if enabled
-    if (this.config.connection.useGradient) {
-      // Create a unique ID for the gradient
-      const gradientId = `line-gradient-${Date.now()}`;
-      
-      // Create defs element if it doesn't exist
-      let defs = svgWrapper.querySelector('defs');
-      if (!defs) {
-        defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-        svgWrapper.appendChild(defs);
-      }
-      
-      // Create gradient
-      const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
-      gradient.setAttribute("id", gradientId);
-      gradient.setAttribute("x1", "0%");
-      gradient.setAttribute("y1", "0%");
-      gradient.setAttribute("x2", "100%");
-      gradient.setAttribute("y2", "100%");
-      
-      // Create gradient stops
-      const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-      stop1.setAttribute("offset", "0%");
-      stop1.setAttribute("stop-color", this.config.centerColor);
-      
-      const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-      stop2.setAttribute("offset", "100%");
-      stop2.setAttribute("stop-color", this.config.activeColor);
-      
-      // Add stops to gradient
-      gradient.appendChild(stop1);
-      gradient.appendChild(stop2);
-      
-      // Add gradient to defs
-      defs.appendChild(gradient);
-      
-      // Apply gradient to line
-      line.setAttribute("stroke", `url(#${gradientId})`);
-    }
-    
-    // Add the line to the SVG
-    svgWrapper.appendChild(line);
-    
-    // Calculate line length for dash animation
-    const lineLength = Math.sqrt(
-      Math.pow(toX - fromX, 2) + Math.pow(toY - fromY, 2)
-    );
-    
-    // Setup stroke dash properties for the drawing animation
-    line.setAttribute("stroke-dasharray", lineLength);
-    line.setAttribute("stroke-dashoffset", lineLength);
-    
-    this.log(`Created connection line from ${fromTile === this.centerTile ? 'center' : 'outer'} to ${toTile === this.centerTile ? 'center' : tilePosition.name} tile`, 'debug');
-    
-    return line;
   }
 }
