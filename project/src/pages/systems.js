@@ -10,7 +10,6 @@ import { gsap } from '../utils/animation.js';
 
 onReady(() => {
   new AnimateGridRows('spc-blocks-container', 'spc');
-  new AnimateGridRows('spc-blocks-container', 'cc');
   new TextAnimateSections([
     'first-reveal',
     {

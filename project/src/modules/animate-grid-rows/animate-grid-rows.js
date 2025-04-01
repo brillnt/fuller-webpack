@@ -1,4 +1,4 @@
-import { select, selectId } from '../../utils/helpers.js';
+import { selectId } from '../../utils/helpers.js';
 import { gsap } from '../../utils/animation.js';
 import './animate-grid-rows.css';
 
@@ -18,7 +18,8 @@ export default class AnimateGridRows {
 
   init() {
     console.log(`AnimateGridRows initialized with: ${this.selectorId} ${this.element}`);
-    console.log(`Grid rows: ${this.gridRows}`);
+    console.log(`Grid rows:`);
+    console.dir(this.gridRows);
 
     // Set initial positions for even rows
     this.gridRows.forEach((row, index) => {
