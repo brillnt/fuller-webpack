@@ -43,13 +43,14 @@ export default class CommandCenterGraphic extends Base {
       defaultColor: '#588e91',
       activeColor: 'white',
       centerColor: 'white',  // Center tile is always white
+      // Update config values for animation timing
       timing: {
         entranceStagger: 0.04,
-        entranceDuration: 0.6,
-        animationDuration: 0.8,
-        activeStateDuration: 1,
-        pauseBetweenAnimations: 1,
-        concentricStagger: 0.2  // Time between layers (not within layer)
+        entranceDuration: 0.5,      // Slightly shorter duration for faster animations
+        animationDuration: 0.6,     // Shorter animation duration for more fluidity
+        activeStateDuration: 0.8,   // Base active state duration
+        pauseBetweenAnimations: 1,  // Pause AFTER random highlight
+        concentricStagger: 0.15     // Slightly shorter stagger between layers
       },
       easing: {
         entrance: 'power4.inOut',
@@ -58,17 +59,17 @@ export default class CommandCenterGraphic extends Base {
       },
       animation: {
         rippleSpeed: 0.1,        // Speed of ripple propagation
-        useColorChange: false,   // Whether to change color during peak
+        useColorChange: true,    // Change color during peak (for highlights)
         peakScale: 1.08,         // How much tiles scale at peak
         easingType: 'sineWave',  // Which easing function to use: 'sineWave', 'bellCurve', 'elasticRebound'
         rippleStyle: 'advanced', // Which ripple style to use: 'basic', 'advanced', 'organic'
-        looping: false,          // Whether to continuously loop through animations
+        looping: true,           // Enable looping through animations
         useStandardEasing: true  // Use standard GSAP easing instead of custom
       },
       debug: {
-        enabled: true,           // Force debug mode on for testing
-        verbose: true,           // Enable verbose logging
-        logAnimationSteps: true, // Log each animation step
+        enabled: false,           // Force debug mode on for testing
+        verbose: false,           // Enable verbose logging
+        logAnimationSteps: false, // Log each animation step
         showEasingGraph: false   // Show easing function visualization
       }
     };
@@ -126,28 +127,34 @@ export default class CommandCenterGraphic extends Base {
     // Register custom easing functions with GSAP
     this.initCustomEasings();
 
-    // Animation settings - Combined array with name and function
+    // Animation settings - Array of main animations (Random Highlight will be automatically run after each)
     this.animations = [
       {
-        name: 'Pulse',
-        fn: this.pulseAnimation.bind(this)
-      },
-      {
-        name: 'Advanced Ripple',
-        fn: this.advancedRippleAnimation.bind(this)
-      },
-      {
         name: 'Concentric',
-        fn: this.concentricAnimation.bind(this)
-      },
-      {
-        name: 'Organic Ripple',
-        fn: this.organicRippleAnimation.bind(this)
+        fn: this.concentricAnimation.bind(this),
+        pauseAfter: 0 // No pause before random highlight
       },
       {
         name: 'Wave',
-        fn: this.waveAnimation.bind(this)
-      },
+        fn: this.waveAnimation.bind(this),
+        pauseAfter: 0 // No pause before random highlight
+      }
+      // Other animations commented out for now
+      // {
+      //   name: 'Advanced Ripple',
+      //   fn: this.advancedRippleAnimation.bind(this),
+      //   pauseAfter: 0
+      // },
+      // {
+      //   name: 'Organic Ripple',
+      //   fn: this.organicRippleAnimation.bind(this),
+      //   pauseAfter: 0
+      // },
+      // {
+      //   name: 'Pulse',
+      //   fn: this.pulseAnimation.bind(this),
+      //   pauseAfter: 0
+      // }
     ];
     
     // Current animation index
@@ -350,15 +357,17 @@ export default class CommandCenterGraphic extends Base {
     // Set initial state - all tiles invisible
     gsap.set(this.outerTiles, { 
       opacity: 0,
-      color: this.config.defaultColor
+      color: this.config.defaultColor,
+      scale: 1
     });
     
     gsap.set(this.centerTile, {
       opacity: 0,
-      color: this.config.centerColor
+      color: this.config.centerColor,
+      scale: 1
     });
 
-    // Create entrance animation
+    // Create entrance animation - now includes the highlight animation too
     this.createEntranceAnimation();
   }
 
@@ -372,31 +381,93 @@ export default class CommandCenterGraphic extends Base {
       onComplete: () => {
         this.log('Entrance animation complete, starting animation sequence');
         this.updateDebugDisplay('Entrance Complete');
-        this.startAnimationSequence();
+        
+        // Start the animation sequence after a 0.5s pause
+        setTimeout(() => {
+          this.startAnimationSequence();
+        }, 500);
       }
     });
 
-    // First, fade in center tile
-    timeline.to(this.centerTile, {
-      opacity: this.config.centerTileOpacity,
-      duration: this.config.timing.entranceDuration,
-      ease: this.config.easing.entrance
+    // Get concentric layers
+    const [centerLayer, innerRing, outerRing] = this.getConcentricLayers();
+    
+    // Start with all tiles at opacity 0 and scale 1
+    gsap.set([...centerLayer, ...innerRing, ...outerRing], { 
+      opacity: 0,
+      scale: 1
     });
-
-    // Shuffle outer tiles for random appearance
-    const shuffledTiles = [...this.outerTiles].sort(() => Math.random() - 0.5);
-
-    // Then fade in all other tiles randomly with stagger
-    timeline.to(shuffledTiles, {
-      opacity: this.config.defaultOpacity,
-      duration: this.config.timing.entranceDuration,
-      stagger: this.config.timing.entranceStagger,
-      ease: this.config.easing.entrance
-    });
+    
+    // Create more aggressive overlapping for fluid motion
+    
+    // Center tile animation - scale up with opacity
+    timeline.to(centerLayer, { 
+      scale: 1.1, 
+      opacity: this.config.activeOpacity, 
+      duration: this.config.timing.animationDuration * 0.8, // Slightly faster
+      ease: this.config.easing.animation 
+    })
+    // Center tile return to normal scale but keep visible
+    .to(centerLayer, { 
+      scale: 1, 
+      opacity: this.config.centerTileOpacity, 
+      duration: this.config.timing.animationDuration * 0.8,
+      ease: this.config.easing.return 
+    }, '+=0.05') // Much shorter pause
+    
+    // Inner ring animation - start WHILE center is still scaling up
+    .to(innerRing, { 
+      scale: 1.1, 
+      opacity: this.config.activeOpacity, 
+      stagger: 0.04, // Faster stagger
+      duration: this.config.timing.animationDuration * 0.8,
+      ease: this.config.easing.animation 
+    }, '-=0.6') // Start earlier
+    
+    // Inner ring return
+    .to(innerRing, { 
+      scale: 1, 
+      opacity: this.config.defaultOpacity, 
+      stagger: 0.04,
+      duration: this.config.timing.animationDuration * 0.8,
+      ease: this.config.easing.return 
+    }, '-=0.5') // Start earlier
+    
+    // Outer ring animation - start MUCH earlier during inner ring animation
+    .to(outerRing, { 
+      scale: 1.1, 
+      opacity: this.config.activeOpacity, 
+      stagger: 0.02, // Even faster stagger for outer
+      duration: this.config.timing.animationDuration * 0.8,
+      ease: this.config.easing.animation 
+    }, '-=1.6') // Start much earlier
+    
+    // Outer ring return
+    .to(outerRing, { 
+      scale: 1, 
+      opacity: this.config.defaultOpacity, 
+      stagger: 0.02,
+      duration: this.config.timing.animationDuration * 0.8,
+      ease: this.config.easing.return 
+    }, '-=0.4');
+    
+    return timeline;
   }
 
   startAnimationSequence() {
-    // Run the first animation
+    if (this.animations.length === 0) {
+      this.log('No animations in array. Cannot start sequence.', 'warn');
+      return;
+    }
+    
+    this.log('Starting animation sequence', 'info');
+    this.updateDebugDisplay('Starting Animation Sequence');
+    
+    // Reset animation state
+    this.currentAnimation = 0;
+    this.animationCycleCompleted = false;
+    
+    // Start the first animation
     this.runNextAnimation();
   }
 
@@ -408,11 +479,18 @@ export default class CommandCenterGraphic extends Base {
       return;
     }
     
+    // Skip if there are no animations in the array
+    if (this.animations.length === 0) {
+      this.log('No animations in the array.', 'info');
+      return;
+    }
+    
     // Get current animation from the combined array
     const animation = this.animations[this.currentAnimation];
+    const isMainAnimation = true; // Flag to track if we're running a main animation or random highlight
     
     this.log(`Starting animation sequence: ${animation.name} (${this.currentAnimation})`, 'info');
-    this.updateDebugDisplay(`DEBUG MODE - Animation: ${animation.name}, Pause: ${this.config.timing.pauseBetweenAnimations}s`);
+    this.updateDebugDisplay(`DEBUG MODE - Animation: ${animation.name}`);
     
     // Set flag that animation is now running
     this.animationInProgress = true;
@@ -423,7 +501,7 @@ export default class CommandCenterGraphic extends Base {
     // Track when animation starts
     const startTime = performance.now();
     
-    // When animation completes, queue up the next one
+    // When animation completes, immediately run random highlight, then queue up the next main animation
     tl.eventCallback('onComplete', () => {
       // Calculate actual duration
       const endTime = performance.now();
@@ -434,31 +512,102 @@ export default class CommandCenterGraphic extends Base {
       // Reset animation in progress flag
       this.animationInProgress = false;
       
-      // Move to next animation in sequence
-      const previousAnimation = this.currentAnimation;
-      this.currentAnimation = (this.currentAnimation + 1) % this.animations.length;
-      
-      // Check if we've completed a full cycle through all animations
-      if (this.currentAnimation === 0 && previousAnimation === this.animations.length - 1) {
-        this.animationCycleCompleted = true;
-        this.log('Completed full animation cycle', 'info');
-      }
-      
-      // Log what's next
-      this.log(`Next animation will be: ${this.animations[this.currentAnimation].name} (${this.currentAnimation})`, 'info');
-      
-      // Pause before next animation (or stop if we're done and not looping)
-      if (!this.config.animation.looping && this.animationCycleCompleted) {
-        this.log('Animation cycle completed and looping is disabled. Stopping animations.', 'info');
-        this.updateDebugDisplay('DEBUG MODE - Animations completed (looping disabled)');
-      } else {
-        setTimeout(() => {
-          this.runNextAnimation();
-        }, this.config.timing.pauseBetweenAnimations * 1000);
+      // Check if we should run a random highlight after this animation
+      if (isMainAnimation) {
+        // Immediately run random highlight
+        this.log('Starting random highlight immediately after main animation', 'info');
+        this.updateDebugDisplay(`DEBUG MODE - Random Highlight (after ${animation.name})`);
+        
+        // Set animation in progress flag again
+        this.animationInProgress = true;
+        
+        // Run random highlight animation
+        const highlightTl = this.randomHighlightAnimation();
+        
+        // When random highlight completes, move to next main animation
+        highlightTl.eventCallback('onComplete', () => {
+          this.log('Random highlight completed', 'info');
+          this.animationInProgress = false;
+          
+          // Move to next animation in sequence
+          const previousAnimation = this.currentAnimation;
+          this.currentAnimation = (this.currentAnimation + 1) % this.animations.length;
+          
+          // Check if we've completed a full cycle through all animations
+          if (this.currentAnimation === 0 && previousAnimation === this.animations.length - 1) {
+            this.animationCycleCompleted = true;
+            this.log('Completed full animation cycle', 'info');
+          }
+          
+          // Log what's next
+          this.log(`Next animation will be: ${this.animations[this.currentAnimation].name} (${this.currentAnimation})`, 'info');
+          
+          // Pause before next main animation
+          this.updateDebugDisplay(`DEBUG MODE - Pause: ${this.config.timing.pauseBetweenAnimations}s`);
+          
+          // Pause before next animation (or stop if we're done and not looping)
+          if (!this.config.animation.looping && this.animationCycleCompleted) {
+            this.log('Animation cycle completed and looping is disabled. Stopping animations.', 'info');
+            this.updateDebugDisplay('DEBUG MODE - Animations completed (looping disabled)');
+          } else {
+            setTimeout(() => {
+              this.runNextAnimation();
+            }, this.config.timing.pauseBetweenAnimations * 1000);
+          }
+        });
       }
     });
   }
 
+  // Random highlight animation with longer hold time
+  randomHighlightAnimation() {
+    this.log('Running random highlight animation');
+    const tl = gsap.timeline();
+    
+    // Divide the grid into logical areas for better distribution
+    const cornerTiles = Array.from(this.cornerTiles);
+    const edgeTiles = Array.from(this.edgeTiles);
+    const innerTiles = Array.from(this.innerTiles);
+    
+    // We want a mix of tile types for visual interest:
+    // 1 corner tile, 2 edge tiles, 3 inner tiles
+    
+    // Select random tiles from each group
+    const randomCorner = cornerTiles[Math.floor(Math.random() * cornerTiles.length)];
+    
+    // Shuffle the tiles for true randomness
+    const shuffledEdges = [...edgeTiles].sort(() => Math.random() - 0.5);
+    const randomEdges = shuffledEdges.slice(0, 2); // Take first 2
+    
+    const shuffledInner = [...innerTiles].sort(() => Math.random() - 0.5);
+    const randomInner = shuffledInner.slice(0, 3); // Take first 3
+    
+    // Combine into one array of 6 tiles
+    const selectedTiles = [randomCorner, ...randomEdges, ...randomInner];
+    
+    // Light up the selected tiles - faster animation in
+    tl.to(selectedTiles, {
+      opacity: this.config.activeOpacity,
+      color: this.config.activeColor,
+      scale: this.config.animation.peakScale,
+      duration: this.config.timing.animationDuration * 0.6, // Faster in
+      stagger: 0.06,
+      ease: this.config.easing.animation
+    })
+    
+    // Return to normal after a long hold - this makes them stay highlighted longer
+    .to(selectedTiles, {
+      opacity: this.config.defaultOpacity,
+      color: this.config.defaultColor,
+      scale: 1,
+      duration: this.config.timing.animationDuration * 0.6, // Faster out
+      stagger: 0.06,
+      ease: this.config.easing.return
+    }, `+=${this.config.timing.activeStateDuration * 1.5}`); // Much longer hold time
+    
+    return tl;
+  }
+  
   // Advanced ripple effect based on distance from center
   advancedRippleAnimation() {
     // Increment ripple counter for debugging
