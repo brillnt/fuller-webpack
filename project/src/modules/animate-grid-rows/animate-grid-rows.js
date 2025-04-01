@@ -180,8 +180,8 @@ export default class AnimateGridRows {
 
       gsap.to(row, {
         x: nextPosition,
-        duration: 1, // 1 second animation
-        delay: isOddRow ? 0 : 0.25, // No delay for odd rows, 1-second delay for even rows
+        duration: 2, // 1 second animation
+        // delay: isOddRow ? 0 : 0.25, // No delay for odd rows, 1-second delay for even rows
         ease: "expo.inOut",
         scrollTrigger: {
           trigger: this.element,
@@ -193,7 +193,7 @@ export default class AnimateGridRows {
           currentPosition = nextPosition;
           
           // Schedule next animation step
-          setTimeout(animateStep, 2000); // 2-second interval
+          setTimeout(animateStep, 3000); // 2-second interval
         }
       });
     };
