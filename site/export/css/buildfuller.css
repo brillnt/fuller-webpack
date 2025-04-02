@@ -30,10 +30,10 @@
   --stark-white: #fff;
   --brand-gray--50: #bfc0c080;
   --brand-gray--10: #bfc0c01a;
+  --deep-serenity: #151819;
   --_spacing---home-model-grid: 1.1rem;
   --dark-gray--25: #26262640;
   --dark-gray: #262626;
-  --deep-serenity: #151819;
   --brand-white--70: #f4f7f5b3;
   --dark-gray--75: #262626bf;
   --_spacing---container--2-column-space: 6rem;
@@ -133,7 +133,7 @@ h2 {
   font-family: Tt Firs Neue, Arial, sans-serif;
   font-size: var(--_typography---h2);
   margin-top: 0;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   font-weight: 500;
   line-height: 125%;
 }
@@ -595,6 +595,8 @@ label {
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   display: flex;
 }
 
@@ -785,6 +787,8 @@ label {
 
 .benefits-section {
   background-color: var(--brand-black);
+  background-image: radial-gradient(circle farthest-corner at 100% 100%, var(--deep-serenity), var(--pitch-black));
+  position: relative;
 }
 
 .benefits-content {
@@ -811,6 +815,8 @@ label {
 
 .bc-item.bci-reverse {
   flex-flow: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .bci-media {
@@ -832,6 +838,7 @@ label {
   flex-flow: column;
   justify-content: center;
   align-items: flex-start;
+  max-width: 600px;
   display: flex;
 }
 
@@ -852,8 +859,8 @@ label {
 }
 
 .right-side-content {
-  grid-column-gap: 1.5rem;
-  grid-row-gap: 1.5rem;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
   flex-flow: column;
   align-items: flex-start;
   width: 50%;
@@ -1543,6 +1550,15 @@ label {
   filter: grayscale();
 }
 
+.grid-video.video-dim {
+  opacity: .1;
+}
+
+.grid-video.video-grayscale-dim {
+  opacity: .12;
+  filter: grayscale();
+}
+
 .configurator-section {
   background-color: var(--brand-black);
   background-image: none;
@@ -1699,6 +1715,11 @@ label {
   overflow: hidden;
 }
 
+.media-background.mb--watermark {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
 .basic-text-content {
   flex-flow: column;
   justify-content: center;
@@ -1809,7 +1830,7 @@ label {
 .bci-media__svg-wrap {
   z-index: 10;
   border: 1px solid var(--serenity-green);
-  filter: drop-shadow(0 0 3px #5fc9cf57);
+  filter: drop-shadow(0 0 2px #09f2ff57);
   color: var(--brand-white);
   justify-content: center;
   align-items: center;
@@ -1822,6 +1843,10 @@ label {
 
 .bci-media__svg-wrap.bci-media__svg-wrap--lightbulb {
   padding: 4.5rem;
+}
+
+.bci-media__svg-wrap.bcim--teal {
+  color: var(--serenity-green);
 }
 
 .bci-copy__heading {
@@ -2895,6 +2920,20 @@ label {
   inset: 0%;
 }
 
+.fuller-watermark {
+  opacity: .02;
+  width: 75vh;
+}
+
+.fuller-watermark-wrap {
+  width: 66vh;
+  display: inline-block;
+  position: sticky;
+  top: 20%;
+  left: 75%;
+  overflow: hidden;
+}
+
 @media screen and (max-width: 991px) {
   body {
     ---mode--collection-3df80f30-f7f3-f416-74c2-8f80fb1449ba: mode-68eb0ec5-c292-8e30-c851-232852445963;
@@ -3577,6 +3616,10 @@ label {
     display: none;
   }
 
+  .media-background.mb--watermark {
+    display: none;
+  }
+
   .cc-copy {
     border-bottom-color: var(--brand-gray--25);
     border-left-width: 0;
@@ -3586,7 +3629,7 @@ label {
     max-width: 80px;
   }
 
-  .bci-media__svg-wrap {
+  .bci-media__svg-wrap, .bci-media__svg-wrap.bci-media__svg-wrap--lightbulb {
     padding: 2rem;
   }
 
@@ -3774,6 +3817,11 @@ label {
     padding-bottom: 5rem;
   }
 
+  .p-small.p-eyebrow.text-align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .p-small.p-eyebrow-footer {
     font-size: .6rem;
   }
@@ -3804,6 +3852,17 @@ label {
   .media-background.mb--fuller-bg {
     display: none;
     overflow: hidden;
+  }
+
+  .cc-block-row {
+    grid-column-gap: .5rem;
+    grid-row-gap: .5rem;
+    justify-content: center;
+  }
+
+  .cc-block-item {
+    width: calc(20% - .6rem);
+    max-width: none;
   }
 
   .fuller-gallery-controls {
@@ -3851,6 +3910,15 @@ label {
 
   .offsite-grid__item {
     grid-template-rows: 5rem min-content 1fr;
+  }
+
+  .network-grid-container {
+    grid-column-gap: .5rem;
+    grid-row-gap: .5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 
   .fuller-supply__icon {
