@@ -70,7 +70,7 @@ export default class CommandCenterGraphic extends Base {
         enabled: false,           // Force debug mode on for testing
         verbose: false,           // Enable verbose logging
         logAnimationSteps: false, // Log each animation step
-        showEasingGraph: false   // Show easing function visualization
+        showEasingGraph: false    // Keeping this configuration item for compatibility
       }
     };
     
@@ -202,89 +202,12 @@ export default class CommandCenterGraphic extends Base {
     
     // Set initial text
     this.updateDebugDisplay('Initializing...');
-    
-    // Add easing visualization if enabled
-    if (this.config.debug.showEasingGraph) {
-      this.createEasingGraph();
-    }
   }
   
   updateDebugDisplay(text) {
     if (this.debugDisplay) {
       this.debugDisplay.textContent = text;
     }
-  }
-  
-  // Optional debugging function to visualize easing curves
-  createEasingGraph() {
-    const graphContainer = document.createElement('div');
-    graphContainer.className = 'easing-graph';
-    graphContainer.style.cssText = `
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      width: 150px;
-      height: 100px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      z-index: 10;
-    `;
-    
-    // Create SVG for graph
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "150");
-    svg.setAttribute("height", "100");
-    
-    // Draw axes
-    const axes = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    axes.setAttribute("d", "M10,10 L10,90 L140,90");
-    axes.setAttribute("stroke", "rgba(255,255,255,0.3)");
-    axes.setAttribute("fill", "none");
-    svg.appendChild(axes);
-    
-    // Draw easing curve based on current easing
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("stroke", "rgba(255,255,255,0.8)");
-    path.setAttribute("stroke-width", "2");
-    path.setAttribute("fill", "none");
-    
-    // Generate path data based on current easing function
-    let pathData = "M10,90 ";
-    const easingFunction = this.keyframeEasings[this.config.animation.easingType] || 
-                           this.easings[this.config.animation.easingType];
-    
-    for (let x = 0; x <= 1; x += 0.05) {
-      // Convert 0-1 range to SVG coordinates
-      const svgX = 10 + x * 130;
-      const svgY = 90 - easingFunction(x) * 80;
-      pathData += `L${svgX},${svgY} `;
-    }
-    
-    path.setAttribute("d", pathData);
-    svg.appendChild(path);
-    
-    graphContainer.appendChild(svg);
-    this.element.appendChild(graphContainer);
-    
-    // Update the graph when easing type changes
-    this.easingGraph = {
-      container: graphContainer,
-      path: path,
-      updateGraph: () => {
-        // Update path data based on current easing
-        let newPathData = "M10,90 ";
-        const updatedFunction = this.keyframeEasings[this.config.animation.easingType] || 
-                               this.easings[this.config.animation.easingType];
-        
-        for (let x = 0; x <= 1; x += 0.05) {
-          const svgX = 10 + x * 130;
-          const svgY = 90 - updatedFunction(x) * 80;
-          newPathData += `L${svgX},${svgY} `;
-        }
-        
-        path.setAttribute("d", newPathData);
-      }
-    };
   }
 
   createTileMatrix() {
@@ -595,10 +518,10 @@ export default class CommandCenterGraphic extends Base {
       ease: this.config.easing.animation
     })
     
-    // Return to normal after a long hold - this makes them stay highlighted longer
+    // Return to normal scale and opacity but KEEP the active color
     .to(selectedTiles, {
       opacity: this.config.defaultOpacity,
-      color: this.config.defaultColor,
+      // color property removed so tiles stay highlighted
       scale: 1,
       duration: this.config.timing.animationDuration * 0.6, // Faster out
       stagger: 0.06,
@@ -846,9 +769,12 @@ export default class CommandCenterGraphic extends Base {
         tile => tile.getAttribute('data-row') === i.toString()
       );
       
-      // Create wave effect with slight y movement and opacity
+      // Create wave effect with y movement, color and opacity
+      // Added color transition to default color to ensure all tiles
+      // reset to default state regardless of previous animations
       tl.to(row, {
         y: -10,
+        color: this.config.defaultColor, // Added explicit color control
         opacity: this.config.activeOpacity,
         duration: this.config.timing.animationDuration,
         stagger: 0.08,
@@ -905,9 +831,10 @@ export default class CommandCenterGraphic extends Base {
     }
 
     // Center tile animation - complete cycle
+    // Center tile maintains its special color throughout
     tl.to(centerLayer, {
       keyframes: {
-        "0%": { scale: 1, opacity: this.config.centerTileOpacity },
+        "0%": { scale: 1, opacity: this.config.centerTileOpacity, color: this.config.centerColor },
         "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity },
         "100%": { scale: 1, opacity: this.config.centerTileOpacity }
       },
@@ -916,10 +843,11 @@ export default class CommandCenterGraphic extends Base {
     });
     
     // Inner ring animation - starts slightly after center
+    // Set default color at the 50% keyframe for smoother transition from highlighted state
     tl.to(innerRing, {
       keyframes: {
         "0%": { scale: 1, opacity: this.config.defaultOpacity },
-        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity },
+        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity, color: this.config.defaultColor },
         "100%": { scale: 1, opacity: this.config.defaultOpacity }
       },
       duration: animDuration,
@@ -927,10 +855,11 @@ export default class CommandCenterGraphic extends Base {
     }, layerDelay); // Slight delay
     
     // Outer ring animation - starts slightly after inner ring
+    // Set default color at the 50% keyframe for smoother transition from highlighted state
     tl.to(outerRing, {
       keyframes: {
         "0%": { scale: 1, opacity: this.config.defaultOpacity },
-        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity },
+        "50%": { scale: this.config.animation.peakScale, opacity: this.config.activeOpacity, color: this.config.defaultColor },
         "100%": { scale: 1, opacity: this.config.defaultOpacity }
       },
       duration: animDuration,
