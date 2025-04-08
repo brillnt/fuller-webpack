@@ -10,7 +10,6 @@ import { gsap } from '../utils/animation.js';
 
 onReady(() => {
   new AnimateGridRows('spc-blocks-container', 'spc');
-  new AnimateGridRows('spc-blocks-container', 'cc');
   new TextAnimateSections([
     'first-reveal',
     {
@@ -26,7 +25,7 @@ onReady(() => {
     'offsite-content'
   ]);
   new ContactForm('contact-form', true);
-  new CommandCenterGraphic('cc-blocks-container', true);
+  new CommandCenterGraphic('cc-blocks-container', false);
 
   const configuratorCards = selectAll('.config-blocks .config-block');
 

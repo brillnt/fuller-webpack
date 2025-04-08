@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--  Last Published: Sun Mar 16 2025 00:59:10 GMT+0000 (Coordinated Universal Time)  -->
+<!--  Last Published: Tue Apr 08 2025 22:30:29 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="678012e0e8b988fb6144abb9" data-wf-site="678012e0e8b988fb6144abb3">
   <head>
     <meta charset="utf-8" />
@@ -47,10 +47,10 @@
     </script>
     <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
     <link href="images/webclip.png" rel="apple-touch-icon" />
+    <!-- <link href="https://fuller.brillnt.com/css/base.min.css" rel="stylesheet" /> -->
     <link href="brillnt/css/base.min.css" rel="stylesheet" />
-    <!-- <link href="https://fuller-webpack-pr-1.onrender.com/css/base.min.css" rel="stylesheet" /> -->
+    <!-- <link href="https://fuller.brillnt.com/css/home.min.css" rel="stylesheet" /> -->
     <link href="brillnt/css/home.min.css" rel="stylesheet" />
-    <!-- <link href="https://fuller-webpack-pr-1.onrender.com/css/home.min.css" rel="stylesheet" /> -->
   </head>
   <body>
     <nav id="nav" class="nav">
@@ -85,7 +85,10 @@
         <div class="mfs-contact">
           <div class="mfs-contact-content">
             <p class="p-small text-color-brand-gray">Ready to take control?</p>
-            <a href="#" class="button btn-tertiary btn-no-margin btn--small btn--black w-inline-block">
+            <a
+              id="menu-contact-btn"
+              href="#contact"
+              class="button btn-tertiary btn-no-margin btn--small btn--black w-inline-block">
               <div>Contact us</div>
             </a>
           </div>
@@ -138,7 +141,7 @@
             <img
               src="images/fuller-before-1_1.avif"
               loading="lazy"
-              sizes="(max-width: 1024px) 100vw, 1024px"
+              sizes="100vw"
               srcset="images/fuller-before-1_1fuller-before-1.avif 500w, images/fuller-before-1_1.avif 1024w"
               alt="Disorganized construction site for a home under construction, with a muddy, debris-filled foreground." />
           </div>
@@ -146,7 +149,7 @@
             <img
               src="images/fuller-after-1_1.avif"
               loading="lazy"
-              sizes="(max-width: 1024px) 100vw, 1024px"
+              sizes="100vw"
               srcset="images/fuller-after-1_1fuller-after-1.avif 500w, images/fuller-after-1_1.avif 1024w"
               alt="Modular home being lifted into place by a crane." />
           </div>
@@ -180,7 +183,7 @@
                 <img
                   src="images/fuller-after-1_1.avif"
                   loading="lazy"
-                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  sizes="100vw"
                   srcset="images/fuller-after-1_1fuller-after-1.avif 500w, images/fuller-after-1_1.avif 1024w"
                   alt="Modular home being lifted into place by a crane." />
               </div>
@@ -217,7 +220,7 @@
                 <img
                   src="images/fuller-before-1_1.avif"
                   loading="lazy"
-                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  sizes="100vw"
                   srcset="images/fuller-before-1_1fuller-before-1.avif 500w, images/fuller-before-1_1.avif 1024w"
                   alt="Disorganized construction site for a home under construction, with a muddy, debris-filled foreground." />
               </div>
@@ -234,12 +237,14 @@
         <div id="benefits-content" class="benefits-content">
           <div id="benefit-header-reveal" class="w-layout-vflex header">
             <div data-reveal="" class="p-small p-eyebrow">The Fuller Foundation</div>
-            <h2 data-reveal="">Three Pillars, One Solution</h2>
+            <div class="w-embed">
+              <h2 data-reveal="">Three Pillars, <br class="br--mobile" />One Solution</h2>
+            </div>
           </div>
           <div class="bc-list">
             <div id="bci-0" class="bc-item">
               <div class="bci-media">
-                <div class="bci-media__svg-wrap w-embed">
+                <div class="bci-media__svg-wrap bci-media__svg-wrap--lightbulb w-embed">
                   <!--?xml version="1.0" encoding="UTF-8"?-->
                   <svg
                     id="light-gear-network"
@@ -307,6 +312,11 @@
                     </g>
                   </svg>
                 </div>
+                <div class="bci-media__bg-glow">
+                  <video loop="" autoplay="true" playsinline="true" muted="" class="grid-video video-dim">
+                    <source src="videos/video-bg-transcode.mp4" type="video/mp4" class="grid-video-source" />
+                  </video>
+                </div>
               </div>
               <div class="bci-copy">
                 <h3 data-reveal="" class="bci-copy__heading">Thoughtfully Engineered Homes</h3>
@@ -316,7 +326,7 @@
                   flows seamlessly into production, ensuring precision, predictable pricing and reliable timelines at
                   every step.
                 </p>
-                <a href="product.html" class="button btn-secondary btn--small w-inline-block">
+                <a href="product.html" class="button btn-tertiary btn--small w-inline-block">
                   <div>learn more</div>
                 </a>
               </div>
@@ -378,6 +388,11 @@
                     </g>
                   </svg>
                 </div>
+                <div class="bci-media__bg-glow">
+                  <video loop="" autoplay="true" playsinline="true" muted="" class="grid-video video-dim">
+                    <source src="videos/video-bg-transcode.mp4" type="video/mp4" class="grid-video-source" />
+                  </video>
+                </div>
               </div>
               <div class="bci-copy">
                 <h3 data-reveal="" class="bci-copy__heading">Data-Driven Systems</h3>
@@ -386,7 +401,7 @@
                   pricing and real-time project visibility, Fuller’s data serves as a single source of truth that
                   connects every phase of the project, eliminating inefficiencies and keeping you in the driver’s seat.
                 </p>
-                <a href="systems.html" class="button btn-secondary btn--small w-inline-block">
+                <a href="systems.html" class="button btn-tertiary btn--small w-inline-block">
                   <div>learn more</div>
                 </a>
               </div>
@@ -449,6 +464,11 @@
                     </g>
                   </svg>
                 </div>
+                <div class="bci-media__bg-glow">
+                  <video loop="" autoplay="true" playsinline="true" muted="" class="grid-video video-dim">
+                    <source src="videos/video-bg-transcode.mp4" type="video/mp4" class="grid-video-source" />
+                  </video>
+                </div>
               </div>
               <div class="bci-copy">
                 <h3 data-reveal="" class="bci-copy__heading">Off-Site Precision Builds</h3>
@@ -457,11 +477,40 @@
                   on site. This approach guarantees consistent quality, prevents weather delays, minimizes waste, and
                   cuts construction timelines in half—empowering you to deliver more homes, faster.
                 </p>
-                <a href="systems.html" class="button btn-secondary btn--small w-inline-block">
+                <a href="systems.html" class="button btn-tertiary btn--small w-inline-block">
                   <div>learn more</div>
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="media-background mb--watermark">
+        <div class="fuller-watermark-wrap">
+          <div class="fuller-watermark w-embed">
+            <svg
+              id="FULLER-BRANDMARK-WHITE-icon"
+              data-name="Layer 2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 773.19 773.22"
+              width="100%"
+              height="100%"
+              fill="currentColor">
+              <defs>
+                <style>
+                  .FBWi-cls-1 {
+                    fill: #fff;
+                    stroke-width: 0px;
+                  }
+                </style>
+              </defs>
+              <g id="Fuller_Homes" data-name="Fuller Homes">
+                <path
+                  id="Logo"
+                  class="FBWi-cls-1"
+                  d="m0,0v652.27l181.46,120.95h591.73V120.98L591.73,0H0Zm386.57,687.31h-171.82l-128.85-85.91v-85.91h171.82l128.85,85.91v85.91h0Zm128.89-214.79H214.75l-128.85-85.91v-85.91h300.66l128.88,85.91v85.91h.02Zm171.81-214.79H214.75l-128.85-85.91v-85.91h472.52l128.85,85.91v85.91Z"></path>
+              </g>
+            </svg>
           </div>
         </div>
       </div>
@@ -520,7 +569,7 @@
               <img
                 src="images/Z_Front-1-extended-v2_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2288px) 100vw, 2288px"
+                sizes="100vw"
                 srcset="
                   images/Z_Front-1-extended-v2_1Z_Front-1-extended-v2.avif  500w,
                   images/Z_Front-1-extended-v2_1Z_Front-1-extended-v2.avif  800w,
@@ -546,7 +595,7 @@
               <img
                 src="images/Z_Back-1-extended_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2288px) 100vw, 2288px"
+                sizes="100vw"
                 srcset="
                   images/Z_Back-1-extended_1Z_Back-1-extended.avif  500w,
                   images/Z_Back-1-extended_1Z_Back-1-extended.avif  800w,
@@ -568,7 +617,7 @@
               <img
                 src="images/POC_Right-extended_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2000px) 100vw, 2000px"
+                sizes="100vw"
                 srcset="
                   images/POC_Right-extended_1POC_Right-extended.avif  500w,
                   images/POC_Right-extended_1POC_Right-extended.avif  800w,
@@ -581,7 +630,7 @@
               <img
                 src="images/L_Front-1-extended-v2_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2288px) 100vw, 2288px"
+                sizes="100vw"
                 srcset="
                   images/L_Front-1-extended-v2_1L_Front-1-extended-v2.avif  500w,
                   images/L_Front-1-extended-v2_1L_Front-1-extended-v2.avif  800w,
@@ -607,7 +656,7 @@
               <img
                 src="images/2Story_Front-1-extended_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2000px) 100vw, 2000px"
+                sizes="100vw"
                 srcset="
                   images/2Story_Front-1-extended_12Story_Front-1-extended.avif  500w,
                   images/2Story_Front-1-extended_12Story_Front-1-extended.avif  800w,
@@ -656,7 +705,7 @@
               <img
                 src="images/C_Front-1-extended_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2000px) 100vw, 2000px"
+                sizes="100vw"
                 srcset="
                   images/C_Front-1-extended_1C_Front-1-extended.avif  500w,
                   images/C_Front-1-extended_1C_Front-1-extended.avif  800w,
@@ -682,7 +731,7 @@
               <img
                 src="images/H_Back-1-extended_1.avif"
                 loading="lazy"
-                sizes="(max-width: 2000px) 100vw, 2000px"
+                sizes="100vw"
                 srcset="
                   images/H_Back-1-extended_1H_Back-1-extended.avif  500w,
                   images/H_Back-1-extended_1H_Back-1-extended.avif  800w,
@@ -754,7 +803,7 @@
             <img
               src="images/builder-partner-v2_1.avif"
               loading="lazy"
-              sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940.0000610351562px"
               srcset="
                 images/builder-partner-v2_1builder-partner-v2.avif  500w,
                 images/builder-partner-v2_1builder-partner-v2.avif  800w,
@@ -874,21 +923,6 @@
                     required=""
                     class="input-textarea w-input"></textarea>
                 </div>
-                <div class="input-wrap">
-                  <label class="w-checkbox input-checkbox-field"
-                    ><input
-                      type="checkbox"
-                      id="checkbox"
-                      name="checkbox"
-                      data-name="Checkbox"
-                      class="w-checkbox-input input-checkbox" /><span
-                      class="input-label input-label--checkbox w-form-label"
-                      for="checkbox"
-                      >I consent to receive emails from Fuller Homes LLC regarding news, updates, and marketing
-                      offers.</span
-                    ></label
-                  >
-                </div>
                 <input type="submit" data-wait="Please wait..." class="button btn--submit w-button" value="Submit" />
               </form>
               <div class="success w-form-done">
@@ -974,11 +1008,11 @@
       crossorigin="anonymous"></script>
     <script src="js/buildfuller.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+    <!-- <script src="https://fuller.brillnt.com/js/common.bundle.min.js" type="text/javascript"></script>
+<script src="https://fuller.brillnt.com/js/base.bundle.min.js" type="text/javascript"></script> -->
     <script src="brillnt/js/common.bundle.min.js" type="text/javascript"></script>
     <script src="brillnt/js/base.bundle.min.js" type="text/javascript"></script>
-    <!-- <script src="https://fuller-webpack-pr-1.onrender.com/js/common.bundle.min.js" type="text/javascript"></script>
-<script src="https://fuller-webpack-pr-1.onrender.com/js/base.bundle.min.js" type="text/javascript"></script> -->
+    <!-- <script src="https://fuller.brillnt.com/js/home.bundle.min.js" type="text/javascript"></script> -->
     <script src="brillnt/js/home.bundle.min.js" type="text/javascript"></script>
-    <!-- <script src="https://fuller-webpack-pr-1.onrender.com/js/home.bundle.min.js" type="text/javascript"></script> -->
   </body>
 </html>
