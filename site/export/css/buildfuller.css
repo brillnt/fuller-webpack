@@ -160,6 +160,7 @@ h4 {
 p {
   color: var(--brand-white--90);
   font-size: var(--_typography---p--regular);
+  max-width: 600px;
   margin-bottom: 1rem;
   font-weight: 300;
   line-height: 200%;
@@ -2932,6 +2933,19 @@ label {
   top: 20%;
   left: 75%;
   overflow: hidden;
+}
+
+.title-and-copy--prototype {
+  text-align: center;
+  flex-flow: column;
+  align-items: center;
+  display: flex;
+}
+
+.title-and-copy--prototype.tac--center {
+  flex-flow: column;
+  align-items: center;
+  display: flex;
 }
 
 @media screen and (max-width: 991px) {

@@ -42,14 +42,28 @@ export default class FullscreenMenu {
           setTimeout(() => item.classList.add('reveal'), index * 100);
         }), 400);
       } else {
-        this.menuButton.setAttribute('data-menu-state', 'closed');
+        this.closeMenu();
+      }
+    });
 
-        gsap.to(this.menuBG, { duration: 0.5, x: '100%', ease: this.easeFn,
-          onComplete: () => {
-            gsap.set(this.menu, { display: 'none' });
-            [...this.menuItems, ...this.otherReveals].forEach((item) => item.classList.remove('reveal'));
-          }
-        });
+    // Add contact button click handler
+    const contactButton = document.getElementById('menu-contact-btn');
+    if (contactButton) {
+      on(contactButton, 'click', () => {
+        if (this.menuButton.getAttribute('data-menu-state') === 'open') {
+          this.closeMenu();
+        }
+      });
+    }
+  }
+
+  closeMenu() {
+    this.menuButton.setAttribute('data-menu-state', 'closed');
+
+    gsap.to(this.menuBG, { duration: 0.5, x: '100%', ease: this.easeFn,
+      onComplete: () => {
+        gsap.set(this.menu, { display: 'none' });
+        [...this.menuItems, ...this.otherReveals].forEach((item) => item.classList.remove('reveal'));
       }
     });
   }
